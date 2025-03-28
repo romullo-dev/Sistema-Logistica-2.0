@@ -11,6 +11,7 @@ class Conexao
     {
         try {
             $pdo = new PDO("mysql:host={$this->host};dbname={$this->database}","{$this->username}","{$this->password}");
+            return true;
         } catch (PDOException $e) {
             return false; 
         }
