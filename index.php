@@ -28,12 +28,6 @@ if (isset($_POST['cadastroUsuario'])) {
 }
 
 
-
-
-
-
-
-
 /*var_dump('<BR>'.$nomeCompleto.'<BR>');
 var_dump('<BR>'.$cpf.'<BR>');
 var_dump('<BR>'.$user .'<BR>');

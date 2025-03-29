@@ -1,5 +1,5 @@
 <?php
-require_once '../conexao/Conexao.class.php';
+require_once __DIR__ . '/../conexao/Conexao.class.php';
 
 class Inserir_usuario extends Conexao
 {
