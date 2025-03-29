@@ -1,6 +1,7 @@
 <?php
 
 require_once 'controllers/Controller.class.php';
+require_once 'models/Inserir_usuario.class.php';
 
 
 
@@ -33,9 +34,9 @@ if (isset($_POST['cadastroUsuario'])) {
 
 
 
-var_dump('<BR>'.$nomeCompleto.'<BR>');
+/*var_dump('<BR>'.$nomeCompleto.'<BR>');
 var_dump('<BR>'.$cpf.'<BR>');
-var_dump('<BR>'.$login .'<BR>');
+var_dump('<BR>'.$user .'<BR>');
 var_dump('<BR>'.$senha.'<BR>');
 var_dump('<BR>'.$dataNascimento.'<BR>');
 var_dump('<BR>'.$telefone.'<BR>');
@@ -43,4 +44,4 @@ var_dump('<BR>'.$endereco.'<BR>');
 var_dump('<BR>'.$id_tipo.'<BR>');
 var_dump('<BR>'.$dataContratacao.'<BR>');
 var_dump('<BR>'.$salario.'<BR>');
-var_dump('<BR>'.$id_status_func.'<BR>');
+var_dump('<BR>'.$id_status_func.'<BR>');*/
