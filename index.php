@@ -39,3 +39,8 @@ var_dump('<BR>'.$id_tipo.'<BR>');
 var_dump('<BR>'.$dataContratacao.'<BR>');
 var_dump('<BR>'.$salario.'<BR>');
 var_dump('<BR>'.$id_status_func.'<BR>');*/
+
+
+//LOGIN 
+
+if (isset($_POST[''])) 
