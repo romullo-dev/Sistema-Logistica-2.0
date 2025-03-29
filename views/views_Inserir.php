@@ -30,8 +30,8 @@
                         <input type="text" id="cpf"  name="cpf" class="form-control" placeholder="Ex.: 123.456.789-00" maxlength="11" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="nome" class="form-label">Email</label>
-                        <input type="email"  name="login" id="login" class="form-control" placeholder="ddd.hh" required>
+                        <label for="nome" class="form-label">User</label>
+                        <input type="user"  name="user" id="user" class="form-control" placeholder="user" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="senha" class="form-label">Senha</label>
@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <div class="mt-3">
-                    <button type="submit"  name="cadastrarFuncionario" class="btn btn-success">Cadastrar Funcionário</button>
+                    <button type="submit"  name="cadastroUsuario" class="btn btn-success">Cadastrar Funcionário</button>
                     <button type="reset" class="btn btn-danger">Limpar Campos</button>
                 </div>
             </form>
