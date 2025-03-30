@@ -15,7 +15,7 @@
             <div class="col-lg-4 right-panel">
                 <div class="login-box">
                     <h2>DNA Transportes</h2>
-                    <form method="post" action="index.php" >
+                    <form method="post" action="router.php" >
                         <div class="mb-3">
                             <label for="login" class="form-label">Login</label>
                             <input type="text" id="login" class="form-control" placeholder="Digite seu login" name="user">

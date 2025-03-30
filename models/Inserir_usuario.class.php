@@ -183,12 +183,7 @@ class Inserir_usuario extends Conexao
                 $this->setSalario ( $salario);
                 $this->setIdStatusFunc ( $id_status_func);
 
-
-
-
-
                 //MONTAR QUERY
-
                 $sql = "INSERT INTO tb_usuario 
                         (id_usuario, nomeCompleto, cpf, user, senha, dataNascimento, telefone, endereco, id_tipo, dataContratacao, salario, id_status_func) 
                     VALUES 

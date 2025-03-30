@@ -19,7 +19,7 @@
 
     <main>
         <div class="container mt-4">
-            <form action="../index.php" method="post" id="funcionarioForm">
+            <form action="../router.php" method="post" id="funcionarioForm">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="nome" class="form-label">Nome Completo</label>
