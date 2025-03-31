@@ -54,7 +54,7 @@ class Login_class extends Conexao
         try {
             $db = $this->conectar();
             $query = $db->prepare ($sql);
-            $query->bindValue(param: ":user", $user, PDO::PARAM_STR);
+            $query->bindValue( ":user", $user, PDO::PARAM_STR);
             $query->bindValue(":senha", $senha, PDO::PARAM_STR);
             $query->execute();
             //retorna o resultado

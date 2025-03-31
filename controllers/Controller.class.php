@@ -31,6 +31,8 @@ class Controller
             //menu
             $menu = $this->menu();
             require_once __DIR__ . '/../views/views_home.php'; // Caminho para o Inserir_usuario
+
+            header('location : /../views/views_home.php');
             
         } else {
             include_once 'login.php';

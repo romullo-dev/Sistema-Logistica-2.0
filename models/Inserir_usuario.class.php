@@ -65,8 +65,8 @@ class Inserir_usuario extends Conexao
 
         public function setSenha($senha): self
         {
-                $this->senha = password_hash($senha, PASSWORD_DEFAULT);
-
+                //$this->senha = password_hash($senha, PASSWORD_DEFAULT);
+                $this->senha;
                 return $this;
         }
 
@@ -203,7 +203,8 @@ class Inserir_usuario extends Conexao
                         $query->bindValue(":nomeCompleto", $nomeCompleto, PDO::PARAM_STR);
                         $query->bindValue(":cpf", $cpf, PDO::PARAM_STR);
                         $query->bindValue(":user", $user, PDO::PARAM_STR);
-                        $query->bindValue(":senha", $this->getSenha(), PDO::PARAM_STR);
+                        //$query->bindValue(":senha", $this->getSenha(), PDO::PARAM_STR);
+                        $query->bindValue(":senha", $senha, PDO::PARAM_STR);
                         $query->bindValue(":dataNascimento", $dataNascimento, PDO::PARAM_STR);
                         $query->bindValue(":telefone", $telefone, PDO::PARAM_STR);
                         $query->bindValue(":endereco", $endereco, PDO::PARAM_STR);
