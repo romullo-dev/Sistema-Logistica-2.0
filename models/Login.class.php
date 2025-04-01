@@ -70,11 +70,11 @@ class Login_class extends Conexao
                 //echo "Conectar";
                 return true;
             } else {
-                //echo 'Erroooo';
+                echo 'ErrooooUUUUUU';
                 return false;
             }
         } catch (PDOException $e) {
-            print 'Erro ao inserir' .$e->errorInfo;
+            print 'Erro ao ENTAR' .$e->errorInfo;
             return false;
         }
 
@@ -85,5 +85,5 @@ class Login_class extends Conexao
 }
 
 
-//$Login = new Login_class();
-//$Login->login("joao.silva","senha123");
+$Login = new Login_class();
+$Login->login("ROMULLO.FRANCA","123456");

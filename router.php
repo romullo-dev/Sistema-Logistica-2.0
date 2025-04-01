@@ -4,7 +4,7 @@ require_once 'controllers/Controller.class.php';
 require_once 'models/Login.class.php';
 require_once 'models/usuario.class.php';
 //autoload
-include_once 'autoload.php';
+//include_once 'autoload.php';
 
 
 //pegar a url
@@ -61,6 +61,9 @@ if (isset($_POST['login'])) {
     $objController = new Controller;
     $user = htmlspecialchars($_POST['user']);
     $senha = htmlspecialchars($_POST['senha']);
+
+    var_dump ($user);
+    var_dump ($senha);
 
     $objController->login_class($user, $senha);
 }
