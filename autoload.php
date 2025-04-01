@@ -1,6 +1,6 @@
 <?php
 
-/*function autoloadModel($className)
+function autoloadModel($className)
 {
     $filename = 'models/' . $className . '.class.php';
     if (is_readable($filename)) {
@@ -15,5 +15,14 @@ function autoloadController($className)
     }
 }
 
+function autoloadConexao($className)
+{
+    $filename = 'conexao/' . $className . '.class.php';
+    if (is_readable($filename)) {
+        require $filename;
+    }
+}
+
 spl_autoload_register('autoloadModel');
-spl_autoload_register('autoloadController');*/
+spl_autoload_register('autoloadController');
+spl_autoload_register('autoloadConexao');

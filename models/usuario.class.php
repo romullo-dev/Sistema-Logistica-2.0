@@ -1,7 +1,9 @@
 <?php
-require_once __DIR__ . '/../conexao/Conexao.class.php';
 
-class Inserir_usuario extends Conexao
+require_once __DIR__ . "/Conexao.class.php";
+
+
+class Usuario extends Conexao
 {
         private $nomeCompleto;
         private $cpf;

@@ -1,8 +1,8 @@
 <?php
 
 require_once 'controllers/Controller.class.php';
-require_once 'models/Login.class.php';
-require_once 'models/usuario.class.php';
+//require_once 'models/Login.class.php';
+//require_once 'models/usuario.class.php';
 //autoload
 //include_once 'autoload.php';
 

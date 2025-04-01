@@ -1,8 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../conexao/Conexao.class.php';
-
-class Login_class extends Conexao 
+class Login extends Conexao 
 {
     private $id_usuario;   
     private $senha;
@@ -85,5 +83,5 @@ class Login_class extends Conexao
 }
 
 
-$Login = new Login_class();
-$Login->login("ROMULLO.FRANCA","123456");
+//$Login = new Login_class();
+//$Login->login("ROMULLO.FRANCA","123456");

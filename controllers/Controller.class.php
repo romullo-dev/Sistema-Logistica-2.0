@@ -1,9 +1,4 @@
 <?php
-require_once __DIR__ . '/../models/usuario.class.php'; 
-require_once __DIR__ . '/../models/Login.class.php';
-require_once __DIR__ . '/../conexao/Conexao.class.php'; 
-
-
 class Controller
 {
 
@@ -21,7 +16,7 @@ class Controller
     public function inserir_usuarios ($nomeCompleto, $cpf, $user, $senha, $dataNascimento, $telefone, $endereco, $id_tipo, $dataContratacao, $salario, $id_status_func)
     {
         //instaciar classe Inserir_usuario
-        $objInserir_usuario = new Inserir_usuario();
+        $objInserir_usuario = new Usuario();
 
         //invocar metodo
         if ($objInserir_usuario->inserirUsuario($nomeCompleto, $cpf, $user, $senha, $dataNascimento, $telefone, $endereco, $id_tipo, $dataContratacao, $salario, $id_status_func) == true) {
@@ -33,7 +28,7 @@ class Controller
     
     public function login_class ($user, $senha) 
     {
-        $objLogin_class = new Login_class();
+        $objLogin_class = new Login();
         //validar usuario,
         if ($objLogin_class->login($user, $senha) == true) {
             session_start();
