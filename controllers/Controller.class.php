@@ -1,11 +1,21 @@
 <?php
-require_once __DIR__ . '/../models/Inserir_usuario.class.php'; // Caminho para o Inserir_usuario
-require_once __DIR__ . '/../models/Login.class.php'; // Caminho para o Inserir_usuario
-require_once __DIR__ . '/../conexao/Conexao.class.php'; // Caminho para o Conexao
+require_once __DIR__ . '/../models/usuario.class.php'; 
+require_once __DIR__ . '/../models/Login.class.php';
+require_once __DIR__ . '/../conexao/Conexao.class.php'; 
 
 
 class Controller
 {
+
+    /*public function redirecionar($pagina)
+    {
+        //iniciar sessao
+        session_start();
+        //incluir menu
+        $menu = $this->menu();
+        //incluir a view
+        require_once 'views/' . $pagina . '.php';
+    }*/
     //inserir usuario
 
     public function inserir_usuarios ($nomeCompleto, $cpf, $user, $senha, $dataNascimento, $telefone, $endereco, $id_tipo, $dataContratacao, $salario, $id_status_func)
@@ -30,9 +40,9 @@ class Controller
             $_SESSION['user'] = $user;
             //menu
             $menu = $this->menu();
-            require_once __DIR__ . '/../views/views_home.php'; // Caminho para o Inserir_usuario
+            require_once __DIR__ . '/../views/views_home.php'; 
 
-            header('location : /../views/views_home.php');
+            //header('location : /../views/views_home.php');
             
         } else {
             include_once 'login.php';
@@ -64,7 +74,8 @@ class Controller
            print '                <ul class="dropdown-menu">';
            print '                    <li><a class="dropdown-item" href="Cadastro/cadastro_veiculo.html">Cadastro de Veículo</a></li>';
            print '                    <li><a class="dropdown-item" href="Cadastro/cadastro_motorista.html">Cadastro de Motorista</a></li>';
-           print '                    <li><a class="dropdown-item" href="index.php?inserirFuncionario">Cadastro de Funcionário</a></li>';
+           //print '                    <li><a class="dropdown-item" href="index.php?inserirFuncionario">Cadastro de Funcionário</a></li>';
+           print '                    <li><a class="dropdown-item" href="views/views_inserir.php">Cadastro de Funcionário</a></li>';
            print '                </ul>';
            print '            </li>';
            print '            <li class="nav-item"><a class="nav-link text-white" href="aereos.html">Tracking Aéreo</a></li>';

@@ -2,9 +2,22 @@
 
 require_once 'controllers/Controller.class.php';
 require_once 'models/Login.class.php';
-require_once 'models/Inserir_usuario.class.php';
+require_once 'models/usuario.class.php';
+//autoload
+include_once 'autoload.php';
 
 
+//pegar a url
+/*$url = explode('?', $_SERVER['REQUEST_URI']);
+//escolher na variável $url do link desejado
+$pagina = $url[1];
+
+#ROTAS DE REDIRECIONAMENTO
+//redirecionar para pagina informada
+if (isset($pagina)) {
+    $objController = new Controller();
+    $objController->redirecionar($pagina);
+}*/
 
 //inserir usuario
 if (isset($_POST['cadastroUsuario'])) {

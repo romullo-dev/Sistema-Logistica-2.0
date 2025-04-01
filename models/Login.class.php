@@ -70,6 +70,7 @@ class Login_class extends Conexao
                 //echo "Conectar";
                 return true;
             } else {
+                //echo 'Erroooo';
                 return false;
             }
         } catch (PDOException $e) {

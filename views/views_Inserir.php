@@ -1,3 +1,12 @@
+<?php
+
+require_once __DIR__ . '/../controllers/Controller.class.php';
+
+//session_start();
+
+
+
+?>
 <!doctype html>
 <html lang="pt-br">
 
@@ -16,6 +25,9 @@
 </head>
 
 <body>
+    <header>
+        <?php /*print $menu*/ ?>
+    </header>
 
     <main>
         <div class="container mt-4">
