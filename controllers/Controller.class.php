@@ -2,7 +2,7 @@
 class Controller
 {
 
-    /*public function redirecionar($pagina)
+    public function redirecionar($pagina)
     {
         //iniciar sessao
         session_start();
@@ -10,7 +10,7 @@ class Controller
         $menu = $this->menu();
         //incluir a view
         require_once 'views/' . $pagina . '.php';
-    }*/
+    }
     //inserir usuario
 
     public function inserir_usuarios ($nomeCompleto, $cpf, $user, $senha, $dataNascimento, $telefone, $endereco, $id_tipo, $dataContratacao, $salario, $id_status_func)
@@ -31,11 +31,17 @@ class Controller
         $objLogin_class = new Login();
         //validar usuario,
         if ($objLogin_class->login($user, $senha) == true) {
-            session_start();
+            
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            
             $_SESSION['user'] = $user;
             //menu
             $menu = $this->menu();
-            require_once __DIR__ . '/../views/views_home.php'; 
+            include_once 'views/home.php';
+
+
 
             //header('location : /../views/views_home.php');
             
@@ -69,8 +75,8 @@ class Controller
            print '                <ul class="dropdown-menu">';
            print '                    <li><a class="dropdown-item" href="Cadastro/cadastro_veiculo.html">Cadastro de Veículo</a></li>';
            print '                    <li><a class="dropdown-item" href="Cadastro/cadastro_motorista.html">Cadastro de Motorista</a></li>';
-           //print '                    <li><a class="dropdown-item" href="index.php?inserirFuncionario">Cadastro de Funcionário</a></li>';
-           print '                    <li><a class="dropdown-item" href="views/views_inserir.php">Cadastro de Funcionário</a></li>';
+           print '                    <li><a class="dropdown-item" href="index.php?inserir">Cadastro de Funcionário</a></li>';
+           //print '                    <li><a class="dropdown-item" href="views/views_inserir.php">Cadastro de Funcionário</a></li>';
            print '                </ul>';
            print '            </li>';
            print '            <li class="nav-item"><a class="nav-link text-white" href="aereos.html">Tracking Aéreo</a></li>';

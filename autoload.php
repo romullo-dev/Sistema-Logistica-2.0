@@ -1,28 +1,23 @@
 <?php
 
-function autoloadModel($className)
+function autoloadClasses($className)
 {
-    $filename = 'models/' . $className . '.class.php';
-    if (is_readable($filename)) {
-        require $filename;
-    }
-}
-function autoloadController($className)
-{
-    $filename = 'controllers/' . $className . '.class.php';
-    if (is_readable($filename)) {
-        require $filename;
+    // Lista de diretórios onde as classes podem estar
+    $directories = [
+        __DIR__ . '/models/',
+        __DIR__ . '/controllers/',
+        __DIR__ . '/conexao/'
+    ];
+
+    // Percorre os diretórios para encontrar a classe
+    foreach ($directories as $directory) {
+        $filename = $directory . $className . '.class.php';
+        if (is_readable($filename)) {
+            require_once $filename;
+            return;
+        }
     }
 }
 
-function autoloadConexao($className)
-{
-    $filename = 'conexao/' . $className . '.class.php';
-    if (is_readable($filename)) {
-        require $filename;
-    }
-}
-
-spl_autoload_register('autoloadModel');
-spl_autoload_register('autoloadController');
-spl_autoload_register('autoloadConexao');
+// Registra a função autoload
+spl_autoload_register('autoloadClasses');

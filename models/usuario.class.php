@@ -210,10 +210,10 @@ class Usuario extends Conexao
                         $query->bindValue(":dataNascimento", $dataNascimento, PDO::PARAM_STR);
                         $query->bindValue(":telefone", $telefone, PDO::PARAM_STR);
                         $query->bindValue(":endereco", $endereco, PDO::PARAM_STR);
-                        $query->bindValue(":id_tipo", $id_tipo, PDO::PARAM_INT);
+                        $query->bindValue(":id_tipo", $id_tipo, PDO::PARAM_STR);
                         $query->bindValue(":dataContratacao", $dataContratacao, PDO::PARAM_STR);
                         $query->bindValue(":salario", $salario, PDO::PARAM_STR);
-                        $query->bindValue(":id_status_func", $id_status_func, PDO::PARAM_INT);
+                        $query->bindValue(":id_status_func", $id_status_func, PDO::PARAM_STR);
 
                         //Executar a query
                         $query->execute();

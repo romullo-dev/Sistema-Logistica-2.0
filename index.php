@@ -1,13 +1,16 @@
 
 <?php
 //iniciar sessao
-session_start();
 
 //não mostrar erros
 //error_reporting(~E_ALL & ~E_NOTICE & ~E_WARNING);
 
-//autoload
-include_once 'autoload.php';
 
-//router
-include_once 'router.php';
+// Ativa o carregamento automático das classes
+require_once __DIR__ . "/autoload.php";
+
+// Inicia a sessão (caso o sistema use autenticação)
+session_start();
+
+// Define um roteador básico para direcionar páginas
+require_once __DIR__ . "/router.php";

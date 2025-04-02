@@ -24,13 +24,14 @@
         </header>
         <main>
         <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="nome" class="form-label">Nome Completo</label>
-                    <input type="text" id="nome" class="form-control" placeholder="Ex.: João da Silva" required>
-                </div>
+                
                 <div class="col-md-6 mb-3">
                     <label for="cpf" class="form-label">CPF</label>
                     <input type="text" id="cpf" class="form-control" placeholder="Ex.: 123.456.789-00" maxlength="14" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="nome" class="form-label">Nome Completo</label>
+                    <input type="text" id="nome" class="form-control" placeholder="Ex.: João da Silva" required>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="cnh" class="form-label">Número da CNH</label>
@@ -38,7 +39,7 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="categoriaCnh" class="form-label">Categoria da CNH</label>
-                    <select id="categoriaCnh" class="form-select" required>
+                    <select id="categoria" class="form-select" required>
                         <option value="">Selecione...</option>
                         <option value="A">A</option>
                         <option value="B">B</option>

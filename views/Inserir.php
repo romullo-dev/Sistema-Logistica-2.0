@@ -65,9 +65,10 @@ require_once __DIR__ . '/../controllers/Controller.class.php';
                         <label for="cargo" class="form-label">Tipo</label>
                         <select id="id_tipo" name="id_tipo" class="form-select" required>
                             <option value="">Selecione...</option>
-                            <option value="1">Rastreador</option>
-                            <option value="2">Motorista</option>
-                            <option value="3">Administrador</option>
+                            <option value="Motorista">Motorista</option>
+                            <option value="ADM">ADM</option>
+                            <option value="usuario">usuario</option>
+                            <option value="Cliente">Cliente</option>
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -82,8 +83,8 @@ require_once __DIR__ . '/../controllers/Controller.class.php';
                         <label for="id_status_func" class="form-label">Status do Funcionário</label>
                         <select id="id_status_func" name="id_status_func" class="form-select" required>
                             <option value="">Selecione...</option>
-                            <option value="1">Ativo</option>
-                            <option value="2">Inativo</option>
+                            <option value="Ativo">Ativo</option>
+                            <option value="Inativo">Inativo</option>
                         </select>
                     </div>
                 </div>
