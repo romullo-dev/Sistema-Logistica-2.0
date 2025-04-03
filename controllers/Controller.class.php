@@ -11,21 +11,8 @@ class Controller
         //incluir a view
         require_once 'views/' . $pagina . '.php';
     }
-    //inserir usuario
 
-    public function inserir_usuarios ($nomeCompleto, $cpf, $user, $senha, $dataNascimento, $telefone, $endereco, $id_tipo, $dataContratacao, $salario, $id_status_func)
-    {
-        //instaciar classe Inserir_usuario
-        $objInserir_usuario = new Usuario();
 
-        //invocar metodo
-        if ($objInserir_usuario->inserirUsuario($nomeCompleto, $cpf, $user, $senha, $dataNascimento, $telefone, $endereco, $id_tipo, $dataContratacao, $salario, $id_status_func) == true) {
-            echo 'Inserido com sucesso';
-        } else {
-            echo 'Erro ao inserir';
-        }
-    }
-    
     public function login_class ($user, $senha) 
     {
         $objLogin_class = new Login();
@@ -50,6 +37,56 @@ class Controller
             $this->mostrarMensagem("Login ou senha inválidos!");
         }
     }   
+    //inserir usuario
+
+    
+
+    public function inserir_usuarios ($nomeCompleto, $cpf, $user, $senha, $dataNascimento, $telefone, $endereco, $id_tipo, $dataContratacao, $salario, $id_status_func)
+    {
+        //instaciar classe Inserir_usuario
+        $objInserir_usuario = new Usuario();
+
+        //invocar metodo
+        if ($objInserir_usuario->inserirUsuario($nomeCompleto, $cpf, $user, $senha, $dataNascimento, $telefone, $endereco, $id_tipo, $dataContratacao, $salario, $id_status_func) == true) {
+            echo 'Inserido com sucesso';
+        } else {
+            echo 'Erro ao inserir';
+        }
+    }
+
+    //visualizar usuarios 
+    public function mostrar_usuario()
+    {
+        
+        $objusuario = new Usuario;
+        session_start();
+        $menu =$this->menu();
+        $resultado = $objusuario->exibirUsuario();
+        include_once 'view/consultar.php';
+
+    } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
 
 
        //mostrar menu

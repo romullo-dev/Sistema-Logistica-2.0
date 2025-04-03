@@ -21,8 +21,8 @@ if (isset($_POST['login'])) {
     $user = htmlspecialchars($_POST['user']);
     $senha = htmlspecialchars($_POST['senha']);
 
-    var_dump ($user);
-    var_dump ($senha);
+    //var_dump ($user);
+    //var_dump ($senha);
 
     $objController->login_class($user, $senha);
 }
@@ -49,7 +49,9 @@ if (isset($_POST['cadastroUsuario'])) {
     $objController->inserir_usuarios($nomeCompleto, $cpf, $user, $senha, $dataNascimento, $telefone, $endereco, $id_tipo, $dataContratacao, $salario, $id_status_func);
 }
 
-//Motorista
+//exibir 
+
+//if (isset())
 
 
 

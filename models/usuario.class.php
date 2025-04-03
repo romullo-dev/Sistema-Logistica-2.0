@@ -226,20 +226,39 @@ class Usuario extends Conexao
                         return false;
                 }
         }
+
+        //consultar usuario
+        public function exibirUsuario()
+        {
+                //$this->setNomeCompleto($nomeCompleto);
+                $sql = "SELECT * FROM tb_usuario where true ";
+
+                try {
+                        //conectar com o banco
+                        $bd = $this->conectar();
+                        //preparar o sql
+                        $query = $bd->prepare($sql);
+                        //excutar a query
+                        $query->execute();
+                        //retorna o resultado
+                        $resultado = $query->fetchAll(PDO::FETCH_OBJ);
+                        return $resultado;
+            
+                    } catch (PDOException $e) {
+                        //print "Erro ao consultar";
+                        return false;
+                    }
+            
+        }
+
 }
 
 
-/*$Inserir_fucionario = new Inserir_usuario();
-$Inserir_fucionario->inserirUsuario(
-    'João Silva',  // nomeCompleto
-    '12345674901', // cpf
-    'joao.silva',   // user
-    'senha123',     // senha
-    '1990-05-15',   // dataNascimento
-    '1234567890',   // telefone
-    'Rua Fictícia, 123', // endereco
-    1,              // id_tipo (por exemplo, tipo de usuário 1)
-    '2025-03-29',   // dataContratacao
-    2500.75,        // salario
-    1               // id_status_func (por exemplo, status de ativo)
-);*/
+/*$usuario = new Usuario(); 
+$resultado = $usuario->exibirUsuario();
+
+if ($resultado) {
+    print_r($resultado); 
+} else {
+    echo "Nenhum usuário encontrado ou erro na consulta.";
+}*/
