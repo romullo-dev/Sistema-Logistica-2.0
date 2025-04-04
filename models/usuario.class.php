@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/Conexao.class.php";
+//require_once __DIR__ . "/Conexao.class.php";
 
 
 class Usuario extends Conexao
@@ -232,6 +232,7 @@ class Usuario extends Conexao
         {
                 //$this->setNomeCompleto($nomeCompleto);
                 $sql = "SELECT * FROM tb_usuario where true ";
+                //$sql = "SELECT * FROM tb_usuario where true ";
 
                 try {
                         //conectar com o banco

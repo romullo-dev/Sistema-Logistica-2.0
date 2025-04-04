@@ -1,4 +1,8 @@
 <?php
+
+//require_once __DIR__ . '/../models/Usuario.class.php';
+
+
 class Controller
 {
 
@@ -48,23 +52,35 @@ class Controller
 
         //invocar metodo
         if ($objInserir_usuario->inserirUsuario($nomeCompleto, $cpf, $user, $senha, $dataNascimento, $telefone, $endereco, $id_tipo, $dataContratacao, $salario, $id_status_func) == true) {
-            echo 'Inserido com sucesso';
+            session_start();
+            //inserir menu
+            $menu = $this->menu();
+            //incluir a view
+            include_once 'views/inserir.php';
+            //mostrar mensagem
+            $this->mostrarMensagem("Autor inserido com sucesso!");
         } else {
-            echo 'Erro ao inserir';
+            //iniciar sessao
+            session_start();
+            //inserir menu
+            $menu = $this->menu();
+            //incluir a view
+            include_once 'views/inserir.php';
+            //mostrar mensagem
+            $this->mostrarMensagem("Erro ao inserir autor!");
         }
     }
 
     //visualizar usuarios 
-    public function mostrar_usuario()
-    {
-        
-        $objusuario = new Usuario;
-        session_start();
-        $menu =$this->menu();
-        $resultado = $objusuario->exibirUsuario();
-        include_once 'view/consultar.php';
 
-    } 
+        public function mostrar_usuario() {
+            session_start();
+            $menu = $this->menu();
+            $usuario = new Usuario(); 
+            $resultado = $usuario->exibirUsuario();
+            include_once 'views/consultar.php';
+        }
+
 
 
 
@@ -116,7 +132,7 @@ class Controller
            //print '                    <li><a class="dropdown-item" href="views/views_inserir.php">Cadastro de Funcionário</a></li>';
            print '                </ul>';
            print '            </li>';
-           print '            <li class="nav-item"><a class="nav-link text-white" href="aereos.html">Tracking Aéreo</a></li>';
+           print '            <li class="nav-item"><a class="nav-link text-white" href="index.php?consultar">Tracking Aéreo</a></li>';
            print '            <li class="nav-item dropdown">';
            print '                <a class="nav-link dropdown-toggle btn btn-success text-white" href="#" data-bs-toggle="dropdown">'.$_SESSION['user'].'</a>';
            print '                <ul class="dropdown-menu">';
@@ -159,8 +175,12 @@ class Controller
    
        }
   
-
     
 
 }
+
+
+/*$a = new Controller;
+$a->mostrar_usuario();*/
+
 

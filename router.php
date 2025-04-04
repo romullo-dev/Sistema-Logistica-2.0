@@ -53,5 +53,12 @@ if (isset($_POST['cadastroUsuario'])) {
 
 //if (isset())
 
+//consultar consultar_autor
+if (isset($_POST['consultar_autor'])) {
+    //instanciar controller
+    $objController = new Controller();
+    //dados
+    $objController->mostrar_usuario();
+}
 
 

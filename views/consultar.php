@@ -13,6 +13,8 @@
 </head>
 
 <body>
+
+    <?php print $menu ?>
     <div class="container-fluid">
         <br>
         <form method="post" action="index.php">
@@ -29,32 +31,59 @@
         <br>
     </div>
 
+    <pre><?php //print_r($resultado); ?></pre>
+
+
+    <?php //print_r ($resultado); ?>
+
     <div class="container-fluid">
-        <table class="table table-hover">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Autor</th>
+                <th>Nome Completo</th>
+                <th>Usuário</th>
+                <th>Senha</th>
+                <th>Telefone</th>
+                <th>Tipo</th>
+                <th>CPF</th>
+                <th>Salário</th>
+                <th>Endereço</th>
+                <th>Data de Nascimento</th>
+                <th>Data de Contratação</th>
+                <th>Status</th>
                 <th>Ação</th>
             </tr>
         </thead>
         <tbody>
             <?php
-                //mostrar os resultados
-                foreach ($resultado as $key => $valor) {
-                    print '<tr>';
-                    print '  <th scope="row">' . $valor->id_autor . '</th>';
-                    print '  <td>' . $valor->nome . '</td>';
-                    print '  <td>
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#alterar_autor' . $valor->id_autor . '"><i class="bi bi-pencil-square"></i> Alterar</button>
-                                <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#excluir_autor' . $valor->id_autor . '"><i class="bi bi-x-square-fill"></i> Excluir</button>
-                            </td>';
-                    print '</tr>';
-                }
-                ?>
+            foreach ($resultado as $key => $valor) {
+                print '<tr>';
+                print '  <th scope="row">' . $valor->id_usuario . '</th>';
+                print '  <td>' . $valor->nomeCompleto . '</td>';
+                print '  <td>' . $valor->user . '</td>';
+                print '  <td>' . $valor->senha . '</td>';
+                print '  <td>' . $valor->telefone . '</td>';
+                print '  <td>' . $valor->id_tipo . '</td>';
+                print '  <td>' . $valor->cpf . '</td>';
+                print '  <td>' . $valor->salario . '</td>';
+                print '  <td>' . $valor->endereco . '</td>';
+                print '  <td>' . $valor->dataNascimento . '</td>';
+                print '  <td>' . $valor->dataContratacao . '</td>';
+                print '  <td>' . $valor->id_status_func . '</td>';
+                print '  <td>
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#alterar_usuario' . $valor->id_usuario . '"><i class="bi bi-pencil-square"></i> Alterar</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#excluir_usuario' . $valor->id_usuario . '"><i class="bi bi-x-square-fill"></i> Excluir</button>
+                        </td>';
+                print '</tr>';
+           }
+            ?>
         </tbody>
-        </table>
-    </div>
+    </table>
+</div>
+
+</div>
+
 
 
 
