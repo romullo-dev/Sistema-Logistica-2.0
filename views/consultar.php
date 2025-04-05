@@ -21,68 +21,78 @@
             <div class="row">
                 <div class="col-6">
                     <div class="mb-3">
-                        <label for="nome_autor" class="form-label">Nome Autor</label>
-                        <input type="text" name="nome_autor" class="form-control" id="nome_cliente" placeholder="Digite o autor...">
+                        <label for="nome_autor" class="form-label">Nome Usuario</label>
+                        <input type="text" name="nomeUsuario " class="form-control" id="nome_cliente" placeholder="Digite o autor...">
                     </div>
                 </div>
                 <div>
-                <button type="submit" name="consultar_autor" class="btn btn-primary"><i class="bi bi-search"></i> Consultar</button>
+                    <button type="submit" name="consultar_usuario" class="btn btn-primary"><i class="bi bi-search"></i> Consultar</button>
         </form>
         <br>
     </div>
 
-    <pre><?php //print_r($resultado); ?></pre>
+    <pre><?php //print_r($resultado); 
+            ?></pre>
 
 
-    <?php //print_r ($resultado); ?>
+    <?php //print_r ($resultado); 
+    ?>
 
     <div class="container-fluid">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome Completo</th>
-                <th>Usuário</th>
-                <th>Senha</th>
-                <th>Telefone</th>
-                <th>Tipo</th>
-                <th>CPF</th>
-                <th>Salário</th>
-                <th>Endereço</th>
-                <th>Data de Nascimento</th>
-                <th>Data de Contratação</th>
-                <th>Status</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            foreach ($resultado as $key => $valor) {
-                print '<tr>';
-                print '  <th scope="row">' . $valor->id_usuario . '</th>';
-                print '  <td>' . $valor->nomeCompleto . '</td>';
-                print '  <td>' . $valor->user . '</td>';
-                print '  <td>' . $valor->senha . '</td>';
-                print '  <td>' . $valor->telefone . '</td>';
-                print '  <td>' . $valor->id_tipo . '</td>';
-                print '  <td>' . $valor->cpf . '</td>';
-                print '  <td>' . $valor->salario . '</td>';
-                print '  <td>' . $valor->endereco . '</td>';
-                print '  <td>' . $valor->dataNascimento . '</td>';
-                print '  <td>' . $valor->dataContratacao . '</td>';
-                print '  <td>' . $valor->id_status_func . '</td>';
-                print '  <td>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome Completo</th>
+                    <th>Usuário</th>
+                    <th>Senha</th>
+                    <th>Telefone</th>
+                    <th>Tipo</th>
+                    <th>CPF</th>
+                    <th>Salário</th>
+                    <th>Endereço</th>
+                    <th>Data de Nascimento</th>
+                    <th>Data de Contratação</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($resultado as $key => $valor) {
+                    print '<tr>';
+                    print '  <th scope="row">' . $valor->id_usuario . '</th>';
+                    print '  <td>' . $valor->nomeCompleto . '</td>';
+                    print '  <td>' . $valor->user . '</td>';
+                    print '  <td>' . $valor->senha . '</td>';
+                    print '  <td>' . $valor->telefone . '</td>';
+                    print '  <td>' . $valor->id_tipo . '</td>';
+                    print '  <td>' . $valor->cpf . '</td>';
+                    print '  <td>' . $valor->salario . '</td>';
+                    print '  <td>' . $valor->endereco . '</td>';
+                    print '  <td>' . $valor->dataNascimento . '</td>';
+                    print '  <td>' . $valor->dataContratacao . '</td>';
+                    print '  <td>' . $valor->id_status_func . '</td>';
+                    print '  <td>
                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#alterar_usuario' . $valor->id_usuario . '"><i class="bi bi-pencil-square"></i> Alterar</button>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#excluir_usuario' . $valor->id_usuario . '"><i class="bi bi-x-square-fill"></i> Excluir</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="excluir_usuario' . $valor->id_usuario . '"><i class="bi bi-x-square-fill"></i> Excluir</button>
                         </td>';
-                print '</tr>';
-           }
-            ?>
-        </tbody>
-    </table>
-</div>
+                    print '</tr>';
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
 
-</div>
+    </div>
+
+    <?php
+        //criar os Modal de excluir
+        foreach ($resultado as $key => $valor) {
+            //$this->modal_excluir_usuario($valor->id_usuario, $valor->nomeCompleto);
+            //$this->modal_alterar_autor($valor->id_autor, $valor->nome);
+        }
+    ?>
 
 
 

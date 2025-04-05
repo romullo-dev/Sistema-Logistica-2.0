@@ -16,8 +16,23 @@ class Usuario extends Conexao
         private $dataContratacao;
         private $salario;
         private $id_status_func;
+        private $id_usuario;
+
+
 
         //get e set 
+        public function getIdUsuario()
+        {
+                return $this->id_usuario;
+        }
+
+        public function setIdUsuario($id_usuario): self
+        {
+                $this->id_usuario = $id_usuario;
+
+                return $this;
+        }
+
 
         public function getNomeCompleto()
         {
@@ -173,17 +188,17 @@ class Usuario extends Conexao
         public function inserirUsuario($nomeCompleto, $cpf, $user, $senha, $dataNascimento, $telefone, $endereco, $id_tipo, $dataContratacao, $salario, $id_status_func)
         {
 
-                $this->setNomeCompleto  ($nomeCompleto);
-                $this->setCpf  ($cpf);
-                $this->setUser  ($user);
+                $this->setNomeCompleto($nomeCompleto);
+                $this->setCpf($cpf);
+                $this->setUser($user);
                 $this->setSenha($senha);
-                $this->setDataNascimento  ($dataNascimento);
-                $this->setTelefone  ($telefone);
-                $this->setEndereco  ($endereco);
-                $this->setIdTipo ( $id_tipo);
-                $this->setDataContratacao ( $dataContratacao);
-                $this->setSalario ( $salario);
-                $this->setIdStatusFunc ( $id_status_func);
+                $this->setDataNascimento($dataNascimento);
+                $this->setTelefone($telefone);
+                $this->setEndereco($endereco);
+                $this->setIdTipo($id_tipo);
+                $this->setDataContratacao($dataContratacao);
+                $this->setSalario($salario);
+                $this->setIdStatusFunc($id_status_func);
 
                 //MONTAR QUERY
                 $sql = "INSERT INTO tb_usuario 
@@ -228,38 +243,60 @@ class Usuario extends Conexao
         }
 
         //consultar usuario
-        public function exibirUsuario()
+        public function exibirUsuario($nomeCompleto)
         {
                 //$this->setNomeCompleto($nomeCompleto);
                 $sql = "SELECT * FROM tb_usuario where true ";
-                //$sql = "SELECT * FROM tb_usuario where true ";
+                //vericar se o nome é nulo
+                if ($this->getNomeCompleto() != null) {
+                        $sql .= " and nome like :nomeCompleto ";
+                }
+
+                $sql .= " order by nome";
 
                 try {
                         //conectar com o banco
                         $bd = $this->conectar();
-                        //preparar o sql
                         $query = $bd->prepare($sql);
+
+                        //preparar o sql
+                        if ($this->getNomeCompleto() != null) {
+                                $this->setNomeCompleto("%" . $nomeCompleto . "%");
+                                $query->bindValue(':nomeCompleto', $this->getNomeCompleto(), PDO::PARAM_STR);
+                        }
                         //excutar a query
                         $query->execute();
                         //retorna o resultado
                         $resultado = $query->fetchAll(PDO::FETCH_OBJ);
+                        print_r ($resultado);
                         return $resultado;
-            
-                    } catch (PDOException $e) {
+                } catch (PDOException $e) {
                         //print "Erro ao consultar";
                         return false;
-                    }
-            
+                }
         }
 
+        //método excluir Usuario
+        public function excluir_usuario($id_usuario)
+        {
+                $this->setIdUsuario($id_usuario);
+
+                $sql = "DELETE FROM tb_usuario WHERE  id_usuario = :id_usuario";
+
+                try {
+                        $db = $this->conectar();
+                        $query = $db->prepare($sql);
+                        $query->bindValue(':id_usuario', $this->getIdUsuario(), PDO::PARAM_INT);
+                        $query->execute();
+                        print 'Exluido';
+                        return true;
+                } catch (PDOException $e) {
+                        print "Erro ao excluir: " . $e->getMessage();
+                        return false;
+                }
+        }
 }
 
 
-/*$usuario = new Usuario(); 
-$resultado = $usuario->exibirUsuario();
-
-if ($resultado) {
-    print_r($resultado); 
-} else {
-    echo "Nenhum usuário encontrado ou erro na consulta.";
-}*/
+$usuario = new Usuario();
+$usuario->exibirUsuario('a');

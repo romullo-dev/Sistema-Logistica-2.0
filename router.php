@@ -49,16 +49,31 @@ if (isset($_POST['cadastroUsuario'])) {
     $objController->inserir_usuarios($nomeCompleto, $cpf, $user, $senha, $dataNascimento, $telefone, $endereco, $id_tipo, $dataContratacao, $salario, $id_status_func);
 }
 
-//exibir 
+// 
 
 //if (isset())
 
-//consultar consultar_autor
-if (isset($_POST['consultar_autor'])) {
+//exibir consultar_autor
+if (isset($_POST['consultar_usuario'])) {
     //instanciar controller
     $objController = new Controller();
+
+    $nomeUsuario = htmlspecialchars($_POST['nomeUsuario']);
+
     //dados
-    $objController->mostrar_usuario();
+    $objController->mostrar_usuario($nomeUsuario);
 }
+
+//método excluir usuario
+if (isset($_POST['excluir_usuario'])) {
+
+    $objController = new Controller();
+    $id_usuario = htmlspecialchars($_POST['id_usuario']);
+    //invocar o método de excluir_autor
+    //$objController->excluir_usuario($id_usuario);
+
+
+}
+
 
 
