@@ -1,6 +1,9 @@
 <?php
- class Motorista extends Conexao 
- {
+
+require_once __DIR__ . "/Conexao.class.php";
+
+class Motorista extends Conexao
+{
     private $cpf;
     private $nomeCompleto;
     private $cnh;
@@ -92,10 +95,29 @@
 
         return $this;
     }
+
+    public function buscarPorCpf($cpf) {
+        $this->setCpf($cpf);
     
+        $sql = "SELECT id_usuario, nomeCompleto FROM tb_usuario WHERE cpf = :cpf";
+    
+        $db = $this->conectar();
+    
+        $query = $db->prepare($sql);
+        $query->bindParam(':cpf', $cpf);
+        $query->execute();
+    
+        if ($query->rowCount() > 0) {
+            return $query->fetch(PDO::FETCH_OBJ);
+        }
+    
+        // Caso não encontre, retorna false
+        return false;
+    }
 
 
-    function Inserir_motorista ($cpf, $nomeCompleto, $cnh, $categoria, $validade_cnh, $id_Motorista, $funcionario_id)
+
+    /*function Inserir_motorista ($cpf, $nomeCompleto, $cnh, $categoria, $validade_cnh, $id_Motorista, $funcionario_id)
     {
         $this->setCpf($cpf);
         $this->setNomeCompleto($nomeCompleto);
@@ -107,7 +129,8 @@
         //$sql = 
 
 
-    }
+    }*/
+}
 
-    
- }
+$motorista = new Motorista();
+$motorista->buscarPorCpf('14822541215');

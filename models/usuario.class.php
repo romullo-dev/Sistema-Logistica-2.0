@@ -1,6 +1,6 @@
 <?php
 
-//require_once __DIR__ . "/Conexao.class.php";
+require_once __DIR__ . "/Conexao.class.php";
 
 
 class Usuario extends Conexao
@@ -9,31 +9,30 @@ class Usuario extends Conexao
         private $cpf;
         private $user;
         private $senha;
-        private $dataNascimento;
         private $telefone;
-        private $endereco;
         private $id_tipo;
-        private $dataContratacao;
-        private $salario;
         private $id_status_func;
+        private $foto;
         private $id_usuario;
+        private $email;
+
+
 
 
 
         //get e set 
-        public function getIdUsuario()
+
+        public function getEmail()
         {
-                return $this->id_usuario;
+                return $this->email;
         }
 
-        public function setIdUsuario($id_usuario): self
+        public function setEmail($email): self
         {
-                $this->id_usuario = $id_usuario;
+                $this->email = $email;
 
                 return $this;
         }
-
-
         public function getNomeCompleto()
         {
                 return $this->nomeCompleto;
@@ -51,7 +50,6 @@ class Usuario extends Conexao
                 return $this->cpf;
         }
 
-
         public function setCpf($cpf): self
         {
                 $this->cpf = $cpf;
@@ -59,12 +57,10 @@ class Usuario extends Conexao
                 return $this;
         }
 
-
         public function getUser()
         {
                 return $this->user;
         }
-
 
         public function setUser($user): self
         {
@@ -73,40 +69,22 @@ class Usuario extends Conexao
                 return $this;
         }
 
-
         public function getSenha()
         {
                 return $this->senha;
         }
 
-
         public function setSenha($senha): self
         {
-                //$this->senha = password_hash($senha, PASSWORD_DEFAULT);
-                $this->senha;
-                return $this;
-        }
-
-
-        public function getDataNascimento()
-        {
-                return $this->dataNascimento;
-        }
-
-
-        public function setDataNascimento($dataNascimento): self
-        {
-                $this->dataNascimento = $dataNascimento;
+                $this->senha = $senha;
 
                 return $this;
         }
-
 
         public function getTelefone()
         {
                 return $this->telefone;
         }
-
 
         public function setTelefone($telefone): self
         {
@@ -115,26 +93,10 @@ class Usuario extends Conexao
                 return $this;
         }
 
-
-        public function getEndereco()
-        {
-                return $this->endereco;
-        }
-
-
-        public function setEndereco($endereco): self
-        {
-                $this->endereco = $endereco;
-
-                return $this;
-        }
-
-
         public function getIdTipo()
         {
                 return $this->id_tipo;
         }
-
 
         public function setIdTipo($id_tipo): self
         {
@@ -142,35 +104,6 @@ class Usuario extends Conexao
 
                 return $this;
         }
-
-
-        public function getDataContratacao()
-        {
-                return $this->dataContratacao;
-        }
-
-
-        public function setDataContratacao($dataContratacao): self
-        {
-                $this->dataContratacao = $dataContratacao;
-
-                return $this;
-        }
-
-
-        public function getSalario()
-        {
-                return $this->salario;
-        }
-
-
-        public function setSalario($salario): self
-        {
-                $this->salario = $salario;
-
-                return $this;
-        }
-
 
         public function getIdStatusFunc()
         {
@@ -184,29 +117,51 @@ class Usuario extends Conexao
                 return $this;
         }
 
+        public function getFoto()
+        {
+                return $this->foto;
+        }
 
-        public function inserirUsuario($nomeCompleto, $cpf, $user, $senha, $dataNascimento, $telefone, $endereco, $id_tipo, $dataContratacao, $salario, $id_status_func)
+        public function setFoto($foto): self
+        {
+                $this->foto = $foto;
+
+                return $this;
+        }
+
+        public function getIdUsuario()
+        {
+                return $this->id_usuario;
+        }
+
+
+        public function setIdUsuario($id_usuario): self
+        {
+                $this->id_usuario = $id_usuario;
+
+                return $this;
+        }
+
+
+        public function inserirUsuario($nomeCompleto, $cpf, $user, $senha, $telefone, $id_tipo, $id_status_func, $foto, $id_usuario, $email)
         {
 
                 $this->setNomeCompleto($nomeCompleto);
                 $this->setCpf($cpf);
                 $this->setUser($user);
                 $this->setSenha($senha);
-                $this->setDataNascimento($dataNascimento);
                 $this->setTelefone($telefone);
-                $this->setEndereco($endereco);
                 $this->setIdTipo($id_tipo);
-                $this->setDataContratacao($dataContratacao);
-                $this->setSalario($salario);
                 $this->setIdStatusFunc($id_status_func);
+                $this->setFoto($foto);
+                $this->setIdUsuario( $id_usuario);
+                $this->setEmail($email);
 
                 //MONTAR QUERY
                 $sql = "INSERT INTO tb_usuario 
-                        (id_usuario, nomeCompleto, cpf, user, senha, dataNascimento, telefone, endereco, id_tipo, dataContratacao, salario, id_status_func) 
-                    VALUES 
-                        (NULL, :nomeCompleto, :cpf, :user, :senha, :dataNascimento, :telefone, :endereco, :id_tipo, :dataContratacao, :salario, :id_status_func)";
-
-                //Execultar query
+            (id_usuario, nomeCompleto, cpf, user, senha, telefone, id_tipo, id_status_func, foto, email) 
+        VALUES 
+            (NULL, :nomeCompleto, :cpf, :user, :senha, :telefone, :id_tipo, :id_status_func, :foto, :email)";
 
                 try {
                         // Conectar ao banco
@@ -214,89 +169,152 @@ class Usuario extends Conexao
                         if (!$db) {
                                 throw new Exception("Falha na conexão com o banco de dados.");
                         }
-                        //preparar sql
-                        $query = $db->prepare($sql);
-                        //blindagem dos dados
-                        $query->bindValue(":nomeCompleto", $nomeCompleto, PDO::PARAM_STR);
-                        $query->bindValue(":cpf", $cpf, PDO::PARAM_STR);
-                        $query->bindValue(":user", $user, PDO::PARAM_STR);
-                        //$query->bindValue(":senha", $this->getSenha(), PDO::PARAM_STR);
-                        $query->bindValue(":senha", $senha, PDO::PARAM_STR);
-                        $query->bindValue(":dataNascimento", $dataNascimento, PDO::PARAM_STR);
-                        $query->bindValue(":telefone", $telefone, PDO::PARAM_STR);
-                        $query->bindValue(":endereco", $endereco, PDO::PARAM_STR);
-                        $query->bindValue(":id_tipo", $id_tipo, PDO::PARAM_STR);
-                        $query->bindValue(":dataContratacao", $dataContratacao, PDO::PARAM_STR);
-                        $query->bindValue(":salario", $salario, PDO::PARAM_STR);
-                        $query->bindValue(":id_status_func", $id_status_func, PDO::PARAM_STR);
 
-                        //Executar a query
+                        // Preparar SQL
+                        $query = $db->prepare($sql);
+
+                        // Blindagem dos dados
+                        $query->bindValue(":nomeCompleto",     $nomeCompleto,     PDO::PARAM_STR);
+                        $query->bindValue(":cpf",              $cpf,              PDO::PARAM_STR);
+                        $query->bindValue(":user",             $user,             PDO::PARAM_STR);
+                        $query->bindValue(":senha",            $senha,            PDO::PARAM_STR);
+                        $query->bindValue(":telefone",         $telefone,         PDO::PARAM_STR);
+                        $query->bindValue(":id_tipo",          $id_tipo,          PDO::PARAM_STR);
+                        $query->bindValue(":id_status_func",   $id_status_func,   PDO::PARAM_STR);
+                        $query->bindValue(":foto",             $foto,             PDO::PARAM_STR);
+                        $query->bindValue(":email",            $email,            PDO::PARAM_STR);
+
+                        // Executar a query
                         $query->execute();
 
-                        //retorna o resultado
-                        //print "Inserido";
                         return true;
                 } catch (PDOException $e) {
-                        echo 'Erro Inserir' . $e->getMessage();
+                        echo 'Erro Inserir: ' . $e->getMessage();
                         return false;
                 }
         }
 
         //consultar usuario
-        public function exibirUsuario($nomeCompleto)
+        public function exibirUsuario($nomeCompleto = null)
         {
-                //$this->setNomeCompleto($nomeCompleto);
-                $sql = "SELECT * FROM tb_usuario where true ";
-                //vericar se o nome é nulo
-                if ($this->getNomeCompleto() != null) {
-                        $sql .= " and nome like :nomeCompleto ";
+                $sql = "SELECT * FROM tb_usuario WHERE 1=1";
+
+                if (!empty($nomeCompleto)) {
+                        $sql .= " AND nomeCompleto LIKE :nomeCompleto";
                 }
 
-                $sql .= " order by nome";
+                $sql .= " ORDER BY nomeCompleto";
 
                 try {
-                        //conectar com o banco
                         $bd = $this->conectar();
                         $query = $bd->prepare($sql);
 
-                        //preparar o sql
-                        if ($this->getNomeCompleto() != null) {
-                                $this->setNomeCompleto("%" . $nomeCompleto . "%");
-                                $query->bindValue(':nomeCompleto', $this->getNomeCompleto(), PDO::PARAM_STR);
+                        if (!empty($nomeCompleto)) {
+                                $nomeBusca = "%" . $nomeCompleto . "%";
+                                $query->bindValue(':nomeCompleto', $nomeBusca, PDO::PARAM_STR);
                         }
-                        //excutar a query
+
                         $query->execute();
-                        //retorna o resultado
-                        $resultado = $query->fetchAll(PDO::FETCH_OBJ);
-                        print_r ($resultado);
-                        return $resultado;
+                        return $query->fetchAll(PDO::FETCH_OBJ);
                 } catch (PDOException $e) {
-                        //print "Erro ao consultar";
+                        echo 'Erro' . $e->getMessage();
                         return false;
                 }
         }
+
 
         //método excluir Usuario
         public function excluir_usuario($id_usuario)
         {
                 $this->setIdUsuario($id_usuario);
 
-                $sql = "DELETE FROM tb_usuario WHERE  id_usuario = :id_usuario";
+                $sql = "DELETE FROM tb_usuario WHERE id_usuario = :id_usuario";
 
                 try {
                         $db = $this->conectar();
                         $query = $db->prepare($sql);
                         $query->bindValue(':id_usuario', $this->getIdUsuario(), PDO::PARAM_INT);
                         $query->execute();
-                        print 'Exluido';
-                        return true;
+                        if ($query->rowCount() > 0) {
+                                return true;
+                        } else {
+                                return false;
+                        }
                 } catch (PDOException $e) {
                         print "Erro ao excluir: " . $e->getMessage();
+                        return false;
+                }
+        }
+
+        public function alterar_usuario($nomeCompleto, $senha, $telefone, $id_tipo, $id_status_func, $foto, $email, $id_usuario)
+        {
+                // Setando os valores
+                $this->setIdTipo($id_tipo);
+                $this->setNomeCompleto($nomeCompleto);
+                $this->setSenha($senha);
+                $this->setTelefone($telefone);
+                $this->setIdStatusFunc($id_status_func);
+                $this->setFoto($foto);
+                $this->setEmail($email);
+                $this->setIdUsuario( $id_usuario);
+
+
+                // SQL para atualizar usuário
+                $sql = "UPDATE tb_usuario SET 
+                        nomeCompleto = :nomeCompleto,
+                        senha = :senha,
+                        telefone = :telefone,
+                        id_tipo = :idTipo,
+                        id_status_func = :idStatusFunc,
+                        email = :email";
+
+                if (!empty($foto)) {
+                        $sql .= ", foto = :foto";
+                }
+
+                $sql .= " WHERE id_usuario = :id_usuario";
+                try {
+                        // Conectar ao banco
+                        $db = $this->conectar();
+                        // Preparar o SQL
+                        $query = $db->prepare($sql);
+
+                        // blindar valores
+                        $query->bindValue(":id_usuario", $id_usuario, PDO::PARAM_INT);
+                        $query->bindValue(":nomeCompleto", $nomeCompleto, PDO::PARAM_STR);
+                        $query->bindValue(":senha", $senha, PDO::PARAM_STR);
+                        $query->bindValue(":telefone", $telefone, PDO::PARAM_STR);
+                        $query->bindValue(":idTipo", $id_tipo, PDO::PARAM_STR);
+                        $query->bindValue(":idStatusFunc", $id_status_func, PDO::PARAM_STR);
+                        $query->bindValue(":email", $email, PDO::PARAM_STR);
+
+                        if (!empty($foto)) {
+                                $query->bindValue(":foto", $foto);
+                            }
+
+                        // Executar a query
+                        $query->execute();
+
+                        echo "Usuário alterado com sucesso!";
+                        return true;
+                } catch (PDOException $e) {
+                        echo "Erro ao alterar: " . $e->getMessage();
                         return false;
                 }
         }
 }
 
 
-$usuario = new Usuario();
-$usuario->exibirUsuario('a');
+
+
+/*$usuario = new Usuario();
+$usuario->alterar_usuario(
+        "Maria Oliveira",
+        "senha123",
+        "11912345678",
+        'Motorista',
+        "Ativo",
+        "foto_maria.jpg",
+        "maria.oliveira@teste.com",
+        6
+);*/
