@@ -55,6 +55,7 @@ class Controller
             session_start();
             //inserir menu
             $menu = $this->menu();
+            $resultado = $objInserir_usuario->exibirUsuario(null);
             //incluir a view
             include_once 'views/usuarios.php';
             //mostrar mensagem
@@ -106,7 +107,6 @@ class Controller
 
         $menu = $this->menu();
 
-        // Incluir a view de consulta e mostra a mensagem
         include_once 'views/usuarios.php';
 
         if ($resultado) {
@@ -139,20 +139,48 @@ class Controller
         }
     }
 
-    //FUNCIONARIO
-    // VERIFICAR SE O NOME EXISTE
-    public function buscarPorCpf($cpf)
-    {
-        $objMotorista = new Motorista();
-        $dados = $objMotorista->buscarPorCpf($cpf);
+    //motorista
     
-        if ($dados === false) {
-            return false;
+    public function inserir_motorista ($id_usuario,  $cnh, $categoria, $validade_cnh) {
+        $objMotorista = new Motorista ();
+        if(isset($_SESSION)) {
+            session_start();
+        }    
+
+        if ($objMotorista->inserir_motorista($id_usuario,  $cnh, $categoria, $validade_cnh ) == true) {
+            $menu = $this->menu();
+            include_once 'views/motorista.php';
+            //mostrar mensagem
+            $this->mostrarMensagem("Motorista inserido com sucesso!");
+        } else {
+            $menu = $this->menu();
+            //incluir a view
+            include_once 'views/motorista.php';
+            //mostrar mensagem
+            $this->mostrarMensagem("Erro ao inserir o motorista!");
         }
-    
-        return $dados;
+    } 
+
+    //Mostrar motorista
+    public function mostrar_motorista ($nomeCompleto) {
+        session_start();
+
+        $objUsuario = new Motorista();
+        $resultado = $objUsuario->exibirMotorista($nomeCompleto);
+
+        // Inserir menu
+        $menu = $this->menu();
+
+        // Verifica se veio resultado ou deu erro
+        if ($resultado === false) {
+            $this->mostrarMensagem("Erro ao consultar!");
+        } else {
+            include_once 'views/motorista.php';
+            print_r ($resultado);
+        }
+
+
     }
-    
 
 
 
@@ -409,6 +437,6 @@ class Controller
 }
 
 
-$controller = new Controller();
-$controller->buscarPorCpf ('14822541215');
-
+//$controller = new Controller();
+//$controller->mostrar_motorista ('Sergio Lima')
+;

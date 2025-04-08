@@ -141,33 +141,35 @@ if (isset($_POST['alterar_usuario'])) {
 //MOTORISTA
 
 
+if (isset($_POST['cadastrar_motorista'])) {
+    $objController = new Controller ();
+
+    $id_usuario = $_POST['id_usuario'];
+    $cnh = htmlspecialchars($_POST['cnh']);
+    $categoria = htmlspecialchars($_POST['categoria']);
+    $validade_cnh = htmlspecialchars($_POST['validade_cnh']);
+
+    print_r  ($id_usuario).'<BR> <BR>';
+    print_r  ($cnh).'<BR>';
+    print_r  ($categoria).'<BR>';
+    print_r  ($validade_cnh).'<BR>';
+
+    $objController->inserir_motorista($id_usuario, $cnh, $categoria  , $validade_cnh);
+}
 
 
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['acao']) && $_GET['acao'] === 'buscarCpf') {
-    require_once 'controllers/Controller.class.php';
-
-    $cpf = $_POST['cpf'] ?? null;
-
-    if ($cpf) {
-        $controller = new Controller();
-        $dados = $controller->buscarPorCpf($cpf);
-
-        if ($dados) {
-            echo json_encode([
-                'success' => true,
-                'nome' => $dados->nomeCompleto,
-                'id_usuario' => $dados->id_usuario
-            ]);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Usuário não encontrado']);
-        }
-    } else {
-        echo json_encode(['success' => false, 'message' => 'CPF não informado']);
+// Exibir Motorista (consulta)
+if (isset($_POST['consultar_motorista'])) {
+    // Evita erro de controller duplicado (se já instanciado antes)
+    if (!isset($objController)) {
+        $objController = new Controller();
     }
 
-    exit; // Finaliza para evitar execução do restante do router
+    // Verifica se o campo foi enviado e limpa
+    $nomeUsuario = isset($_POST['nomeMotorista']) ? htmlspecialchars(trim($_POST['nomeMotorista'])) : null;
+
+    // Executa a consulta
+    $objController->mostrar_motorista($nomeUsuario);
 }
 
 

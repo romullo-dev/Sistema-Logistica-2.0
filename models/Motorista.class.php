@@ -4,43 +4,41 @@ require_once __DIR__ . "/Conexao.class.php";
 
 class Motorista extends Conexao
 {
-    private $cpf;
-    private $nomeCompleto;
+    private $id_usuario;
     private $cnh;
+    private $id_Motorista;
     private $categoria;
     private $validade_cnh;
-    private $id_Motorista;
-    private $funcionario_id;
 
-    public function getCpf()
+    /**
+     * Get the value of id_usuario
+     */
+    public function getIdUsuario()
     {
-        return $this->cpf;
+        return $this->id_usuario;
     }
 
-    public function setCpf($cpf): self
+    /**
+     * Set the value of id_usuario
+     */
+    public function setIdUsuario($id_usuario): self
     {
-        $this->cpf = $cpf;
+        $this->id_usuario = $id_usuario;
 
         return $this;
     }
 
-    public function getNomeCompleto()
-    {
-        return $this->nomeCompleto;
-    }
-
-    public function setNomeCompleto($nomeCompleto): self
-    {
-        $this->nomeCompleto = $nomeCompleto;
-
-        return $this;
-    }
-
+    /**
+     * Get the value of cnh
+     */
     public function getCnh()
     {
         return $this->cnh;
     }
 
+    /**
+     * Set the value of cnh
+     */
     public function setCnh($cnh): self
     {
         $this->cnh = $cnh;
@@ -48,35 +46,17 @@ class Motorista extends Conexao
         return $this;
     }
 
-    public function getCategoria()
-    {
-        return $this->categoria;
-    }
-
-    public function setCategoria($categoria): self
-    {
-        $this->categoria = $categoria;
-
-        return $this;
-    }
-
-    public function getValidadeCnh()
-    {
-        return $this->validade_cnh;
-    }
-
-    public function setValidadeCnh($validade_cnh): self
-    {
-        $this->validade_cnh = $validade_cnh;
-
-        return $this;
-    }
-
+    /**
+     * Get the value of id_Motorista
+     */
     public function getIdMotorista()
     {
         return $this->id_Motorista;
     }
 
+    /**
+     * Set the value of id_Motorista
+     */
     public function setIdMotorista($id_Motorista): self
     {
         $this->id_Motorista = $id_Motorista;
@@ -84,53 +64,107 @@ class Motorista extends Conexao
         return $this;
     }
 
-    public function getFuncionarioId()
+    /**
+     * Get the value of categoria
+     */
+    public function getCategoria()
     {
-        return $this->funcionario_id;
+        return $this->categoria;
     }
 
-    public function setFuncionarioId($funcionario_id): self
+    /**
+     * Set the value of categoria
+     */
+    public function setCategoria($categoria): self
     {
-        $this->funcionario_id = $funcionario_id;
+        $this->categoria = $categoria;
 
         return $this;
     }
 
-    public function buscarPorCpf($cpf) {
-        $this->setCpf($cpf);
-    
-        $sql = "SELECT id_usuario, nomeCompleto FROM tb_usuario WHERE cpf = :cpf";
-    
-        $db = $this->conectar();
-    
-        $query = $db->prepare($sql);
-        $query->bindParam(':cpf', $cpf);
-        $query->execute();
-    
-        if ($query->rowCount() > 0) {
-            return $query->fetch(PDO::FETCH_OBJ);
-        }
-    
-        // Caso não encontre, retorna false
-        return false;
+    /**
+     * Get the value of validade_cnh
+     */
+    public function getValidadeCnh()
+    {
+        return $this->validade_cnh;
     }
 
-
-
-    /*function Inserir_motorista ($cpf, $nomeCompleto, $cnh, $categoria, $validade_cnh, $id_Motorista, $funcionario_id)
+    /**
+     * Set the value of validade_cnh
+     */
+    public function setValidadeCnh($validade_cnh): self
     {
-        $this->setCpf($cpf);
-        $this->setNomeCompleto($nomeCompleto);
+        $this->validade_cnh = $validade_cnh;
+
+        return $this;
+    }
+
+    function inserir_motorista($id_usuario,  $cnh, $categoria, $validade_cnh)
+    {
+
+        $this->setIdUsuario($id_usuario,);
         $this->setCnh($cnh);
         $this->setCategoria($categoria);
         $this->setValidadeCnh($validade_cnh);
+        //$this->setIdMotorista($id_Motorista);
+
+        $sql = "INSERT INTO tb_motorista 
+            (cnh, categoria, validade_cnh, id_usuario) 
+        VALUES 
+            (:cnh, :categoria, :validade_cnh, :id_usuario)";
+
+        try {
+            $db = $this->conectar();
+            $query = $db->prepare($sql);
+
+            $query->bindValue(":id_usuario",      $id_usuario,          PDO::PARAM_INT);
+            $query->bindValue(":cnh",             $cnh,                 PDO::PARAM_STR);
+            $query->bindValue(":categoria",       $categoria,           PDO::PARAM_STR);
+            $query->bindValue(":validade_cnh",    $validade_cnh,        PDO::PARAM_STR);
+
+            $query->execute();
+
+            //echo 'Motorista cadastrado com Sucesso!';
+
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    //Consultar
+    //consultar usuario
+    public function exibirMotorista($nomeCompleto = null)
+    {
+        $sql = "SELECT m.*, u.nomeCompleto 
+        FROM tb_motorista AS m
+        INNER JOIN tb_usuario AS u ON m.id_usuario = u.id_usuario
+        WHERE 1=1";
 
 
-        //$sql = 
+        if (!empty($nomeCompleto)) {
+            $sql .= " AND u.nomeCompleto LIKE :nomeCompleto";
+        }
 
+        $sql .= " ORDER BY nomeCompleto";
 
-    }*/
+        try {
+            $db = $this->conectar();
+            $query = $db->prepare($sql);
+    
+            if (!empty($nomeCompleto)) {
+                $query->bindValue(":nomeCompleto", "%$nomeCompleto%");
+            }
+    
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);    
+
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
 }
 
-$motorista = new Motorista();
-$motorista->buscarPorCpf('14822541215');
+//$objMotorista = new Motorista();
+//$objMotorista->exibirMotorista('Sergio Lima');

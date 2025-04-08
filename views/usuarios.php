@@ -74,7 +74,7 @@
 
                                 <div class="card-body">
                                     <div class="d-flex align-items-center mb-3">
-                                        <img src="/../uploads/<?= $valor->foto ?>"
+                                        <img src="uploads/<?= $valor->foto ?>"
                                             onerror="this.src='assets/img/default.png'"
                                             class="rounded-circle border"
                                             style="width: 70px; height: 70px; object-fit: cover;"
