@@ -160,16 +160,34 @@ if (isset($_POST['cadastrar_motorista'])) {
 
 // Exibir Motorista (consulta)
 if (isset($_POST['consultar_motorista'])) {
-    // Evita erro de controller duplicado (se já instanciado antes)
     if (!isset($objController)) {
         $objController = new Controller();
     }
 
-    // Verifica se o campo foi enviado e limpa
     $nomeUsuario = isset($_POST['nomeMotorista']) ? htmlspecialchars(trim($_POST['nomeMotorista'])) : null;
 
-    // Executa a consulta
     $objController->mostrar_motorista($nomeUsuario);
+}
+
+
+if (isset($_POST['excluir_Motorista'])) {
+    $objController = new Controller();
+    $id_Motorista = htmlspecialchars($_POST['id_Motorista']);
+    var_dump ($id_Motorista);
+    $objController->excluir_Motorista($id_Motorista);
+}
+
+//METODO ALTERAR USUARIO
+if (isset($_POST['alterar_motorista'])) {
+    $objController = new Controller();
+
+    $id_motorista = ($_POST['id_motorista']);
+    $cnh = htmlspecialchars($_POST['cnh']);
+    $validade_cnh = htmlspecialchars($_POST['validade_cnh']);
+    $categoria = htmlspecialchars($_POST['categoria']);
+
+    $objController->alterar_Motorista($id_motorista, $cnh ,$categoria,$validade_cnh);
+    
 }
 
 

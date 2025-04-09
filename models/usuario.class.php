@@ -246,6 +246,7 @@ class Usuario extends Conexao
                 }
         }
 
+        //método alterar Usuario
         public function alterar_usuario($nomeCompleto, $senha, $telefone, $id_tipo, $id_status_func, $foto, $email, $id_usuario)
         {
                 // Setando os valores

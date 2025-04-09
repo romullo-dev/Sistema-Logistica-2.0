@@ -152,19 +152,77 @@ class Motorista extends Conexao
         try {
             $db = $this->conectar();
             $query = $db->prepare($sql);
-    
+
             if (!empty($nomeCompleto)) {
                 $query->bindValue(":nomeCompleto", "%$nomeCompleto%");
             }
-    
-            $query->execute();
-            return $query->fetchAll(PDO::FETCH_ASSOC);    
 
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
             return false;
         }
     }
+
+
+    //método excluir Motorista
+    public function excluir_motorista ($id_Motorista)
+    {
+        $this->setIdMotorista($id_Motorista);
+
+        $sql = "DELETE FROM tb_motorista WHERE id_Motorista = :id_Motorista";
+
+        try {
+            $db = $this->conectar();
+            $query = $db->prepare($sql);
+            $query->bindValue(':id_Motorista', $this->getIdMotorista(), PDO::PARAM_INT);
+            $query->execute();
+            if ($query->rowCount() > 0) {
+                echo  ' Deu certo';
+                return true;
+            } else {
+                echo  ' Deu rum';
+                return false;
+            }
+        } catch (PDOException $e) {
+            print "Erro ao excluir: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    //método alterar Motorista
+    public function alterar_Motorista ($id_Motorista, $categoria, $validade_cnh)
+    {
+        $this->setIdMotorista($id_Motorista);
+        $this->setCategoria($categoria);
+        $this->setValidadeCnh($validade_cnh);
+
+        $sql = "UPDATE tb_motorista 
+            SET categoria = :categoria, validade_cnh = :validade_cnh 
+            WHERE id_Motorista = :id_Motorista";
+
+        try {
+            $db = $this->conectar();
+            $query =  $db->prepare($sql);
+            $query->bindValue(":id_Motorista", $id_Motorista, PDO::PARAM_INT);
+            $query->bindValue(":validade_cnh", $validade_cnh, PDO::PARAM_STR);
+            $query->bindValue(":categoria", $categoria, PDO::PARAM_STR);
+
+            $query->execute();
+            echo 'Deu bomn';
+            return true;
+        } catch (PDOException $e) {
+            echo 'Deu ruim' .  $e;
+            return false;
+        }
+    }
+
+
 }
 
-//$objMotorista = new Motorista();
-//$objMotorista->exibirMotorista('Sergio Lima');
+$objMotorista = new Motorista();
+$objMotorista->alterar_Motorista('2',
+"D",
+    '2025/05/02',
+
+);
