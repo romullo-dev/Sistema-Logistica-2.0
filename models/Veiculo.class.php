@@ -170,7 +170,7 @@ class Veiculo extends Conexao
     }
 
     //consultar usuario
-    public function exibirVeiculo($placa = null)
+    /*public function exibirVeiculo($placa = null)
     {
             $sql = "SELECT * FROM tb_veiculo WHERE 1=1";
 
@@ -196,15 +196,14 @@ class Veiculo extends Conexao
                     echo 'Erro' . $e->getMessage();
                     return false;
             }
-    }
+    }*/
 
 
 
 
 }
 
-$objveiculo = new Veiculo ();
+/*$objveiculo = new Veiculo ();
 $objveiculo->exibirVeiculo('s',
-
-);
+);*/
 

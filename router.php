@@ -177,7 +177,7 @@ if (isset($_POST['excluir_Motorista'])) {
     $objController->excluir_Motorista($id_Motorista);
 }
 
-//METODO ALTERAR USUARIO
+//METODO ALTERAR MOTORISTA
 if (isset($_POST['alterar_motorista'])) {
     $objController = new Controller();
 

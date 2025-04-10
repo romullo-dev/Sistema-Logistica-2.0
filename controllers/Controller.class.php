@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/../models/Usuario.class.php';
 require_once __DIR__ . '/../models/Motorista.class.php';
+require_once __DIR__ . '/../models/Login.class.php';
+
 
 
 
@@ -242,19 +244,19 @@ class Controller
             include_once 'views/veiculo.php';
             $this->mostrarMensagem("Veiculo inserido com sucesso!");
         } else {
-            include_once 'views/motorista.php';
+            include_once 'views/veiculo.php';
             $this->mostrarMensagem("Erro ao inserir o veiculo!");
         }
     }
 
 
     //visualizar  
-    public function mostrar_usuario($nomeCompleto)
+    /*public function mostrar_veiculo($placa)
     {
         session_start();
 
         $objUsuario = new Usuario();
-        $resultado = $objUsuario->exibirUsuario($nomeCompleto);
+        $resultado = $objUsuario->exibirUsuario($placa);
 
         // Inserir menu
         $menu = $this->menu();
@@ -264,8 +266,8 @@ class Controller
             $this->mostrarMensagem("Erro ao consultar!");
         }
 
-        include_once 'views/usuarios.php';
-    }
+        include_once 'views/veiculo.php';
+    }*/
 
 
 
@@ -623,6 +625,5 @@ class Controller
 }
 
 
-    //$controller = new Controller();
-    //$controller->mostrar_motorista ('Sergio Lima')
-;
+    $controller = new Controller();
+    $controller->mostrar_motorista ('');
