@@ -3,6 +3,8 @@
 require_once __DIR__ . '/../models/Usuario.class.php';
 require_once __DIR__ . '/../models/Motorista.class.php';
 require_once __DIR__ . '/../models/Login.class.php';
+require_once __DIR__ . '/../models/Veiculo.class.php';
+
 
 
 
@@ -251,12 +253,12 @@ class Controller
 
 
     //visualizar  
-    /*public function mostrar_veiculo($placa)
+    public function mostrar_veiculo($placa)
     {
         session_start();
 
-        $objUsuario = new Usuario();
-        $resultado = $objUsuario->exibirUsuario($placa);
+        $objVeiculo = new Veiculo();
+        $resultado = $objVeiculo->exibirVeiculo($placa);
 
         // Inserir menu
         $menu = $this->menu();
@@ -266,8 +268,10 @@ class Controller
             $this->mostrarMensagem("Erro ao consultar!");
         }
 
+        var_dump ($resultado);
+
         include_once 'views/veiculo.php';
-    }*/
+    }
 
 
 
@@ -626,4 +630,4 @@ class Controller
 
 
     $controller = new Controller();
-    $controller->mostrar_motorista ('');
+    $controller->mostrar_veiculo ('a');

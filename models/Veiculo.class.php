@@ -170,7 +170,7 @@ class Veiculo extends Conexao
     }
 
     //consultar usuario
-    /*public function exibirVeiculo($placa = null)
+    public function exibirVeiculo($placa = null)
     {
             $sql = "SELECT * FROM tb_veiculo WHERE 1=1";
 
@@ -189,14 +189,14 @@ class Veiculo extends Conexao
                             $query->bindValue(':placa', $placaBusca, PDO::PARAM_STR);
                     }
                     $query->execute();
-                    $resultado = $query->fetchAll(PDO::FETCH_OBJ);
+                    return $resultado = $query->fetchAll(PDO::FETCH_OBJ);
 
-                    print_r ($resultado);
+                    //print_r ($resultado);
             } catch (PDOException $e) {
                     echo 'Erro' . $e->getMessage();
                     return false;
             }
-    }*/
+    }
 
 
 

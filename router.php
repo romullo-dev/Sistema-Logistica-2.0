@@ -206,3 +206,16 @@ if (isset($_POST['inserir_veiculo'])){
 
 
 }
+
+
+// Exibir Motorista (consulta)
+if (isset($_POST['consultar_veiculo'])) {
+    if (!isset($objController)) {
+        $objController = new Controller();
+    }
+
+    $nomeUsuario = isset($_POST['placa']) ? htmlspecialchars(trim($_POST['placa'])) : null;
+
+    $objController->mostrar_veiculo($placa);
+}
+

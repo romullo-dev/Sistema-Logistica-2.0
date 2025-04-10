@@ -36,12 +36,12 @@
               <span class="input-group-text bg-white border-end-0">
                 <i class="bi bi-search text-muted"></i>
               </span>
-              <input type="text" class="form-control border-start-0"
-                placeholder="Buscar por placa, modelo, marca ou motorista...">
+              <input type="text" name="placa" class="form-control border-start-0"
+                placeholder="Buscar por placa...">
             </div>
           </div>
           <div class="col-md-2 text-end">
-            <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm">
+            <button type="submit" name="consultar_veiculo" class="btn btn-primary btn-lg w-100 shadow-sm">
               <i class="bi bi-funnel-fill me-1"></i> Filtrar
             </button>
           </div>
