@@ -213,7 +213,7 @@ class Controller
 
 
 
-        if ($objUsuario->alterar_Motorista($id_Motorista, $cnh, $categoria, $validade_cnh) === true) {
+        if ($objUsuario->alterar_Motorista($id_Motorista, $categoria, $validade_cnh) === true) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
@@ -227,6 +227,49 @@ class Controller
             $this->mostrarMensagem('Falha no processo de edição. Verifique os dados.');
         }
     }
+
+    //VEICULO
+    
+    public function inserir_veiculo($placa, $modelo, $marca, $ano, $cor, $status_veiculo, $observacoes)
+    {
+        $objveicululo =  new Veiculo ();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        if ( $objveicululo->Inserir_veiculo($placa, $modelo, $marca, $ano, $cor, $status_veiculo, $observacoes)==true){
+            $menu = $this->menu();
+            include_once 'views/veiculo.php';
+            $this->mostrarMensagem("Veiculo inserido com sucesso!");
+        } else {
+            include_once 'views/motorista.php';
+            $this->mostrarMensagem("Erro ao inserir o veiculo!");
+        }
+    }
+
+
+    //visualizar  
+    public function mostrar_usuario($nomeCompleto)
+    {
+        session_start();
+
+        $objUsuario = new Usuario();
+        $resultado = $objUsuario->exibirUsuario($nomeCompleto);
+
+        // Inserir menu
+        $menu = $this->menu();
+
+        // Verifica se veio resultado ou deu erro
+        if ($resultado === false) {
+            $this->mostrarMensagem("Erro ao consultar!");
+        }
+
+        include_once 'views/usuarios.php';
+    }
+
+
+
+
 
 
 
@@ -293,9 +336,8 @@ class Controller
         print '            <i class="bi bi-person-plus"></i> Cadastros';
         print '          </a>';
         print '          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">';
-        print '            <li><a class="dropdown-item" href="Cadastro/cadastro_veiculo.html">Veículo</a></li>';
+        print '            <li><a class="dropdown-item" href="index.php?veiculo">Veículo</a></li>';
         print '            <li><a class="dropdown-item" href="index.php?motorista">Motorista</a></li>';
-        print '            <li><a class="dropdown-item" href="index.php?inserir">Funcionário</a></li>';
         print '            <li><a class="dropdown-item" href="index.php?usuarios">Usuários</a></li>';
         print '          </ul>';
         print '        </li>';

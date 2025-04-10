@@ -209,7 +209,6 @@ class Motorista extends Conexao
             $query->bindValue(":categoria", $categoria, PDO::PARAM_STR);
 
             $query->execute();
-            echo 'Deu bomn';
             return true;
         } catch (PDOException $e) {
             echo 'Deu ruim' .  $e;

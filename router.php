@@ -191,5 +191,18 @@ if (isset($_POST['alterar_motorista'])) {
 }
 
 
+//VEICULO
+if (isset($_POST['inserir_veiculo'])){
+    $objController = new Controller ();
+    $placa = htmlspecialchars($_POST['placa']);
+    $modelo = htmlspecialchars($_POST['modelo']);
+    $marca = htmlspecialchars($_POST['marca']);
+    $ano = $_POST['ano'];
+    $cor = htmlspecialchars($_POST['cor']);
+    $status_veiculo = htmlspecialchars($_POST['status_veiculo']);
+    $observacoes = htmlspecialchars($_POST['observacoes']);
+
+    $objController->inserir_veiculo($placa,$modelo,$marca, $ano,$cor, $status_veiculo, $observacoes );
 
 
+}
