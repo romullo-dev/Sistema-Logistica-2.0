@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/Conexao.class.php";
 
-class Motorista extends Conexao 
+class Motorista extends Conexao
 {
     private $id_usuario;
     private $cnh;
@@ -209,6 +209,7 @@ class Motorista extends Conexao
             $query->bindValue(":categoria", $categoria, PDO::PARAM_STR);
 
             $query->execute();
+            echo 'Deu bomn';
             return true;
         } catch (PDOException $e) {
             echo 'Deu ruim' .  $e;

@@ -177,7 +177,7 @@ if (isset($_POST['excluir_Motorista'])) {
     $objController->excluir_Motorista($id_Motorista);
 }
 
-//METODO ALTERAR MOTORISTA
+//METODO ALTERAR USUARIO
 if (isset($_POST['alterar_motorista'])) {
     $objController = new Controller();
 
@@ -191,31 +191,5 @@ if (isset($_POST['alterar_motorista'])) {
 }
 
 
-//VEICULO
-if (isset($_POST['inserir_veiculo'])){
-    $objController = new Controller ();
-    $placa = htmlspecialchars($_POST['placa']);
-    $modelo = htmlspecialchars($_POST['modelo']);
-    $marca = htmlspecialchars($_POST['marca']);
-    $ano = $_POST['ano'];
-    $cor = htmlspecialchars($_POST['cor']);
-    $status_veiculo = htmlspecialchars($_POST['status_veiculo']);
-    $observacoes = htmlspecialchars($_POST['observacoes']);
 
-    $objController->inserir_veiculo($placa,$modelo,$marca, $ano,$cor, $status_veiculo, $observacoes );
-
-
-}
-
-
-// Exibir Motorista (consulta)
-if (isset($_POST['consultar_veiculo'])) {
-    if (!isset($objController)) {
-        $objController = new Controller();
-    }
-
-    $nomeUsuario = isset($_POST['placa']) ? htmlspecialchars(trim($_POST['placa'])) : null;
-
-    $objController->mostrar_veiculo($placa);
-}
 
