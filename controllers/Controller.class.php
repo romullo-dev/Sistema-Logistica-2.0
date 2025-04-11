@@ -268,7 +268,7 @@ class Controller
             $this->mostrarMensagem("Erro ao consultar!");
         }
 
-        var_dump ($resultado);
+        //var_dump ($resultado);
 
         include_once 'views/veiculo.php';
     }

@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/Conexao.class.php";
 
-class Motorista extends Conexao
+class Motorista extends Conexao 
 {
     private $id_usuario;
     private $cnh;
