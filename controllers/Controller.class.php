@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/../models/Usuario.class.php';
 require_once __DIR__ . '/../models/Motorista.class.php';
+require_once __DIR__ . '/../models/veiculo.class.php';
+
 
 
 
@@ -211,9 +213,11 @@ class Controller
         $objUsuario = new Motorista();
         // Inicia a sessão se necessário
 
+        $menu = $this->menu();
 
 
-        if ($objUsuario->alterar_Motorista($id_Motorista, $cnh, $categoria, $validade_cnh) === true) {
+
+        if ($objUsuario->alterar_Motorista($id_Motorista, $categoria, $validade_cnh) === true) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
@@ -227,6 +231,104 @@ class Controller
             $this->mostrarMensagem('Falha no processo de edição. Verifique os dados.');
         }
     }
+
+    //VEICULO
+
+    public function inserirVeiculo($placa, $modelo, $ano, $marca, $cor, $status_veiculo, $observacoes)
+    {
+        $objveiculo = new Veiculo();
+
+        if ($objveiculo->InserirVeiculo($placa, $modelo, $ano, $marca, $cor, $status_veiculo, $observacoes) === true) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            };
+            $menu = $this->menu();
+
+            include_once 'views/veiculo.php';
+            $this->mostrarMensagem('Veículo inserido com sucesso');
+        } else {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            $menu = $this->menu();
+
+            include_once 'views/veiculo.php';
+            $this->mostrarMensagem('Falha no processo de inserir veículo');
+        }
+    }
+
+
+    //MOSTRAR VEICULO
+    public function mostrarVeiculo($placa)
+    {
+        $objveiculo = new Veiculo();
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        };
+
+        $resultado = $objveiculo->mostrarVeiculo($placa);
+
+        $menu = $this->menu();
+
+        if ($resultado === false) {
+            $this->mostrarMensagem("Erro ao consultar!");
+        } else {
+            include_once 'views/veiculo.php';
+        }
+    }
+
+
+    //EXCLUIR VEICULO
+    public function excluir_veiculo($id_veiculo)
+    {
+        $objveiculo = new Veiculo();
+
+        // Tenta excluir o usuário e guarda o resultado
+        $resultado = $objveiculo->excluir_veiculo($id_veiculo);
+
+        // Inicia a sessão se necessário
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $menu = $this->menu();
+
+        include_once 'views/veiculo.php';
+
+        if ($resultado) {
+            $this->mostrarMensagem("Veiculo excluído com sucesso!");
+        } else {
+            $this->mostrarMensagem("Erro ao excluir Veiculo!");
+        }
+    }
+    
+
+  //funçao alterar veiculo
+  public function alterar_veiculo($modelo, $marca, $cor, $ano, $status_veiculo, $id_veiculo)
+  {
+      $objveiculo = new Veiculo();
+      // Inicia a sessão se necessário
+
+      $menu = $this->menu();
+
+
+
+      if ($objveiculo->alterar_veiculo($modelo, $marca, $cor, $ano, $status_veiculo, $id_veiculo) === true) {
+          if (session_status() === PHP_SESSION_NONE) {
+              session_start();
+          }
+          include_once 'views/veiculo.php';
+          $this->mostrarMensagem('Veículo editado com sucesso!');
+      } else {
+          if (session_status() === PHP_SESSION_NONE) {
+              session_start();
+          }
+          include_once 'views/veiculo.php';
+          $this->mostrarMensagem('Falha no processo de edição. Verifique os dados.');
+      }
+  }
+
 
 
 
@@ -293,7 +395,7 @@ class Controller
         print '            <i class="bi bi-person-plus"></i> Cadastros';
         print '          </a>';
         print '          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">';
-        print '            <li><a class="dropdown-item" href="Cadastro/cadastro_veiculo.html">Veículo</a></li>';
+        print '            <li><a class="dropdown-item" href="index.php?veiculo">Veículo</a></li>';
         print '            <li><a class="dropdown-item" href="index.php?motorista">Motorista</a></li>';
         print '            <li><a class="dropdown-item" href="index.php?inserir">Funcionário</a></li>';
         print '            <li><a class="dropdown-item" href="index.php?usuarios">Usuários</a></li>';
@@ -514,73 +616,184 @@ class Controller
     HTML;
     }
 
-     //MODAL ALTERAR USUARIO
-     public function modal_alterar_motorista($id_motorista, $id_usuario, $cnh, $categoria, $validade_cnh)
-     {
-         print '<div class="modal fade" id="modal_alterar_motorista' . $id_motorista . '" tabindex="-1" aria-hidden="true">';
-         print '  <div class="modal-dialog modal-xl modal-dialog-centered">';
-         print '    <div class="modal-content">';
-         print '      <div class="modal-header text-white" style="background-color: #3e84b0;">';
-         print '        <h5 class="modal-title"><i class="bi bi-truck-front"></i> Alterar Motorista</h5>';
-         print '        <button class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>';
-         print '      </div>';
-         print '      <div class="modal-body">';
-         print '        <form action="index.php" method="post" class="row g-3">';
- 
-         // ID Motorista oculto (para saber qual motorista será alterado)
-         print '          <input type="hidden" name="id_motorista" value="' . $id_motorista . '">';
- 
-         // ID Usuário (visível mas desativado)
-         print '          <div class="col-md-6">';
-         print '            <label class="form-label"><i class="bi bi-person-badge"></i> ID do Usuário</label>';
-         print '            <input type="text" class="form-control" value="' . $id_usuario . '" disabled>';
-         print '            <input type="hidden" name="id_usuario" value="' . $id_usuario . '">';
-         print '          </div>';
- 
-         // CNH
-         print '          <div class="col-md-6">';
-         print '            <label for="cnh_' . $id_motorista . '" class="form-label"><i class="bi bi-card-heading"></i> CNH</label>';
-         print '            <input type="text" name="cnh" id="cnh_' . $id_motorista . '" class="form-control" value="' . $cnh . '" required disabled>';
-         print '          </div>';
- 
-         // Categoria
-         print '          <div class="col-md-6">';
-         print '            <label for="categoria_' . $id_motorista . '" class="form-label"><i class="bi bi-tags"></i> Categoria</label>';
-         print '            <select name="categoria" id="categoria_' . $id_motorista . '" class="form-select" required>';
-         $categorias = ['A', 'B', 'C', 'D', 'E'];
-         foreach ($categorias as $cat) {
-             $selected = $cat === $categoria ? 'selected' : '';
-             print '<option value="' . $cat . '" ' . $selected . '>' . $cat . '</option>';
-         }
-         print '            </select>';
-         print '          </div>';
- 
-         // Validade CNH
-         print '          <div class="col-md-6">';
-         print '            <label for="validade_' . $id_motorista . '" class="form-label"><i class="bi bi-calendar-event"></i> Validade CNH</label>';
-         print '            <input type="date" name="validade_cnh" id="validade_' . $id_motorista . '" class="form-control" value="' . $validade_cnh . '" required>';
-         print '          </div>';
- 
-         // Botões
-         print '          <div class="col-12 d-flex justify-content-end mt-3">';
-         print '            <button type="submit" name="alterar_motorista" class="btn text-white me-2" style="background-color: #3e84b0;">';
-         print '              <i class="bi bi-check-circle"></i> Salvar Alterações';
-         print '            </button>';
-         print '            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">';
-         print '              <i class="bi bi-x-circle"></i> Cancelar';
-         print '            </button>';
-         print '          </div>';
- 
-         print '        </form>';
-         print '      </div>';
-         print '    </div>';
-         print '  </div>';
-         print '</div>';
-     }
- 
+    //MODAL ALTERAR USUARIO
+    public function modal_alterar_motorista($id_motorista, $id_usuario, $cnh, $categoria, $validade_cnh)
+    {
+        print '<div class="modal fade" id="modal_alterar_motorista' . $id_motorista . '" tabindex="-1" aria-hidden="true">';
+        print '  <div class="modal-dialog modal-xl modal-dialog-centered">';
+        print '    <div class="modal-content">';
+        print '      <div class="modal-header text-white" style="background-color: #3e84b0;">';
+        print '        <h5 class="modal-title"><i class="bi bi-truck-front"></i> Alterar Motorista</h5>';
+        print '        <button class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>';
+        print '      </div>';
+        print '      <div class="modal-body">';
+        print '        <form action="index.php" method="post" class="row g-3">';
+
+        // ID Motorista oculto (para saber qual motorista será alterado)
+        print '          <input type="hidden" name="id_motorista" value="' . $id_motorista . '">';
+
+        // ID Usuário (visível mas desativado)
+        print '          <div class="col-md-6">';
+        print '            <label class="form-label"><i class="bi bi-person-badge"></i> ID do Usuário</label>';
+        print '            <input type="text" class="form-control" value="' . $id_usuario . '" disabled>';
+        print '            <input type="hidden" name="id_usuario" value="' . $id_usuario . '">';
+        print '          </div>';
+
+        // CNH
+        print '          <div class="col-md-6">';
+        print '            <label for="cnh_' . $id_motorista . '" class="form-label"><i class="bi bi-card-heading"></i> CNH</label>';
+        print '            <input type="text" name="cnh" id="cnh_' . $id_motorista . '" class="form-control" value="' . $cnh . '" required disabled>';
+        print '          </div>';
+
+        // Categoria
+        print '          <div class="col-md-6">';
+        print '            <label for="categoria_' . $id_motorista . '" class="form-label"><i class="bi bi-tags"></i> Categoria</label>';
+        print '            <select name="categoria" id="categoria_' . $id_motorista . '" class="form-select" required>';
+        $categorias = ['A', 'B', 'C', 'D', 'E'];
+        foreach ($categorias as $cat) {
+            $selected = $cat === $categoria ? 'selected' : '';
+            print '<option value="' . $cat . '" ' . $selected . '>' . $cat . '</option>';
+        }
+        print '            </select>';
+        print '          </div>';
+
+        // Validade CNH
+        print '          <div class="col-md-6">';
+        print '            <label for="validade_' . $id_motorista . '" class="form-label"><i class="bi bi-calendar-event"></i> Validade CNH</label>';
+        print '            <input type="date" name="validade_cnh" id="validade_' . $id_motorista . '" class="form-control" value="' . $validade_cnh . '" required>';
+        print '          </div>';
+
+        // Botões
+        print '          <div class="col-12 d-flex justify-content-end mt-3">';
+        print '            <button type="submit" name="alterar_motorista" class="btn text-white me-2" style="background-color: #3e84b0;">';
+        print '              <i class="bi bi-check-circle"></i> Salvar Alterações';
+        print '            </button>';
+        print '            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">';
+        print '              <i class="bi bi-x-circle"></i> Cancelar';
+        print '            </button>';
+        print '          </div>';
+
+        print '        </form>';
+        print '      </div>';
+        print '    </div>';
+        print '  </div>';
+        print '</div>';
+    }
+
+    // Modal Excluir Veículo
+    public function modal_excluir_veiculo($id_veiculo, $modelo, $placa)
+    {
+        echo <<<HTML
+        <div class="modal fade" id="excluir_veiculo{$id_veiculo}" tabindex="-1" aria-labelledby="excluirVeiculoLabel{$id_veiculo}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-white" style="background-color: #3e84b0;">
+                    <h5 class="modal-title" id="excluirVeiculoLabel{$id_veiculo}">
+                        <i class="bi bi-trash"></i> Excluir Veículo
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Você tem certeza que deseja excluir o veículo <strong>{$modelo} - {$placa}</strong>?</p>
+                    <p class="text-danger">Esta ação não pode ser desfeita.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form action="index.php" method="post">
+                        <input type="hidden" name="id_veiculo" value="{$id_veiculo}">
+                        <button type="submit" name="excluirVeiculo" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Excluir
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+HTML;
+    }
+
+
+    // Modal Editar Veículo
+// MODAL ALTERAR VEÍCULO
+public function modal_alterar_veiculo($id_veiculo, $modelo, $placa, $marca, $cor, $ano, $status_veiculo)
+{
+    print '<div class="modal fade" id="modal_alterar_veiculo' . $id_veiculo . '" tabindex="-1" aria-hidden="true">';
+    print '  <div class="modal-dialog modal-xl modal-dialog-centered">';
+    print '    <div class="modal-content">';
+    print '      <div class="modal-header text-white" style="background-color: #3e84b0;">';
+    print '        <h5 class="modal-title"><i class="bi bi-truck"></i> Alterar Veículo</h5>';
+    print '        <button class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>';
+    print '      </div>';
+    print '      <div class="modal-body">';
+    print '        <form action="index.php" method="post" class="row g-3">';
+
+    // ID oculto
+    print '          <input type="hidden" name="id_veiculo" value="' . $id_veiculo . '">';
+
+    // Modelo
+    print '          <div class="col-md-6">';
+    print '            <label for="modelo_' . $id_veiculo . '" class="form-label"><i class="bi bi-car-front-fill"></i> Modelo</label>';
+    print '            <input type="text" name="modelo" id="modelo_' . $id_veiculo . '" class="form-control" value="' . $modelo . '"  required> ';
+    print '          </div>';
+
+    // Placa
+    print '          <div class="col-md-6">';
+    print '            <label for="placa_' . $id_veiculo . '" class="form-label"><i class="bi bi-input-cursor-text"></i> Placa</label>';
+    print '            <input type="text" name="placa" id="placa_' . $id_veiculo . '" class="form-control" value="' . $placa . '" disabled required>';
+    print '          </div>';
+
+    // Marca
+    print '          <div class="col-md-6">';
+    print '            <label for="marca_' . $id_veiculo . '" class="form-label"><i class="bi bi-building"></i> Marca</label>';
+    print '            <input type="text" name="marca" id="marca_' . $id_veiculo . '" class="form-control" value="' . $marca . '"  required> ';
+    print '          </div>';
+
+    // Cor
+    print '          <div class="col-md-6">';
+    print '            <label for="cor_' . $id_veiculo . '" class="form-label"><i class="bi bi-palette"></i> Cor</label>';
+    print '            <input type="text" name="cor" id="cor_' . $id_veiculo . '" class="form-control" value="' . $cor . '" required>';
+    print '          </div>';
+
+    // Ano
+    print '          <div class="col-md-6">';
+    print '            <label for="ano_' . $id_veiculo . '" class="form-label"><i class="bi bi-calendar"></i> Ano</label>';
+    print '            <input type="number" name="ano" id="ano_' . $id_veiculo . '" class="form-control" value="' . $ano . '"  required>';
+    print '          </div>';
+
+    // Status
+    print '          <div class="col-md-6">';
+    print '            <label for="status_' . $id_veiculo . '" class="form-label"><i class="bi bi-toggles"></i> Status</label>';
+    print '            <select name="status_veiculo" id="status_' . $id_veiculo . '" class="form-select" required>';
+    $statusOptions = ['Ativo', 'Manutenção', 'Inativo'];
+    foreach ($statusOptions as $status) {
+        $selected = $status === $status_veiculo ? 'selected' : '';
+        print '<option value="' . $status . '" ' . $selected . '>' . $status . '</option>';
+    }
+    print '            </select>';
+    print '          </div>';
+
+    // Botões
+    print '          <div class="col-12 d-flex justify-content-end mt-3">';
+    print '            <button type="submit" name="alterar_veiculo" class="btn text-white me-2" style="background-color: #3e84b0;">';
+    print '              <i class="bi bi-check-circle"></i> Salvar Alterações';
+    print '            </button>';
+    print '            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">';
+    print '              <i class="bi bi-x-circle"></i> Cancelar';
+    print '            </button>';
+    print '          </div>';
+
+    print '        </form>';
+    print '      </div>';
+    print '    </div>';
+    print '  </div>';
+    print '</div>';
 }
 
 
-    //$controller = new Controller();
-    //$controller->mostrar_motorista ('Sergio Lima')
-;
+
+
+}
+
+
+    /*$controller = new Controller();
+    $controller->mostrarVeiculo('s');*/

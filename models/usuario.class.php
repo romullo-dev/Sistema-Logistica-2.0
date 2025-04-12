@@ -296,7 +296,7 @@ class Usuario extends Conexao
                         // Executar a query
                         $query->execute();
 
-                        echo "Usuário alterado com sucesso!";
+                        //echo "Usuário alterado com sucesso!";
                         return true;
                 } catch (PDOException $e) {
                         echo "Erro ao alterar: " . $e->getMessage();

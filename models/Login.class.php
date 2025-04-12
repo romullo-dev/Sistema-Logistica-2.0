@@ -68,11 +68,11 @@ class Login extends Conexao
                 //echo "Conectar";
                 return true;
             } else {
-                echo 'ErrooooUUUUUU';
+                //echo 'ErrooooUUUUUU';
                 return false;
             }
         } catch (PDOException $e) {
-            print 'Erro ao ENTAR' .$e->errorInfo;
+            //print 'Erro ao ENTAR' .$e->errorInfo;
             return false;
         }
 

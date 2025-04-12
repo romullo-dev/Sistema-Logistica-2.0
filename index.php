@@ -2,8 +2,8 @@
 <?php
 //iniciar sessao
 
-//não mostrar erros
-error_reporting(~E_ALL & ~E_NOTICE & ~E_WARNING);
+//não mostrar ERROS 
+//error_reporting(~E_ALL & ~E_NOTICE & ~E_WARNING);
 
 
 // Ativa o carregamento automático das classes

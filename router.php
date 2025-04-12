@@ -47,7 +47,7 @@ if (isset($_POST['cadastroUsuario'])) {
 
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
         $extensao = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
-        $nomeArquivo = uniqid() . '.' . $extensao; 
+        $nomeArquivo = uniqid() . '.' . $extensao;
         $caminhoDestino = 'uploads/' . $nomeArquivo;
 
         if (!is_dir('uploads')) {
@@ -111,7 +111,7 @@ if (isset($_POST['alterar_usuario'])) {
 
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
         $extensao = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
-        $nomeArquivo = uniqid() . '.' . $extensao; 
+        $nomeArquivo = uniqid() . '.' . $extensao;
         $caminhoDestino = 'uploads/' . $nomeArquivo;
 
         if (!is_dir('uploads')) {
@@ -125,36 +125,37 @@ if (isset($_POST['alterar_usuario'])) {
         }
     }
 
-    
 
-    $objController->alterar_usuario($nomeCompleto, 
-    $senha, 
-    $telefone,
-    $id_tipo,
-    $id_status_func, 
-    $foto, 
-    $email, 
-    $id_usuario );
 
+    $objController->alterar_usuario(
+        $nomeCompleto,
+        $senha,
+        $telefone,
+        $id_tipo,
+        $id_status_func,
+        $foto,
+        $email,
+        $id_usuario
+    );
 }
 
 //MOTORISTA
 
 
 if (isset($_POST['cadastrar_motorista'])) {
-    $objController = new Controller ();
+    $objController = new Controller();
 
     $id_usuario = $_POST['id_usuario'];
     $cnh = htmlspecialchars($_POST['cnh']);
     $categoria = htmlspecialchars($_POST['categoria']);
     $validade_cnh = htmlspecialchars($_POST['validade_cnh']);
 
-    print_r  ($id_usuario).'<BR> <BR>';
-    print_r  ($cnh).'<BR>';
-    print_r  ($categoria).'<BR>';
-    print_r  ($validade_cnh).'<BR>';
+    print_r($id_usuario) . '<BR> <BR>';
+    print_r($cnh) . '<BR>';
+    print_r($categoria) . '<BR>';
+    print_r($validade_cnh) . '<BR>';
 
-    $objController->inserir_motorista($id_usuario, $cnh, $categoria  , $validade_cnh);
+    $objController->inserir_motorista($id_usuario, $cnh, $categoria, $validade_cnh);
 }
 
 
@@ -173,7 +174,7 @@ if (isset($_POST['consultar_motorista'])) {
 if (isset($_POST['excluir_Motorista'])) {
     $objController = new Controller();
     $id_Motorista = htmlspecialchars($_POST['id_Motorista']);
-    var_dump ($id_Motorista);
+    var_dump($id_Motorista);
     $objController->excluir_Motorista($id_Motorista);
 }
 
@@ -184,12 +185,60 @@ if (isset($_POST['alterar_motorista'])) {
     $id_motorista = ($_POST['id_motorista']);
     $cnh = htmlspecialchars($_POST['cnh']);
     $validade_cnh = htmlspecialchars($_POST['validade_cnh']);
-    $categoria = htmlspecialchars($_POST['categoria']);
+    $categoria = htmlspecialchars($_POST['categoria']); 
 
-    $objController->alterar_Motorista($id_motorista, $cnh ,$categoria,$validade_cnh);
-    
+    $objController->alterar_Motorista($id_motorista, $cnh, $categoria, $validade_cnh);
 }
 
+
+
+
+//VEICULO
+if (isset($_POST['cadastroVeiculo'])) {
+
+    $objController = new Controller();
+
+    $placa = strtoupper($_POST['placa']);
+    $modelo = ($_POST['modelo']);
+    $ano = htmlspecialchars($_POST['ano'] );
+    $marca = htmlspecialchars($_POST['marca']);
+    $cor = htmlspecialchars($_POST['cor']);
+    $status_veiculo = htmlspecialchars($_POST['status_veiculo']);
+    $observacoes = htmlspecialchars($_POST['observacoes']);
+
+    $objController->inserirVeiculo($placa,$modelo,$ano,$marca , $cor , $status_veiculo ,$observacoes);
+}
+
+if (isset($_POST['consultar_veiculo'])) {
+    $objController = new Controller();
+    $placaVeiculo = ($_POST['placaVeiculo']);
+
+    $objController->mostrarVeiculo($placaVeiculo );
+}
+
+//método excluir veiculo
+if (isset($_POST['excluirVeiculo'])) {
+
+    $objController = new Controller();
+    $id_veiculo = htmlspecialchars($_POST['id_veiculo']);
+    //invocar o método de excluir_autor
+    $objController->excluir_veiculo($id_veiculo);
+}
+
+
+//METODO ALTERAR VEICULO
+if (isset($_POST['alterar_veiculo'])) {
+    $objController = new Controller();
+
+    $id_veiculo = $_POST['id_veiculo'];
+    $modelo = htmlspecialchars($_POST['modelo']);
+    $marca = htmlspecialchars($_POST['marca']);
+    $ano = htmlspecialchars($_POST['ano']);
+    $cor = htmlspecialchars($_POST['cor']);
+    $tipo = htmlspecialchars($_POST['status_veiculo']);
+
+    $objController->alterar_veiculo($modelo, $marca, $cor, $ano, $status_veiculo, $id_veiculo);
+}
 
 
 

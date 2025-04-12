@@ -209,10 +209,10 @@ class Motorista extends Conexao
             $query->bindValue(":categoria", $categoria, PDO::PARAM_STR);
 
             $query->execute();
-            echo 'Deu bomn';
+            //echo 'Deu bomn';
             return true;
         } catch (PDOException $e) {
-            echo 'Deu ruim' .  $e;
+            //echo 'Deu ruim' .  $e;
             return false;
         }
     }
@@ -220,9 +220,9 @@ class Motorista extends Conexao
 
 }
 
-$objMotorista = new Motorista();
+/*$objMotorista = new Motorista();
 $objMotorista->alterar_Motorista('2',
 "D",
     '2025/05/02',
 
-);
+);*/
