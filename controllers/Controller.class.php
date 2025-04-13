@@ -566,7 +566,7 @@ class Controller
 
         // Perfil do usuário
         print '        <li class="nav-item dropdown">';
-        print '          <a class="nav-link dropdown-toggle btn btn-light text-dark ms-2" href="#" data-bs-toggle="dropdown">';
+        print '          <a class="nav-link dropdown-toggle btn btn-blue-dark text-light ms-2" href="#" data-bs-toggle="dropdown">';
         print '            <i class="bi bi-person-circle"></i> ' . $_SESSION['user'] . '
         </a>';
         print '          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">';

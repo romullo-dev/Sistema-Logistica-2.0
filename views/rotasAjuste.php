@@ -149,36 +149,40 @@
 
 
         <!-- Modal Editar Status da Rota -->
-        <div class="modal fade" id="modal_editar_status_rota<?= $rota->id_Rotas ?>" tabindex="-1" aria-labelledby="editarStatusLabel<?= $rota->id_Rotas ?>" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="post" action="index.php">
-                        <div class="modal-header bg-primary text-white">
-                            <h5 class="modal-title" id="editarStatusLabel<?= $rota->id_Rotas ?>">Editar Status da Rota #<?= $rota->id_Rotas ?></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" name="id_rota" value="<?= $rota->id_Rotas ?>">
+        <?php foreach ($rotas as $rota): ?>
+    <!-- Modal Editar Status da Rota -->
+    <div class="modal fade" id="modal_editar_status_rota<?= $rota->id_Rotas ?>" tabindex="-1" aria-labelledby="editarStatusLabel<?= $rota->id_Rotas ?>" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="index.php">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="editarStatusLabel<?= $rota->id_Rotas ?>">Editar Status da Rota #<?= $rota->id_Rotas ?></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id_rota" value="<?= $rota->id_Rotas ?>">
 
-                            <div class="mb-3">
-                                <label for="status_rota<?= $rota->id_Rotas ?>" class="form-label">Status da Rota</label>
-                                <select class="form-select" id="status_rota<?= $rota->id_Rotas ?>" name="status_rota" required>
-                                    <option value="Em preparação" <?= $rota->status_rota === 'Em preparação' ? 'selected' : '' ?>>Em preparação</option>
-                                    <option value="Saiu do centro de distribuição" <?= $rota->status_rota === 'Saiu do centro de distribuição' ? 'selected' : '' ?>>Saiu do centro de distribuição</option>
-                                    <option value="Em trânsito" <?= $rota->status_rota === 'Em trânsito' ? 'selected' : '' ?>>Em trânsito</option>
-                                    <option value="Entregue" <?= $rota->status_rota === 'Entregue' ? 'selected' : '' ?>>Entregue</option>
-                                    <option value="Cancelado" <?= $rota->status_rota === 'Cancelado' ? 'selected' : '' ?>>Cancelado</option>
-                                </select>
-                            </div>
+                        <div class="mb-3">
+                            <label for="status_rota<?= $rota->id_Rotas ?>" class="form-label">Status da Rota</label>
+                            <select class="form-select" id="status_rota<?= $rota->id_Rotas ?>" name="status_rota" required>
+                                <option value="Em preparação" <?= $rota->status_rota === 'Em preparação' ? 'selected' : '' ?>>Em preparação</option>
+                                <option value="Saiu do centro de distribuição" <?= $rota->status_rota === 'Saiu do centro de distribuição' ? 'selected' : '' ?>>Saiu do centro de distribuição</option>
+                                <option value="Em trânsito" <?= $rota->status_rota === 'Em trânsito' ? 'selected' : '' ?>>Em trânsito</option>
+                                <option value="Entregue" <?= $rota->status_rota === 'Entregue' ? 'selected' : '' ?>>Entregue</option>
+                                <option value="Cancelado" <?= $rota->status_rota === 'Cancelado' ? 'selected' : '' ?>>Cancelado</option>
+                            </select>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" name="atualizar_status_rota" class="btn btn-primary">Salvar Alterações</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="atualizar_status_rota" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+<?php endforeach; ?>
+
 
 
 
