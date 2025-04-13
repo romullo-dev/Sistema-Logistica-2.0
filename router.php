@@ -309,3 +309,37 @@ if (isset($_POST["consultar_pedido"])) {
     // Agora pode chamar o controller se quiser
     $objController->exibir_pedidos($numeroPedido);
 }
+
+
+// ROTAS 
+
+
+if (isset($_POST["inserirRotas"])) {
+
+    $objController = new Controller();
+
+    $tipo_rota = htmlspecialchars($_POST["tipo_rota"]);
+    $nome_rota = htmlspecialchars($_POST["nome_rota"]);
+    $origem = htmlspecialchars($_POST["origem"]);
+    $destino = htmlspecialchars($_POST["destino"]);
+    $previsao = htmlspecialchars($_POST["previsao"]);
+    $data_saida = htmlspecialchars($_POST["data_saida"]);
+    $motorista_id = htmlspecialchars($_POST["motorista_id"]);
+    $veiculo_id = htmlspecialchars($_POST["veiculo_id"]);
+    $observacoes = htmlspecialchars($_POST["observacoes"]);
+    $status_rota = htmlspecialchars($_POST["status_rota"]);
+    $distancia = htmlspecialchars($_POST["distancia"]);
+
+
+    // Tratamento das chaves NF-e
+    $chaves = array_filter(array_map('trim', explode("\n", $_POST['chaves_nfe'])));
+
+
+}
+
+
+
+
+
+
+
