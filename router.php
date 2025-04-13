@@ -185,7 +185,7 @@ if (isset($_POST['alterar_motorista'])) {
     $id_motorista = ($_POST['id_motorista']);
     $cnh = htmlspecialchars($_POST['cnh']);
     $validade_cnh = htmlspecialchars($_POST['validade_cnh']);
-    $categoria = htmlspecialchars($_POST['categoria']); 
+    $categoria = htmlspecialchars($_POST['categoria']);
 
     $objController->alterar_Motorista($id_motorista, $cnh, $categoria, $validade_cnh);
 }
@@ -200,20 +200,20 @@ if (isset($_POST['cadastroVeiculo'])) {
 
     $placa = strtoupper($_POST['placa']);
     $modelo = ($_POST['modelo']);
-    $ano = htmlspecialchars($_POST['ano'] );
+    $ano = htmlspecialchars($_POST['ano']);
     $marca = htmlspecialchars($_POST['marca']);
     $cor = htmlspecialchars($_POST['cor']);
     $status_veiculo = htmlspecialchars($_POST['status_veiculo']);
     $observacoes = htmlspecialchars($_POST['observacoes']);
 
-    $objController->inserirVeiculo($placa,$modelo,$ano,$marca , $cor , $status_veiculo ,$observacoes);
+    $objController->inserirVeiculo($placa, $modelo, $ano, $marca, $cor, $status_veiculo, $observacoes);
 }
 
 if (isset($_POST['consultar_veiculo'])) {
     $objController = new Controller();
     $placaVeiculo = ($_POST['placaVeiculo']);
 
-    $objController->mostrarVeiculo($placaVeiculo );
+    $objController->mostrarVeiculo($placaVeiculo);
 }
 
 //método excluir veiculo
@@ -240,5 +240,74 @@ if (isset($_POST['alterar_veiculo'])) {
     $objController->alterar_veiculo($modelo, $marca, $cor, $ano, $status_veiculo, $id_veiculo);
 }
 
+//PEDIDOS
 
+if (isset($_POST['incluir_pedido'])) {
 
+    $objController = new Controller();
+
+    //remetente
+    $remetenteCpfCnpj = htmlspecialchars($_POST['remetente_cpf_cnpj']);
+    $remetenteNome = htmlspecialchars($_POST['remetente_nome']);
+    $remetente_cep = htmlspecialchars($_POST['remetente_cep']);
+    $remetente_endereco = htmlspecialchars($_POST['remetente_endereco']);
+    $remetente_numero = htmlspecialchars($_POST['remetente_numero']);
+
+    // Informações do Pedido
+    $pedidoNumero = htmlspecialchars($_POST['pedido_numero']);
+    $notaNumero = htmlspecialchars($_POST['nota_numero']);
+    $chaveNota = htmlspecialchars($_POST['chave_nota']);
+
+    //Destinatário
+    $destinatarioCpfCnpj = htmlspecialchars($_POST['destinatario_cpf_cnpj']);
+    $destinatarioNome = htmlspecialchars($_POST['destinatario_nome']);
+    $destinatario_cep = htmlspecialchars($_POST['destinatario_cep']);
+    $destinatario_numero = htmlspecialchars($_POST['destinatario_numero']);
+    $destinatario_endereco = htmlspecialchars($_POST['destinatario_endereco']);
+    
+
+    // Tratamento do upload do arquivo
+    $arquivoNome = null;
+    if (isset($_FILES['arquivo_nome']) && $_FILES['arquivo_nome']['error'] === UPLOAD_ERR_OK) {
+        $arquivoTemp = $_FILES['arquivo_nome']['tmp_name'];
+        $arquivoNome = $_FILES['arquivo_nome']['name'];
+        $diretorioDestino = 'uploads/'; 
+        $caminhoDestino = $diretorioDestino . basename($arquivoNome);
+
+        if (move_uploaded_file($arquivoTemp, $caminhoDestino)) {
+            $arquivoNome = $caminhoDestino;
+        } else {
+            echo "Erro ao carregar o arquivo.";
+        }
+    }
+
+     $objController->inserir_Pedido($arquivoNome, 
+     $destinatario_endereco,
+     $destinatario_numero,
+     $destinatario_cep,
+     $remetente_numero,
+     $remetente_endereco,
+     $remetenteCpfCnpj,
+     $remetenteNome,
+     $pedidoNumero,
+     $notaNumero,
+     $chaveNota,
+     $destinatarioCpfCnpj,
+    $destinatarioNome,
+    $remetente_cep
+    );
+
+    //inserir
+
+    if (isset($_POST["consultar_pedido"])) {
+        var_dump($_POST);
+    
+        $pedido_numero = $_POST["aaaaaaaaaaaaa"];
+        print_r($pedido_numero);
+    
+        // Agora pode chamar o controller se quiser
+        // $objController = new Controller();
+        // $objController->exibir_pedidos($pedido_numero);
+    }
+    
+}

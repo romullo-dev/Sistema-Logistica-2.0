@@ -138,7 +138,7 @@ class Veiculo extends Conexao
             $query->bindValue(":marca", $marca, PDO::PARAM_STR);
             $query->bindValue(":cor", $cor,  PDO::PARAM_STR);
             $query->bindValue(":status_veiculo", $status_veiculo, PDO::PARAM_STR);
-            $query->bindValue(":observacoes", $observacoes,  PDO::PARAM_STR);
+            $query->bindValue(":observacoes", $observacoes,  type: PDO::PARAM_STR);
 
             $query->execute();
 
