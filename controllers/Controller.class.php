@@ -4,6 +4,9 @@ require_once __DIR__ . '/../models/Usuario.class.php';
 require_once __DIR__ . '/../models/Motorista.class.php';
 require_once __DIR__ . '/../models/veiculo.class.php';
 require_once __DIR__ . '/../models/Pedido.class.php';
+require_once __DIR__ . '/../models/Rotas.class.php';
+require_once __DIR__ . '/../models/Rastreio.class.php';
+
 
 
 
@@ -381,6 +384,75 @@ class Controller
         }
     }
 
+    // ROTAS
+
+
+    public function inserirRota($tipo_rota, $nome_rota, $origem, $destino, $previsao, $data_saida, $motorista_id, $veiculo_id, $observacoes, $status_rota, $distancia, $chaves)
+    {
+        $objrotas = new Rotas();
+
+        if ($objrotas->inserir_rotas($tipo_rota, $nome_rota, $origem, $destino, $previsao, $data_saida, $motorista_id, $veiculo_id, $observacoes, $status_rota, $distancia, $chaves) === true) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            };
+            $menu = $this->menu();
+
+            include_once 'views/rotas.php';
+            $this->mostrarMensagem('Rota inserido com sucesso');
+        } else {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            $menu = $this->menu();
+
+            include_once 'views/rotas.php';
+            $this->mostrarMensagem('Falha no processo de inserir rota');
+        }
+    }
+
+    //RASTREIO
+
+    public function Rastrear_pedido($id_pedidos)
+    {
+        $objRastreio = new Rastreio();
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        };
+
+        $resultado = $objRastreio->Rastrear_pedido($id_pedidos);
+
+        $menu = $this->menu();
+
+        if ($resultado === false) {
+            $this->mostrarMensagem("Erro ao consultar!");
+        } else {
+            $pedido = $resultado['pedido'];
+            $rota = $resultado['rota'];
+            include_once 'views/restreio.php';
+        }
+    }
+
+    //MOSTRAR VEICULO
+    public function exibir_Rotas($numeroPedido)
+    {
+        $objRotas = new Rotas();
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        };
+
+        $rotas = $objRotas->exibir_Rotas($numeroPedido);
+
+        $menu = $this->menu();
+
+        if ($rotas === false) {
+            $this->mostrarMensagem("Erro ao consultar!");
+        } else {
+            include_once 'views/rotasAjuste.php';
+        }
+    }
+
 
 
 
@@ -431,7 +503,7 @@ class Controller
 
         // Rastreio
         print '        <li class="nav-item">';
-        print '          <a class="nav-link text-white" href="rastreio.html"><i class="bi bi-truck"></i> Rastreio</a>';
+        print '          <a class="nav-link text-white" href="index.php?restreio"><i class="bi bi-truck"></i> Rastreio</a>';
         print '        </li>';
 
         // Operacional
@@ -441,6 +513,7 @@ class Controller
         print '          </a>';
         print '          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">';
         print '            <li><a class="dropdown-item" href="index.php?rotas">Rotas</a></li>';
+        print '            <li><a class="dropdown-item" href="index.php?rotasAjuste">Ajuste de Rotas</a></li>';
         print '            <li><a class="dropdown-item" href="index.php?pedidos">Pedidos</a></li>';
         print '          </ul>';
         print '        </li>';
@@ -974,4 +1047,15 @@ HTML;
 
 
     /*$controller = new Controller();
-    $controller->exibir_pedidos('');*/
+    $controller->inserirRota("Rota de Teste",               // Tipo da Rota
+    "Rota Teste 001",              // Nome da Rota
+    "Origem Teste",                // Origem
+    "Destino Teste",               // Destino
+    "2025-04-15 14:00:00",         // Previsão de entrega
+    "2025-04-15 08:00:00",         // Data de saída
+    7,                             // Motorista ID
+    52,                             // Veículo ID
+    "Observação de teste",         // Observações
+    "Ativa",                       // Status da Rota
+    150,                           // Distância
+    ["444444444444445"]);*/

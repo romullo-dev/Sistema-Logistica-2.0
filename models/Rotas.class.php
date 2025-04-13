@@ -124,7 +124,7 @@ class Rotas extends Conexao
         ->setObservacoes($observacoes)
         ->setStatusRota($status_rota)
         ->setDistancia($distancia)
-        ->setChaves($chaves); // Atribui as chaves
+        ->setChaves($chaves); 
 
     $sql = "INSERT INTO tb_rotas (
                 tipo_rota, nome_rota, origem, destino,
@@ -153,17 +153,13 @@ class Rotas extends Conexao
         $query->bindValue(':status_rota', $this->getStatusRota(), PDO::PARAM_STR);
         $query->bindValue(':distancia', $this->getDistancia(), PDO::PARAM_STR);
 
-        // Executa a query
         $query->execute();
 
-        // Recupera o ID da rota inserida
         $rota_id = $db->lastInsertId();
 
-        // Agora vamos inserir os pedidos relacionados à rota
         $sqlRelacionamento = "INSERT INTO tb_rota_pedidos (rota_id, pedido_id) VALUES (:rota_id, :pedido_id)";
         $queryRelacionamento = $db->prepare($sqlRelacionamento);
 
-        // Para cada chave de NFe que foi passada, fazemos o relacionamento
         $sqlBuscaPedido = "SELECT id_pedidos FROM tb_pedidos WHERE chave_nota = :chave_nfe";
         $queryBuscaPedido = $db->prepare($sqlBuscaPedido);
 
@@ -173,37 +169,69 @@ class Rotas extends Conexao
             $pedido = $queryBuscaPedido->fetch(PDO::FETCH_ASSOC);
 
             if ($pedido) {
-                // Relacionando o pedido à rota
                 $queryRelacionamento->bindValue(':rota_id', $rota_id, PDO::PARAM_INT);
-                $queryRelacionamento->bindValue(':pedido_id', $pedido['id_pedido'], PDO::PARAM_INT);
+                $queryRelacionamento->bindValue(':pedido_id', $pedido['id_pedidos'], PDO::PARAM_INT);
                 $queryRelacionamento->execute();
             }
         }
 
-        return true; // Se tudo deu certo
+        return true; 
     } catch (PDOException $e) {
         print "Erro ao inserir rota: " . $e->getMessage();
-        return false; // Caso haja erro
+        return false;
     }
 }
 
+
+public function exibir_Rotas($pedidos = null)
+{
+    $sql = "
+            SELECT r.*, 
+                   u.nomeCompleto AS motorista_nome, 
+                   m.cnh AS motorista_cnh, 
+                   v.placa AS veiculo_placa, 
+                   v.modelo AS veiculo_modelo
+            FROM tb_rotas r
+            LEFT JOIN tb_motorista m ON r.motorista_id = m.id_motorista
+            LEFT JOIN tb_veiculo v ON r.veiculo_id = v.id_veiculo
+            LEFT JOIN tb_usuario u ON m.id_usuario = u.id_usuario
+            WHERE 1=1
+            ORDER BY r.id_Rotas DESC
+            LIMIT 0, 1000;
+        ";
+
+    if (!empty($pedidos)) {
+        $sql .= " AND p.pedido_numero LIKE :pedidos";
+    }
+
+    $sql .= " ORDER BY r.id_Rotas DESC";
+
+    try {
+        $bd = $this->conectar();
+        $query = $bd->prepare($sql);
+
+        if (!empty($pedidos)) {
+            $sql .= " AND p.pedido_numero LIKE :pedidos";
+        }
+    
+        $query->execute();
+        return  $query->fetchAll(PDO::FETCH_OBJ);
+
+        //print_r($resul);
+
+    } catch (PDOException $e) {
+        echo 'Erro: ' . $e->getMessage();
+        return false;
+    }
 }
 
 
-$objrotas = new rotas();
 
-$objrotas->inserir_rotas(
-    "Rota de Teste",               // Tipo da Rota
-    "Rota Teste 001",              // Nome da Rota
-    "Origem Teste",                // Origem
-    "Destino Teste",               // Destino
-    "2025-04-15 14:00:00",         // Previsão de entrega
-    "2025-04-15 08:00:00",         // Data de saída
-    7,                             // Motorista ID
-    52,                             // Veículo ID
-    "Observação de teste",         // Observações
-    "Ativa",                       // Status da Rota
-    150,                           // Distância
-    ["chave1", "chave2"]           // Chaves dos pedidos (array de exemplos),
-);
+
+}
+
+
+//$objrotas = new rotas();
+
+//$objrotas->exibir_Rotas('5');
 

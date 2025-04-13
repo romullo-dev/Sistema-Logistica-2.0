@@ -124,7 +124,7 @@ try {
                     </div>
 
                    
-                    <input type="hidden" name="status_rota" value="Em Andamento">
+                    <input type="hidden" name="status_rota" value="Em trânsito">
 
                     <div class="mb-3">
                         <label for="observacoes" class="form-label"><i class="bi bi-chat-left-text-fill me-1"></i>Observações</label>

@@ -71,15 +71,12 @@ if (isset($_POST['cadastroUsuario'])) {
 
 // Exibir usuários (consulta)
 if (isset($_POST['consultar_usuario'])) {
-    // Evita erro de controller duplicado (se já instanciado antes)
     if (!isset($objController)) {
         $objController = new Controller();
     }
 
-    // Verifica se o campo foi enviado e limpa
     $nomeUsuario = isset($_POST['nomeUsuario']) ? htmlspecialchars(trim($_POST['nomeUsuario'])) : null;
 
-    // Executa a consulta
     $objController->mostrar_usuario($nomeUsuario);
 }
 
@@ -335,7 +332,46 @@ if (isset($_POST["inserirRotas"])) {
     $chaves = array_filter(array_map('trim', explode("\n", $_POST['chaves_nfe'])));
 
 
+
+    $objController->inserirRota($tipo_rota, $nome_rota, $origem, 
+    $destino, $previsao,$data_saida, $motorista_id, 
+    $veiculo_id, $observacoes, $status_rota,
+     $distancia, $chaves);
 }
+
+
+//RASTREIO 
+
+if (isset($_POST["consultar_rastreio"])) {
+    $objController =  new Controller();
+    $pedido_id = htmlspecialchars($_POST["pedido_id"]);
+
+    $objController->Rastrear_pedido($pedido_id);
+}
+
+
+
+
+
+
+
+
+
+
+
+// Exibir rotas (consulta)
+if (isset($_POST['consultar_rotas'])) {
+    if (!isset($objController)) {
+        $objController = new Controller();
+    }
+
+    $numeroPedido =  isset($_POST['numeroPedido']);
+
+    $objController->exibir_Rotas($numeroPedido);
+}
+
+
+
 
 
 
