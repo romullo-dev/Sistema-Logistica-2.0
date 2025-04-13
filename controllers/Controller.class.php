@@ -561,7 +561,7 @@ class Controller
 
         // Tracking Aéreo
         print '        <li class="nav-item">';
-        print '          <a class="nav-link text-white" href="index.php?pedidosCopy"><i class="bi bi-airplane"></i> Tracking Aéreo</a>';
+        print '          <a class="nav-link text-white" href="index.php?AWB"><i class="bi bi-airplane"></i> Tracking Aéreo</a>';
         print '        </li>';
 
         // Perfil do usuário

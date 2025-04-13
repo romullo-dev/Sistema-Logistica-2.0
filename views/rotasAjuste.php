@@ -15,6 +15,15 @@
 
 <body>
 
+<header>
+<?= $menu ?>
+
+
+</header>
+
+    <br><br>    <br><br>
+
+
     <div class="container-fluid py-5 px-4">
         <br><br>
 

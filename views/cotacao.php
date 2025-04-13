@@ -61,7 +61,7 @@
                 <div class="row mb-3">
                     <div class="col-md-3">
                         <label for="remetente_cep" class="form-label">CEP</label>
-                        <input type="text" class="form-control" name="remetente_cep">
+                        <input type="text" class="form-control" maxlength="8" name="remetente_cep">
                     </div>
                     <div class="col-md-6">
                         <label for="remetente_endereco" class="form-label">Endereço</label>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="col-md-3">
                         <label for="remetente_numero" class="form-label">Número</label>
-                        <input type="text" class="form-control" name="remetente_numero">
+                        <input type="number" class="form-control" name="remetente_numero">
                     </div>
                 </div>
 
@@ -106,7 +106,7 @@
                 <div class="row mb-3">
                     <div class="col-md-3">
                         <label for="destinatario_cep" class="form-label">CEP</label>
-                        <input type="text" class="form-control" name="destinatario_cep">
+                        <input type="text" class="form-control" maxlength="8" name="destinatario_cep">
                     </div>
                     <div class="col-md-6">
                         <label for="destinatario_endereco" class="form-label">Endereço</label>
