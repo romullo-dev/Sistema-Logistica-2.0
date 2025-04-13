@@ -264,50 +264,48 @@ if (isset($_POST['incluir_pedido'])) {
     $destinatario_cep = htmlspecialchars($_POST['destinatario_cep']);
     $destinatario_numero = htmlspecialchars($_POST['destinatario_numero']);
     $destinatario_endereco = htmlspecialchars($_POST['destinatario_endereco']);
-    
+
 
     // Tratamento do upload do arquivo
     $arquivoNome = null;
     if (isset($_FILES['arquivo_nome']) && $_FILES['arquivo_nome']['error'] === UPLOAD_ERR_OK) {
         $arquivoTemp = $_FILES['arquivo_nome']['tmp_name'];
         $arquivoNome = $_FILES['arquivo_nome']['name'];
-        $diretorioDestino = 'uploads/'; 
+        $diretorioDestino = 'uploads/';
         $caminhoDestino = $diretorioDestino . basename($arquivoNome);
 
         if (move_uploaded_file($arquivoTemp, $caminhoDestino)) {
-            $arquivoNome = $caminhoDestino;
+            $arquivoNome = basename($arquivoNome);
         } else {
             echo "Erro ao carregar o arquivo.";
         }
     }
 
-     $objController->inserir_Pedido($arquivoNome, 
-     $destinatario_endereco,
-     $destinatario_numero,
-     $destinatario_cep,
-     $remetente_numero,
-     $remetente_endereco,
-     $remetenteCpfCnpj,
-     $remetenteNome,
-     $pedidoNumero,
-     $notaNumero,
-     $chaveNota,
-     $destinatarioCpfCnpj,
-    $destinatarioNome,
-    $remetente_cep
+    $objController->inserir_Pedido(
+        $arquivoNome,
+        $destinatario_endereco,
+        $destinatario_numero,
+        $destinatario_cep,
+        $remetente_numero,
+        $remetente_endereco,
+        $remetenteCpfCnpj,
+        $remetenteNome,
+        $pedidoNumero,
+        $notaNumero,
+        $chaveNota,
+        $destinatarioCpfCnpj,
+        $destinatarioNome,
+        $remetente_cep
     );
+}
 
-    //inserir
+//inserir
 
-    if (isset($_POST["consultar_pedido"])) {
-        var_dump($_POST);
-    
-        $pedido_numero = $_POST["aaaaaaaaaaaaa"];
-        print_r($pedido_numero);
-    
-        // Agora pode chamar o controller se quiser
-        // $objController = new Controller();
-        // $objController->exibir_pedidos($pedido_numero);
-    }
-    
+if (isset($_POST["consultar_pedido"])) {
+    $objController = new Controller();
+
+    $numeroPedido = $_POST["numeroPedido"];
+
+    // Agora pode chamar o controller se quiser
+    $objController->exibir_pedidos($numeroPedido);
 }

@@ -376,13 +376,14 @@ class Controller
         if ($resultado === false) {
             $this->mostrarMensagem('Usuario não encontrado!');
         } else {
-            print_r($resultado);
+            //print_r($resultado);
             include_once 'views/pedidos.php';
         }
-
-
     }
 
+
+
+    
 
 
 
@@ -462,7 +463,7 @@ class Controller
 
         // Tracking Aéreo
         print '        <li class="nav-item">';
-        print '          <a class="nav-link text-white" href="index.php?consultar"><i class="bi bi-airplane"></i> Tracking Aéreo</a>';
+        print '          <a class="nav-link text-white" href="index.php?pedidosCopy"><i class="bi bi-airplane"></i> Tracking Aéreo</a>';
         print '        </li>';
 
         // Perfil do usuário
@@ -846,6 +847,128 @@ HTML;
         print '  </div>';
         print '</div>';
     }
+
+    public function modal_visualizar_pedidos(
+        $id_pedido,
+        $remetente_cpf_cnpj,
+        $remetente_nome,
+        $remetente_cep,
+        $remetente_endereco,
+        $remetente_numero,
+        $pedido_numero,
+        $nota_numero,
+        $chave_nota,
+        $destinatario_cpf_cnpj,
+        $destinatario_nome,
+        $destinatario_cep,
+        $destinatario_endereco,
+        $destinatario_numero,
+        $arquivo_nome
+    ) {
+        print '<div class="modal fade" id="modal_visualizar_pedido' . $id_pedido . '" tabindex="-1" aria-hidden="true">';
+        print '  <div class="modal-dialog modal-xl modal-dialog-centered">';
+        print '    <div class="modal-content">';
+        print '      <div class="modal-header text-white" style="background-color: #3e84b0;">';
+        print '        <h5 class="modal-title"><i class="bi bi-receipt-cutoff"></i> Detalhes do Pedido</h5>';
+        print '        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>';
+        print '      </div>';
+        print '      <div class="modal-body">';
+        print '        <div class="row g-3">';
+    
+        // Pedido e Nota
+        print '          <div class="col-md-4">';
+        print '            <label class="form-label"><i class="bi bi-hash"></i> Nº do Pedido</label>';
+        print '            <input type="text" class="form-control" value="' . $pedido_numero . '" readonly>';
+        print '          </div>';
+    
+        print '          <div class="col-md-4">';
+        print '            <label class="form-label"><i class="bi bi-123"></i> Nº da Nota</label>';
+        print '            <input type="text" class="form-control" value="' . $nota_numero . '" readonly>';
+        print '          </div>';
+    
+        print '          <div class="col-md-4">';
+        print '            <label class="form-label"><i class="bi bi-key"></i> Chave da Nota</label>';
+        print '            <input type="text" class="form-control" value="' . $chave_nota . '" readonly>';
+        print '          </div>';
+    
+        // Remetente
+        print '          <div class="col-12"><hr><strong><i class="bi bi-send"></i> Remetente</strong></div>';
+    
+        print '          <div class="col-md-6">';
+        print '            <label class="form-label">Nome</label>';
+        print '            <input type="text" class="form-control" value="' . $remetente_nome . '" readonly>';
+        print '          </div>';
+    
+        print '          <div class="col-md-6">';
+        print '            <label class="form-label">CPF/CNPJ</label>';
+        print '            <input type="text" class="form-control" value="' . $remetente_cpf_cnpj . '" readonly>';
+        print '          </div>';
+    
+        print '          <div class="col-md-4">';
+        print '            <label class="form-label">CEP</label>';
+        print '            <input type="text" class="form-control" value="' . $remetente_cep . '" readonly>';
+        print '          </div>';
+    
+        print '          <div class="col-md-6">';
+        print '            <label class="form-label">Endereço</label>';
+        print '            <input type="text" class="form-control" value="' . $remetente_endereco . '" readonly>';
+        print '          </div>';
+    
+        print '          <div class="col-md-2">';
+        print '            <label class="form-label">Número</label>';
+        print '            <input type="text" class="form-control" value="' . $remetente_numero . '" readonly>';
+        print '          </div>';
+    
+        // Destinatário
+        print '          <div class="col-12"><hr><strong><i class="bi bi-box-arrow-in-down"></i> Destinatário</strong></div>';
+    
+        print '          <div class="col-md-6">';
+        print '            <label class="form-label">Nome</label>';
+        print '            <input type="text" class="form-control" value="' . $destinatario_nome . '" readonly>';
+        print '          </div>';
+    
+        print '          <div class="col-md-6">';
+        print '            <label class="form-label">CPF/CNPJ</label>';
+        print '            <input type="text" class="form-control" value="' . $destinatario_cpf_cnpj . '" readonly>';
+        print '          </div>';
+    
+        print '          <div class="col-md-4">';
+        print '            <label class="form-label">CEP</label>';
+        print '            <input type="text" class="form-control" value="' . $destinatario_cep . '" readonly>';
+        print '          </div>';
+    
+        print '          <div class="col-md-6">';
+        print '            <label class="form-label">Endereço</label>';
+        print '            <input type="text" class="form-control" value="' . $destinatario_endereco . '" readonly>';
+        print '          </div>';
+    
+        print '          <div class="col-md-2">';
+        print '            <label class="form-label">Número</label>';
+        print '            <input type="text" class="form-control" value="' . $destinatario_numero . '" readonly>';
+        print '          </div>';
+    
+        // Arquivo (se houver)
+        if (!empty($arquivo_nome)) {
+            print '          <div class="col-12"><hr><strong><i class="bi bi-paperclip"></i> Arquivo Anexado</strong></div>';
+            print '          <div class="col-12">';
+            print '            <a href="uploads/' . $arquivo_nome . '" target="_blank" class="btn btn-outline-secondary">';
+            print '              <i class="bi bi-file-earmark-text"></i> Visualizar Arquivo';
+            print '            </a>';
+            print '          </div>';
+        }
+    
+        print '        </div>';
+        print '      </div>';
+        print '      <div class="modal-footer">';
+        print '        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">';
+        print '          <i class="bi bi-x-circle"></i> Fechar';
+        print '        </button>';
+        print '      </div>';
+        print '    </div>';
+        print '  </div>';
+        print '</div>';
+    }
+    
 }
 
 
