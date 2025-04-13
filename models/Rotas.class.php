@@ -14,10 +14,22 @@ class Rotas extends Conexao
     private $observacoes;
     private $status_rota;
     private $distancia;
-    private $chaves = []; // Mantém privada
-    private $pedidos = []; // Mantém privada
+    private $chaves = []; 
+    private $pedidos = [];
+    private $id_rotas;
+    
 
-    // Métodos setters e getters para cada variável
+
+    public function getIdRotas()
+{
+    return $this->id_rotas;
+}
+
+public function setIdRotas($id_rotas)
+{
+    $this->id_rotas = $id_rotas;
+}
+
     public function setTipoRota($tipo_rota)
     {
         $this->tipo_rota = $tipo_rota;
@@ -84,7 +96,6 @@ class Rotas extends Conexao
         return $this;
     }
 
-    // Setters e Getters para a propriedade `chaves`
     public function setChaves($chaves)
     {
         $this->chaves = $chaves;
@@ -96,7 +107,6 @@ class Rotas extends Conexao
         return $this->chaves;
     }
 
-    // Métodos getters (não alterados)
     public function getTipoRota() { return $this->tipo_rota; }
     public function getNomeRota() { return $this->nome_rota; }
     public function getOrigem() { return $this->origem; }
@@ -109,10 +119,8 @@ class Rotas extends Conexao
     public function getStatusRota() { return $this->status_rota; }
     public function getDistancia() { return $this->distancia; }
 
-    // Método de inserção da rota (não alterado)
     public function inserir_rotas($tipo_rota, $nome_rota, $origem, $destino, $previsao, $data_saida, $motorista_id, $veiculo_id, $observacoes, $status_rota, $distancia, $chaves)
 {
-    // Definindo os parâmetros com os setters
     $this->setTipoRota($tipo_rota)
         ->setNomeRota($nome_rota)
         ->setOrigem($origem)
@@ -140,7 +148,6 @@ class Rotas extends Conexao
         $db = $this->conectar();
         $query = $db->prepare($sql);
 
-        // Bind dos valores
         $query->bindValue(':tipo_rota', $this->getTipoRota(), PDO::PARAM_STR);
         $query->bindValue(':nome_rota', $this->getNomeRota(), PDO::PARAM_STR);
         $query->bindValue(':origem', $this->getOrigem(), PDO::PARAM_STR);
@@ -225,13 +232,51 @@ public function exibir_Rotas($pedidos = null)
     }
 }
 
+public function alterRota ($id_Rotas,$status_rota)
+{
+    $this->setIdRotas($id_Rotas);
+    $this->setStatusRota($status_rota);
+
+
+
+    // SQL para atualizar veículo
+    $sql = "UPDATE tb_rotas SET 
+            status_rota = :status_rota
+            WHERE id_Rotas = :id_Rotas";
+    try {
+        // Conectar ao banco
+        $db = $this->conectar();
+        // Preparar o SQL
+        $query = $db->prepare($sql);
+
+        // Blindar valores
+        $query->bindValue(":status_rota", $status_rota, PDO::PARAM_STR);
+        $query->bindValue(":id_Rotas", $id_Rotas, PDO::PARAM_INT);
+
+        // Executar a query
+        $query->execute();
+
+        //echo "Veículo alterado com sucesso!";
+        return true;
+    } catch (PDOException $e) {
+        echo "Erro ao alterar: " . $e->getMessage();
+        return false;
+    }
 
 
 
 }
 
 
-//$objrotas = new rotas();
+}
 
-//$objrotas->exibir_Rotas('5');
+
+
+
+
+
+/*/$objrotas = new Rotas();
+
+$objrotas->alterRota(1,
+    'Entregue');*/
 

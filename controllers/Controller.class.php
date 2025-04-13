@@ -454,6 +454,30 @@ class Controller
     }
 
 
+    public function alterRota($id_Rotas,$status_rota)
+    {
+        $objUsuario = new Rotas();
+
+        $menu = $this->menu();
+
+
+        if ($objUsuario->alterRota($id_Rotas,$status_rota) === true) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            include_once 'views/rotasAjuste.php';
+            $this->mostrarMensagem('Rota editado com sucesso!');
+        } else {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            include_once 'views/rotasAjuste.php';
+            $this->mostrarMensagem('Falha no processo de edição. Verifique os dados.');
+
+        }
+    }
+
+
 
 
     
