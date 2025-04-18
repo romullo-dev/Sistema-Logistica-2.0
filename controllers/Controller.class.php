@@ -104,10 +104,8 @@ class Controller
     {
         $objUsuario = new Usuario();
 
-        // Tenta excluir o usuário e guarda o resultado
         $resultado = $objUsuario->excluir_usuario($id_usuario);
 
-        // Inicia a sessão se necessário
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -177,7 +175,6 @@ class Controller
         // Inserir menu
         $menu = $this->menu();
 
-        // Verifica se veio resultado ou deu erro
         if ($resultado === false) {
             $this->mostrarMensagem("Erro ao consultar!");
         } else {
@@ -192,10 +189,8 @@ class Controller
     {
         $objUsuario = new Motorista();
 
-        // Tenta excluir o usuário e guarda o resultado
         $resultado = $objUsuario->excluir_motorista($id_Motorista);
 
-        // Inicia a sessão se necessário
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -289,7 +284,6 @@ class Controller
     {
         $objveiculo = new Veiculo();
 
-        // Tenta excluir o usuário e guarda o resultado
         $resultado = $objveiculo->excluir_veiculo($id_veiculo);
 
         // Inicia a sessão se necessário
@@ -786,10 +780,10 @@ class Controller
         print '      <div class="modal-body">';
         print '        <form action="index.php" method="post" class="row g-3">';
 
-        // ID Motorista oculto (para saber qual motorista será alterado)
+        // ID Motorista oculto 
         print '          <input type="hidden" name="id_motorista" value="' . $id_motorista . '">';
 
-        // ID Usuário (visível mas desativado)
+        // ID Usuário 
         print '          <div class="col-md-6">';
         print '            <label class="form-label"><i class="bi bi-person-badge"></i> ID do Usuário</label>';
         print '            <input type="text" class="form-control" value="' . $id_usuario . '" disabled>';

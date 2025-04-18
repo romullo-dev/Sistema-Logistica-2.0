@@ -86,7 +86,6 @@ if (isset($_POST['excluir_usuario'])) {
 
     $objController = new Controller();
     $id_usuario = htmlspecialchars($_POST['id_usuario']);
-    //invocar o método de excluir_autor
     $objController->excluir_usuario($id_usuario);
 }
 
@@ -218,7 +217,6 @@ if (isset($_POST['excluirVeiculo'])) {
 
     $objController = new Controller();
     $id_veiculo = htmlspecialchars($_POST['id_veiculo']);
-    //invocar o método de excluir_autor
     $objController->excluir_veiculo($id_veiculo);
 }
 
@@ -263,7 +261,7 @@ if (isset($_POST['incluir_pedido'])) {
     $destinatario_endereco = htmlspecialchars($_POST['destinatario_endereco']);
 
 
-    // Tratamento do upload do arquivo
+    //upload do arquivo
     $arquivoNome = null;
     if (isset($_FILES['arquivo_nome']) && $_FILES['arquivo_nome']['error'] === UPLOAD_ERR_OK) {
         $arquivoTemp = $_FILES['arquivo_nome']['tmp_name'];
@@ -303,7 +301,6 @@ if (isset($_POST["consultar_pedido"])) {
 
     $numeroPedido = $_POST["numeroPedido"];
 
-    // Agora pode chamar o controller se quiser
     $objController->exibir_pedidos($numeroPedido);
 }
 

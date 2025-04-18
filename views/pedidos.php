@@ -102,6 +102,9 @@
         <p><strong>CPF/CNPJ:</strong> <?= $pedido->remetente_cpf_cnpj ?></p>
         <p><strong>Endereço:</strong> <?= $pedido->remetente_endereco ?>, <?= $pedido->remetente_numero ?> - <?= $pedido->remetente_cep ?></p>
 
+        <p><strong>Cadigo de reastreio:</strong> <?= $pedido->id_pedidos?></p>
+
+
         <hr>
 
         <h6><strong>Pedido:</strong></h6>

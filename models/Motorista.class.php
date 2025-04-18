@@ -133,7 +133,6 @@ class Motorista extends Conexao
         }
     }
 
-    //Consultar
     //consultar usuario
     public function exibirMotorista($nomeCompleto = null)
     {

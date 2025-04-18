@@ -2,31 +2,25 @@
 require_once __DIR__ . "/Conexao.class.php";
 
 
-class Rastreio extends Conexao 
+class Rastreio extends Conexao
 {
     private $id_pedidos;
 
-    /**
-     * Get the value of id_pedidos
-     */
     public function getIdPedidos()
     {
         return $this->id_pedidos;
     }
 
-    /**
-     * Set the value of id_pedidos
-     */
     public function setIdPedidos($id_pedidos): self
     {
         $this->id_pedidos = $id_pedidos;
         return $this;
     }
 
-    /**
-     * Método principal de rastreamento
-     */
-    public function Rastrear_pedido($id_pedidos) 
+
+    //Método principal de rastreamento
+
+    public function Rastrear_pedido($id_pedidos)
     {
         $this->setIdPedidos($id_pedidos);
         $con = $this->conectar();
@@ -63,10 +57,7 @@ class Rastreio extends Conexao
             'pedido' => $pedido,
             'rota'   => $rota
         ];
-
     }
 }
-$objRastreio = new Rastreio  ();
+$objRastreio = new Rastreio();
 $objRastreio->Rastrear_pedido(5);
-
-

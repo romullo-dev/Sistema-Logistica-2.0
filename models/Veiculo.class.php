@@ -13,7 +13,7 @@ class Veiculo extends Conexao
     private $status_veiculo;
     private $observacoes;
     private $id_veiculo;
-    
+
 
     public function getPlaca()
     {
@@ -113,7 +113,7 @@ class Veiculo extends Conexao
 
 
     //inserir veiculo
-    public function InserirVeiculo($placa, $modelo , $ano ,$marca, $cor, $status_veiculo,$observacoes)
+    public function InserirVeiculo($placa, $modelo, $ano, $marca, $cor, $status_veiculo, $observacoes)
     {
         $this->setPlaca($placa);
         $this->setModelo($modelo);
@@ -143,14 +143,11 @@ class Veiculo extends Conexao
             $query->execute();
 
             return true;
-
-
-
         } catch (Exception $e) {
             //echo 'Erro ao inserir'.$e->getMessage();
             return false;
         }
-    }   
+    }
 
 
     public function mostrarVeiculo($placa = null)
@@ -175,83 +172,80 @@ class Veiculo extends Conexao
 
             $query->execute();
             return $query->fetchAll(PDO::FETCH_OBJ);
-            
         } catch (Exception $e) {
             //echo"Erro ao consultar". $e->getMessage() ."";
             return false;
-        }    
+        }
     }
 
     //excluir 
 
-     public function excluir_veiculo($id_veiculo)
-     {
-             $this->setIdVeiculo($id_veiculo);
+    public function excluir_veiculo($id_veiculo)
+    {
+        $this->setIdVeiculo($id_veiculo);
 
-             $sql = "DELETE FROM tb_veiculo WHERE id_veiculo = :id_veiculo";
+        $sql = "DELETE FROM tb_veiculo WHERE id_veiculo = :id_veiculo";
 
-             try {
-                     $db = $this->conectar();
-                     $query = $db->prepare($sql);
-                     $query->bindValue(':id_veiculo', $this->getIdVeiculo(), PDO::PARAM_INT);
-                     $query->execute();
-                     if ($query->rowCount() > 0) {
-                             return true;
-                     } else {
-                             return false;
-                     }
-             } catch (PDOException $e) {
-                     print "Erro ao excluir: " . $e->getMessage();
-                     return false;
-             }
-     }
+        try {
+            $db = $this->conectar();
+            $query = $db->prepare($sql);
+            $query->bindValue(':id_veiculo', $this->getIdVeiculo(), PDO::PARAM_INT);
+            $query->execute();
+            if ($query->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            print "Erro ao excluir: " . $e->getMessage();
+            return false;
+        }
+    }
 
-     // Método alterar veículo
-public function alterar_veiculo($modelo, $marca, $cor, $ano, $status_veiculo, $id_veiculo)
-{
-    // Setando os valores
-    $this->setModelo($modelo);
-    $this->setMarca($marca);
-    $this->setCor($cor);
-    $this->setAno($ano);
-    $this->setStatusVeiculo($status_veiculo);
-    $this->setIdVeiculo($id_veiculo);
+    // Método alterar veículo
+    public function alterar_veiculo($modelo, $marca, $cor, $ano, $status_veiculo, $id_veiculo)
+    {
+        // Setando os valores
+        $this->setModelo($modelo);
+        $this->setMarca($marca);
+        $this->setCor($cor);
+        $this->setAno($ano);
+        $this->setStatusVeiculo($status_veiculo);
+        $this->setIdVeiculo($id_veiculo);
 
-    // SQL para atualizar veículo
-    $sql = "UPDATE tb_veiculo SET 
+        // SQL para atualizar veículo
+        $sql = "UPDATE tb_veiculo SET 
             modelo = :modelo,
             marca = :marca,
             cor = :cor,
             ano = :ano,
             status_veiculo = :status_veiculo
             WHERE id_veiculo = :id_veiculo";
-    try {
-        // Conectar ao banco
-        $db = $this->conectar();
-        // Preparar o SQL
-        $query = $db->prepare($sql);
+        try {
+            // Conectar ao banco
+            $db = $this->conectar();
+            // Preparar o SQL
+            $query = $db->prepare($sql);
 
-        // Blindar valores
-        $query->bindValue(":modelo", $modelo, PDO::PARAM_STR);
-        $query->bindValue(":marca", $marca, PDO::PARAM_STR);
-        $query->bindValue(":cor", $cor, PDO::PARAM_STR);
-        $query->bindValue(":ano", $ano, PDO::PARAM_INT);
-        $query->bindValue(":status_veiculo", $status_veiculo, PDO::PARAM_STR);
-        $query->bindValue(":id_veiculo", $id_veiculo, PDO::PARAM_INT);
+            // Blindar valores
+            $query->bindValue(":modelo", $modelo, PDO::PARAM_STR);
+            $query->bindValue(":marca", $marca, PDO::PARAM_STR);
+            $query->bindValue(":cor", $cor, PDO::PARAM_STR);
+            $query->bindValue(":ano", $ano, PDO::PARAM_INT);
+            $query->bindValue(":status_veiculo", $status_veiculo, PDO::PARAM_STR);
+            $query->bindValue(":id_veiculo", $id_veiculo, PDO::PARAM_INT);
 
-        // Executar a query
-        $query->execute();
+            // Executar a query
+            $query->execute();
 
-        //echo "Veículo alterado com sucesso!";
-        return true;
-    } catch (PDOException $e) {
-        echo "Erro ao alterar: " . $e->getMessage();
-        return false;
+            
+            //echo "Veículo alterado com sucesso!";
+            return true;
+        } catch (PDOException $e) {
+            echo "Erro ao alterar: " . $e->getMessage();
+            return false;
+        }
     }
-}
-
-
-
 }
 
 /*$objveiculo = new Veiculo();

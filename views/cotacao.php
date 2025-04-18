@@ -41,7 +41,7 @@
 
 <div class="container mt-4">
     <div class="card shadow-sm rounded-4">
-        <div class="card-header bg-primary text-white rounded-top-4">
+        <div class="card-header   text-white rounded-top-4" style="background-color: #3e84b0;">
             <h5 class="mb-0"><i class="bi bi-clipboard-data me-2"></i>Formulário de Cotação</h5>
         </div>
         <div class="card-body">
@@ -124,7 +124,6 @@
                     <input class="form-control" type="file" name="arquivo_nome" accept="application/pdf" required>
                 </div>
 
-                <!-- Botão -->
                 <div class="text-end">
                     <button type="submit" name="incluir_pedido" class="btn btn-success px-4">
                         <i class="bi bi-send-fill me-1"></i> Enviar Cotação

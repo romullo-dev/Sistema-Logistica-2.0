@@ -97,15 +97,12 @@
 
 <body>
 
-    <!-- Menu de Navegação -->
     <?php print $menu ?>
 
-    <!-- Conteúdo da Página -->
     <div class="content">
         <h1 class="page-title">Bem-vindo a DNA Transportes</h1>
 
         <div class="card-deck">
-            <!-- Card 1 -->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Rastrear Encomenda</h5>
@@ -114,7 +111,6 @@
                 </div>
             </div>
 
-            <!-- Card 2 -->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Pedidos</h5>
@@ -123,7 +119,6 @@
                 </div>
             </div>
 
-            <!-- Card 3 -->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Cotação</h5>

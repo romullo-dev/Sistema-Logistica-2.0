@@ -154,7 +154,7 @@ class Usuario extends Conexao
                 $this->setIdTipo($id_tipo);
                 $this->setIdStatusFunc($id_status_func);
                 $this->setFoto($foto);
-                $this->setIdUsuario( $id_usuario);
+                $this->setIdUsuario($id_usuario);
                 $this->setEmail($email);
 
                 //MONTAR QUERY
@@ -257,7 +257,7 @@ class Usuario extends Conexao
                 $this->setIdStatusFunc($id_status_func);
                 $this->setFoto($foto);
                 $this->setEmail($email);
-                $this->setIdUsuario( $id_usuario);
+                $this->setIdUsuario($id_usuario);
 
 
                 // SQL para atualizar usuário
@@ -291,7 +291,7 @@ class Usuario extends Conexao
 
                         if (!empty($foto)) {
                                 $query->bindValue(":foto", $foto);
-                            }
+                        }
 
                         // Executar a query
                         $query->execute();

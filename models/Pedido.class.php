@@ -36,9 +36,6 @@ class Pedido extends Conexao
         return $this->arquivoNome;
     }
 
-    /**
-     * Set the value of remetenteCpfCnpj
-     */
     public function setArquivoNome($arquivoNome): self
     {
         $this->arquivoNome = $arquivoNome;
@@ -48,19 +45,11 @@ class Pedido extends Conexao
 
 
 
-
-
-    /**
-     * Get the value of remetenteCpfCnpj
-     */
     public function getRemetenteCpfCnpj()
     {
         return $this->remetenteCpfCnpj;
     }
 
-    /**
-     * Set the value of remetenteCpfCnpj
-     */
     public function setRemetenteCpfCnpj($remetenteCpfCnpj): self
     {
         $this->remetenteCpfCnpj = $remetenteCpfCnpj;
@@ -68,17 +57,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of remetenteNome
-     */
     public function getRemetenteNome()
     {
         return $this->remetenteNome;
     }
 
-    /**
-     * Set the value of remetenteNome
-     */
     public function setRemetenteNome($remetenteNome): self
     {
         $this->remetenteNome = $remetenteNome;
@@ -86,17 +69,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of remetente_cep
-     */
     public function getRemetenteCep()
     {
         return $this->remetente_cep;
     }
 
-    /**
-     * Set the value of remetente_cep
-     */
     public function setRemetenteCep($remetente_cep): self
     {
         $this->remetente_cep = $remetente_cep;
@@ -104,17 +81,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of remetente_endereco
-     */
     public function getRemetenteEndereco()
     {
         return $this->remetente_endereco;
     }
 
-    /**
-     * Set the value of remetente_endereco
-     */
     public function setRemetenteEndereco($remetente_endereco): self
     {
         $this->remetente_endereco = $remetente_endereco;
@@ -122,17 +93,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of remetente_numero
-     */
     public function getRemetenteNumero()
     {
         return $this->remetente_numero;
     }
 
-    /**
-     * Set the value of remetente_numero
-     */
     public function setRemetenteNumero($remetente_numero): self
     {
         $this->remetente_numero = $remetente_numero;
@@ -140,17 +105,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of pedidoNumero
-     */
     public function getPedidoNumero()
     {
         return $this->pedidoNumero;
     }
 
-    /**
-     * Set the value of pedidoNumero
-     */
     public function setPedidoNumero($pedidoNumero): self
     {
         $this->pedidoNumero = $pedidoNumero;
@@ -158,17 +117,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of notaNumero
-     */
     public function getNotaNumero()
     {
         return $this->notaNumero;
     }
 
-    /**
-     * Set the value of notaNumero
-     */
     public function setNotaNumero($notaNumero): self
     {
         $this->notaNumero = $notaNumero;
@@ -176,17 +129,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of chaveNota
-     */
     public function getChaveNota()
     {
         return $this->chaveNota;
     }
 
-    /**
-     * Set the value of chaveNota
-     */
     public function setChaveNota($chaveNota): self
     {
         $this->chaveNota = $chaveNota;
@@ -194,17 +141,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of destinatarioCpfCnpj
-     */
     public function getDestinatarioCpfCnpj()
     {
         return $this->destinatarioCpfCnpj;
     }
 
-    /**
-     * Set the value of destinatarioCpfCnpj
-     */
     public function setDestinatarioCpfCnpj($destinatarioCpfCnpj): self
     {
         $this->destinatarioCpfCnpj = $destinatarioCpfCnpj;
@@ -212,17 +153,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of destinatarioNome
-     */
     public function getDestinatarioNome()
     {
         return $this->destinatarioNome;
     }
 
-    /**
-     * Set the value of destinatarioNome
-     */
     public function setDestinatarioNome($destinatarioNome): self
     {
         $this->destinatarioNome = $destinatarioNome;
@@ -230,17 +165,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of destinatario_cep
-     */
     public function getDestinatarioCep()
     {
         return $this->destinatario_cep;
     }
 
-    /**
-     * Set the value of destinatario_cep
-     */
     public function setDestinatarioCep($destinatario_cep): self
     {
         $this->destinatario_cep = $destinatario_cep;
@@ -248,17 +177,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of destinatario_numero
-     */
     public function getDestinatarioNumero()
     {
         return $this->destinatario_numero;
     }
 
-    /**
-     * Set the value of destinatario_numero
-     */
     public function setDestinatarioNumero($destinatario_numero): self
     {
         $this->destinatario_numero = $destinatario_numero;
@@ -266,17 +189,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of destinatario_endereco
-     */
     public function getDestinatarioEndereco()
     {
         return $this->destinatario_endereco;
     }
 
-    /**
-     * Set the value of destinatario_endereco
-     */
     public function setDestinatarioEndereco($destinatario_endereco): self
     {
         $this->destinatario_endereco = $destinatario_endereco;
@@ -284,17 +201,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of data
-     */
     public function getData()
     {
         return $this->data;
     }
 
-    /**
-     * Set the value of data
-     */
     public function setData($data): self
     {
         $this->data = $data;
@@ -302,17 +213,11 @@ class Pedido extends Conexao
         return $this;
     }
 
-    /**
-     * Get the value of id_pedidos
-     */
     public function getIdPedidos()
     {
         return $this->id_pedidos;
     }
 
-    /**
-     * Set the value of id_pedidos
-     */
     public function setIdPedidos($id_pedidos): self
     {
         $this->id_pedidos = $id_pedidos;
