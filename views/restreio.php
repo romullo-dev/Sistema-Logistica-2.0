@@ -48,7 +48,7 @@
                 <!-- Formulário de rastreio -->
                 <form method="POST" action="index.php">
                     <div class="mb-3">
-                        <label for="pedido_id" class="form-label">Digite o código de rastreio (ID do Pedido):</label>
+                        <label for="pedido_id" class="form-label">Digite o código de rastreio :</label>
                         <input type="text" class="form-control" name="pedido_id" id="pedido_id" placeholder="Digite o código de rastreio" required>
                     </div>
                     <button type="submit" class="btn btn-primary" style="background-color: #3e84b0; border: none;" name="consultar_rastreio">Rastrear Pedido</button>

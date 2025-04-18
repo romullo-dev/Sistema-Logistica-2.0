@@ -241,24 +241,36 @@ if (isset($_POST['incluir_pedido'])) {
 
     $objController = new Controller();
 
-    //remetente
-    $remetenteCpfCnpj = htmlspecialchars($_POST['remetente_cpf_cnpj']);
-    $remetenteNome = htmlspecialchars($_POST['remetente_nome']);
-    $remetente_cep = htmlspecialchars($_POST['remetente_cep']);
-    $remetente_endereco = htmlspecialchars($_POST['remetente_endereco']);
-    $remetente_numero = htmlspecialchars($_POST['remetente_numero']);
 
-    // Informações do Pedido
-    $pedidoNumero = htmlspecialchars($_POST['pedido_numero']);
-    $notaNumero = htmlspecialchars($_POST['nota_numero']);
-    $chaveNota = htmlspecialchars($_POST['chave_nota']);
+    if (isset($_FILES['arquivo_xml']) && $_FILES['arquivo_xml']['error'] === UPLOAD_ERR_OK) {
+        $caminhoTemporario = $_FILES['arquivo_xml']['tmp_name'];
 
-    //Destinatário
-    $destinatarioCpfCnpj = htmlspecialchars($_POST['destinatario_cpf_cnpj']);
-    $destinatarioNome = htmlspecialchars($_POST['destinatario_nome']);
-    $destinatario_cep = htmlspecialchars($_POST['destinatario_cep']);
-    $destinatario_numero = htmlspecialchars($_POST['destinatario_numero']);
-    $destinatario_endereco = htmlspecialchars($_POST['destinatario_endereco']);
+        $xml  = simplexml_load_file($caminhoTemporario);
+
+        if (isset($xml->NFe->infNFe)) {
+            $remetente_cpf_cnpj = (string)$xml->NFe->infNFe->emit->CNPJ;
+            $remetenteNome = (string)$xml->NFe->infNFe->emit->xNome;
+            $remetente_cep = (string)$xml->NFe->infNFe->emit->enderEmit->CEP;
+            $remetente_endereco = (string)$xml->NFe->infNFe->emit->enderEmit->xLgr;
+            $remetente_numero = (string)$xml->NFe->infNFe->emit->enderEmit->nro;
+
+            // Informações do Pedido / Nota
+            $pedidoNumero = (string)$xml->NFe->infNFe->ide->nNF;
+            $notaNumero = (string)$xml->NFe->infNFe->ide->nNF;
+            $chaveNota = (string)$xml->protNFe->infProt->chNFe;
+
+            // Destinatário
+            $destinatarioCpfCnpj = (string)$xml->NFe->infNFe->dest->CNPJ;
+            $destinatarioNome = (string)$xml->NFe->infNFe->dest->xNome;
+            $destinatario_cep = (string)$xml->NFe->infNFe->dest->enderDest->CEP;
+            $destinatario_endereco = (string)$xml->NFe->infNFe->dest->enderDest->xLgr;
+            $destinatario_numero = (string)$xml->NFe->infNFe->dest->enderDest->nro;
+        } else {
+            echo "Não foi possível localizar a NFe no XML.";
+        }
+    }
+
+
 
 
     //upload do arquivo
@@ -276,14 +288,16 @@ if (isset($_POST['incluir_pedido'])) {
         }
     }
 
+
+
     $objController->inserir_Pedido(
         $arquivoNome,
-        $destinatario_endereco,
+       $destinatario_endereco,
         $destinatario_numero,
         $destinatario_cep,
         $remetente_numero,
         $remetente_endereco,
-        $remetenteCpfCnpj,
+        $remetente_cpf_cnpj,
         $remetenteNome,
         $pedidoNumero,
         $notaNumero,
@@ -299,9 +313,9 @@ if (isset($_POST['incluir_pedido'])) {
 if (isset($_POST["consultar_pedido"])) {
     $objController = new Controller();
 
-    $numeroPedido = $_POST["numeroPedido"];
+    $numeroNota = $_POST["numeroNota"];
 
-    $objController->exibir_pedidos($numeroPedido);
+    $objController->exibir_pedidos($numeroNota);
 }
 
 
@@ -330,10 +344,20 @@ if (isset($_POST["inserirRotas"])) {
 
 
 
-    $objController->inserirRota($tipo_rota, $nome_rota, $origem, 
-    $destino, $previsao,$data_saida, $motorista_id, 
-    $veiculo_id, $observacoes, $status_rota,
-     $distancia, $chaves);
+    $objController->inserirRota(
+        $tipo_rota,
+        $nome_rota,
+        $origem,
+        $destino,
+        $previsao,
+        $data_saida,
+        $motorista_id,
+        $veiculo_id,
+        $observacoes,
+        $status_rota,
+        $distancia,
+        $chaves
+    );
 }
 
 
@@ -372,21 +396,10 @@ if (isset($_POST['consultar_rotas'])) {
 if (isset($_POST['atualizar_status_rota'])) {
 
     $objController = new Controller();
-    
+
 
     $status_rota = $_POST['status_rota'];
     $id_rota =  $_POST['id_rota'];
 
-    $objController->alterRota( $id_rota,$status_rota);
+    $objController->alterRota($id_rota, $status_rota);
 }
-
-
-
-
-
-
-
-
-
-
-

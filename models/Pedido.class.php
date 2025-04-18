@@ -251,14 +251,18 @@ class Pedido extends Conexao
         $this->setArquivoNome($arquivoNome);
 
 
+        $codigoRastreamento = $this->gerarCodigoRastreio();
 
-
-
-
-        $sql = "INSERT INTO tb_pedidos
-        (remetente_cpf_cnpj, remetente_nome, remetente_cep, remetente_endereco, remetente_numero, pedido_numero, nota_numero, chave_nota, destinatario_cpf_cnpj, destinatario_nome, destinatario_cep, destinatario_endereco, destinatario_numero, arquivo_nome)
-        VALUES
-        (:remetente_cpf_cnpj, :remetente_nome, :remetente_cep, :remetente_endereco, :remetente_numero, :pedido_numero, :nota_numero, :chave_nota, :destinatario_cpf_cnpj, :destinatario_nome, :destinatario_cep, :destinatario_endereco, :destinatario_numero, :arquivo_nome)";
+        $sql = "INSERT INTO tb_pedidos 
+                (remetente_cpf_cnpj, remetente_nome, remetente_cep, remetente_endereco, remetente_numero,
+                pedido_numero, nota_numero, chave_nota,
+                destinatario_cpf_cnpj, destinatario_nome, destinatario_cep, destinatario_endereco, destinatario_numero,
+                arquivo_nome, codigo_rastreamento)
+                VALUES 
+                (:remetente_cpf_cnpj, :remetente_nome, :remetente_cep, :remetente_endereco, :remetente_numero,
+                :pedido_numero, :nota_numero, :chave_nota,
+                :destinatario_cpf_cnpj, :destinatario_nome, :destinatario_cep, :destinatario_endereco, :destinatario_numero,
+                :arquivo_nome, :codigo_rastreamento)";
 
         try {
             $db = $this->conectar();
@@ -281,37 +285,43 @@ class Pedido extends Conexao
             $query->bindValue(":destinatario_numero", $destinatario_numero, PDO::PARAM_INT);
 
             $query->bindValue(":arquivo_nome", $arquivoNome, PDO::PARAM_STR);
+            $query->bindValue(":codigo_rastreamento", $codigoRastreamento);
+
 
             $query->execute();
 
-            return true;
+            return $codigoRastreamento;
+
+            //return true;
         } catch (Exception $e) {
             echo "Erro" . $e->getMessage();
         }
     }
 
     //mostrar
-    public function exibir_pedidos($pedido_numero = null)
+    public function exibir_pedidos($notaNumero = null)
     {
         $sql = "SELECT * FROM tb_pedidos WHERE 1=1";
 
-        if (!empty($nomeCompleto)) {
-            $sql .= " AND pedido_numero LIKE :pedido_numero";
+        if (!empty($notaNumero)) {
+            $sql .= " AND nota_numero LIKE :notaNumero";
         }
 
-        $sql .= " ORDER BY pedido_numero";
+        $sql .= " ORDER BY nota_numero";
 
         try {
             $bd = $this->conectar();
             $query = $bd->prepare($sql);
 
-            if (!empty($nomeCompleto)) {
-                $nomeBusca = "%" . $pedido_numero . "%";
-                $query->bindValue(':pedido_numero', $nomeBusca, PDO::PARAM_STR);
+            if (!empty($notaNumero)) {
+                $nomeBusca = "%" . $notaNumero . "%";
+                $query->bindValue(':notaNumero', $nomeBusca, PDO::PARAM_STR);
             }
 
             $query->execute();
             return $query->fetchAll(PDO::FETCH_OBJ);
+
+
 
             //print_r($resul);
         } catch (PDOException $e) {
@@ -321,8 +331,19 @@ class Pedido extends Conexao
     }
 
 
-
+    //codigo de rastrio
+    public function gerarCodigoRastreio()
+    {
+        $data = date('Ymd');
+        $sql = "SELECT COUNT(*) as total FROM tb_pedidos WHERE DATE(data) = CURDATE()";
+        $db = $this->conectar();
+        $stmt = $db->query($sql);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $numero = $result['total'] + 1;
+        return "177-$data" . str_pad($numero, 3, '0', STR_PAD_LEFT);
+    }
 }
-
 /*$obj = new Pedido();
-$obj->exibir_pedidos('');*/
+$obj->exibir_pedidos(1245
+
+);*/

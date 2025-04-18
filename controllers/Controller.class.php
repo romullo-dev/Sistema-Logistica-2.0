@@ -332,7 +332,15 @@ class Controller
     {
         $objPedido = new Pedido();
 
-        if ($objPedido->InserirPedido($arquivoNome, $destinatario_endereco, $destinatario_numero, $destinatario_cep, $remetente_numero, $remetente_endereco, $remetenteCpfCnpj, $remetenteNome, $pedidoNumero, $notaNumero, $chaveNota, $destinatarioCpfCnpj, $destinatarioNome, $remetente_cep) === true) {
+        $codigoRastreamento = $objPedido->InserirPedido($arquivoNome, $destinatario_endereco, $destinatario_numero, 
+        $destinatario_cep, $remetente_numero, $remetente_endereco,
+         $remetenteCpfCnpj, $remetenteNome, $pedidoNumero,
+          $notaNumero, $chaveNota, $destinatarioCpfCnpj,
+           $destinatarioNome, $remetente_cep);
+
+        
+
+        if (isset($codigoRastreamento) ) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
@@ -342,7 +350,7 @@ class Controller
 
 
 
-            $this->mostrarMensagem('Pedido enviado com Sucesso!');
+            $this->mostrarMensagem('Pedido enviado com Sucesso! O código de rastreio do seu pedido é: ' . $codigoRastreamento);
 
             include_once 'views/cotacao.php';
         } else {
@@ -357,10 +365,10 @@ class Controller
         }
     }
 
-    public function exibir_pedidos($pedido_numero)
+    public function exibir_pedidos($notaNumero)
     {
         $objPedido = new Pedido();
-        $resultado = $objPedido->exibir_pedidos($pedido_numero);
+        $resultado = $objPedido->exibir_pedidos($notaNumero);
 
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
@@ -385,7 +393,10 @@ class Controller
     {
         $objrotas = new Rotas();
 
-        if ($objrotas->inserir_rotas($tipo_rota, $nome_rota, $origem, $destino, $previsao, $data_saida, $motorista_id, $veiculo_id, $observacoes, $status_rota, $distancia, $chaves) === true) {
+        if ($objrotas->inserir_rotas($tipo_rota, $nome_rota, $origem, $destino, 
+        $previsao, $data_saida, $motorista_id, $veiculo_id,
+         $observacoes, $status_rota, $distancia, $chaves
+         ) === true) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             };

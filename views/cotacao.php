@@ -51,11 +51,11 @@
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="remetente_cnpj_cpf" class="form-label">CNPJ/CPF</label>
-                        <input type="text" class="form-control" name="remetente_cpf_cnpj" required>
+                        <input type="text" class="form-control" name="remetente_cpf_cnpj" >
                     </div>
                     <div class="col-md-8">
                         <label for="remetente_nome" class="form-label">Razão Social / Nome</label>
-                        <input type="text" class="form-control" name="remetente_nome" required>
+                        <input type="text" class="form-control" name="remetente_nome" >
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -95,11 +95,11 @@
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="destinatario_cnpj_cpf" class="form-label">CNPJ/CPF</label>
-                        <input type="text" class="form-control" name="destinatario_cpf_cnpj" required>
+                        <input type="text" class="form-control" name="destinatario_cpf_cnpj" >
                     </div>
                     <div class="col-md-8">
                         <label for="destinatario_nome" class="form-label">Razão Social / Nome</label>
-                        <input type="text" class="form-control" name="destinatario_nome" required>
+                        <input type="text" class="form-control" name="destinatario_nome" >
                     </div>
                 </div>
 
@@ -120,8 +120,16 @@
 
                 <!-- Anexar Documento PDF -->
                 <h6 class="mt-4"><i class="bi bi-paperclip"></i> Anexar Documento</h6>
-                <div class="mb-3">
-                    <input class="form-control" type="file" name="arquivo_nome" accept="application/pdf" required>
+
+                <div class="row mb-3">
+
+                    <div class="col-md-3">
+                        <input class="form-control" type="file" name="arquivo_nome" accept="application/pdf" >
+                    </div>
+
+                    <div class="col-md-3">
+                        <input class="form-control" type="file" name="arquivo_xml" accept=".xml" required>
+                    </div>
                 </div>
 
                 <div class="text-end">
@@ -129,6 +137,8 @@
                         <i class="bi bi-send-fill me-1"></i> Enviar Cotação
                     </button>
                 </div>
+
+
             </form>
         </div>
     </div>
@@ -140,16 +150,16 @@
 
 
 
-    <!-- Bootstrap JavaScript Libraries -->
-    <script
-        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
+<!-- Bootstrap JavaScript Libraries -->
+<script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
