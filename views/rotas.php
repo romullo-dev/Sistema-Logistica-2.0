@@ -59,10 +59,11 @@ try {
                             </label>
                             <select class="form-select" id="tipo_rota" name="tipo_rota" required>
                                 <option value="" selected disabled>Selecione o tipo</option>
-                                <option value="Distribuição">Distribuição</option>
+                                <option value="Em Processo de Coleta">Coleta</option>
+                                <option value="Em transferência para o CD destino">Transferência</option>
+                                <option value="Em rota de entrega">Distribuição</option>
                                 <option value="Transbordo">Transbordo</option>
                                 <option value="Devolução">Devolução</option>
-                                <option value="Transferência">Transferência</option>
                                 <option value="Dedicada">Dedicada</option>
                             </select>
                         </div>

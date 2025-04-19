@@ -138,6 +138,9 @@
                     </button>
                 </div>
 
+                <input type="hidden" name="status_pedido" value="Em preparação">
+
+
 
             </form>
         </div>

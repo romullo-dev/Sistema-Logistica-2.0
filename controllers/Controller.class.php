@@ -328,7 +328,7 @@ class Controller
         }
     }
 
-    public function inserir_Pedido($arquivoNome, $destinatario_endereco, $destinatario_numero, $destinatario_cep, $remetente_numero, $remetente_endereco, $remetenteCpfCnpj, $remetenteNome, $pedidoNumero, $notaNumero, $chaveNota, $destinatarioCpfCnpj, $destinatarioNome, $remetente_cep)
+    public function inserir_Pedido($arquivoNome, $destinatario_endereco, $destinatario_numero, $destinatario_cep, $remetente_numero, $remetente_endereco, $remetenteCpfCnpj, $remetenteNome, $pedidoNumero, $notaNumero, $chaveNota, $destinatarioCpfCnpj, $destinatarioNome, $remetente_cep,$status_rota)
     {
         $objPedido = new Pedido();
 
@@ -336,7 +336,7 @@ class Controller
         $destinatario_cep, $remetente_numero, $remetente_endereco,
          $remetenteCpfCnpj, $remetenteNome, $pedidoNumero,
           $notaNumero, $chaveNota, $destinatarioCpfCnpj,
-           $destinatarioNome, $remetente_cep);
+           $destinatarioNome, $remetente_cep,   $status_rota);
 
         
 
@@ -386,6 +386,15 @@ class Controller
         }
     }
 
+
+    // Controller
+public function status_pedidos($chaves, $status)
+{
+    $pedidoModel = new Pedido();
+    $pedidoModel->status_pedidos($chaves, $status); // agora passa array
+}
+
+    
     // ROTAS
 
 

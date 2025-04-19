@@ -270,6 +270,8 @@ if (isset($_POST['incluir_pedido'])) {
         }
     }
 
+    $status_rota = htmlspecialchars($_POST['status_pedido']);
+
 
 
 
@@ -304,7 +306,8 @@ if (isset($_POST['incluir_pedido'])) {
         $chaveNota,
         $destinatarioCpfCnpj,
         $destinatarioNome,
-        $remetente_cep
+        $remetente_cep,
+        $status_rota
     );
 }
 
@@ -358,7 +361,14 @@ if (isset($_POST["inserirRotas"])) {
         $distancia,
         $chaves
     );
+
+    $objController->status_pedidos($chaves,  $status_rota);
+
 }
+
+
+
+
 
 
 //RASTREIO 

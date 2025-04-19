@@ -27,9 +27,22 @@ class Pedido extends Conexao
     //adicionais    
     private $data;
     private $id_pedidos;
-
     private $arquivoNome;
 
+    private $status_pedido;
+
+
+    public function getstatus_pedido()
+    {
+        return $this->status_pedido;
+    }
+
+    public function setstatus_pedido($status_pedido): self
+    {
+        $this->status_pedido = $status_pedido;
+
+        return $this;
+    }
 
     public function getArquivoNome()
     {
@@ -226,7 +239,7 @@ class Pedido extends Conexao
     }
 
 
-    public function InserirPedido($arquivoNome, $destinatario_endereco, $destinatario_numero, $destinatario_cep, $remetente_numero, $remetente_endereco, $remetenteCpfCnpj, $remetenteNome, $pedidoNumero, $notaNumero, $chaveNota, $destinatarioCpfCnpj, $destinatarioNome, $remetente_cep)
+    public function InserirPedido($arquivoNome, $destinatario_endereco, $destinatario_numero, $destinatario_cep, $remetente_numero, $remetente_endereco, $remetenteCpfCnpj, $remetenteNome, $pedidoNumero, $notaNumero, $chaveNota, $destinatarioCpfCnpj, $destinatarioNome, $remetente_cep, $status_pedido)
     {
         //remetente
         $this->setRemetenteCpfCnpj($remetenteCpfCnpj);
@@ -249,6 +262,8 @@ class Pedido extends Conexao
         $this->setDestinatarioNumero($destinatario_numero);
 
         $this->setArquivoNome($arquivoNome);
+        $this->setstatus_pedido($status_pedido);
+
 
 
         $codigoRastreamento = $this->gerarCodigoRastreio();
@@ -257,12 +272,12 @@ class Pedido extends Conexao
                 (remetente_cpf_cnpj, remetente_nome, remetente_cep, remetente_endereco, remetente_numero,
                 pedido_numero, nota_numero, chave_nota,
                 destinatario_cpf_cnpj, destinatario_nome, destinatario_cep, destinatario_endereco, destinatario_numero,
-                arquivo_nome, codigo_rastreamento)
+                arquivo_nome, codigo_rastreamento,status_pedido)
                 VALUES 
                 (:remetente_cpf_cnpj, :remetente_nome, :remetente_cep, :remetente_endereco, :remetente_numero,
                 :pedido_numero, :nota_numero, :chave_nota,
                 :destinatario_cpf_cnpj, :destinatario_nome, :destinatario_cep, :destinatario_endereco, :destinatario_numero,
-                :arquivo_nome, :codigo_rastreamento)";
+                :arquivo_nome, :codigo_rastreamento,:status_pedido)";
 
         try {
             $db = $this->conectar();
@@ -286,6 +301,8 @@ class Pedido extends Conexao
 
             $query->bindValue(":arquivo_nome", $arquivoNome, PDO::PARAM_STR);
             $query->bindValue(":codigo_rastreamento", $codigoRastreamento);
+            $query->bindValue(":status_pedido", $status_pedido);
+
 
 
             $query->execute();
@@ -342,8 +359,54 @@ class Pedido extends Conexao
         $numero = $result['total'] + 1;
         return "177-$data" . str_pad($numero, 3, '0', STR_PAD_LEFT);
     }
+
+
+    public function status_pedidos(array $chavesNota, string $status_pedidos)
+    {
+        $this->setstatus_pedido($status_pedidos);
+        $db = $this->conectar();
+
+        foreach ($chavesNota as $chaveNota) {
+            $this->setChaveNota($chaveNota);
+
+            $sql = "SELECT id_pedidos FROM tb_pedidos WHERE chave_nota = :chaveNota";
+            $query = $db->prepare($sql);
+            $query->bindValue(':chaveNota', $chaveNota, PDO::PARAM_STR);
+            $query->execute();
+
+            $pedido = $query->fetch(PDO::FETCH_ASSOC);
+
+            if ($pedido) {
+                $id_pedidos = $pedido['id_pedidos'];
+
+                $sqlUpdate = "UPDATE tb_pedidos 
+                              SET status_pedido = :status_pedido 
+                              WHERE id_pedidos = :id_pedidos";
+
+                try {
+                    $queryUpdate = $db->prepare($sqlUpdate);
+                    $queryUpdate->bindValue(':status_pedido', $status_pedidos, PDO::PARAM_STR);
+                    $queryUpdate->bindValue(':id_pedidos', $id_pedidos, PDO::PARAM_INT);
+                    $queryUpdate->execute();
+
+                    echo "✔️ Status do pedido com chave $chaveNota atualizado com sucesso!<br>";
+                } catch (Exception $e) {
+                    echo "❌ Erro ao atualizar chave $chaveNota: " . $e->getMessage() . "<br>";
+                }
+            } else {
+                echo "⚠️ Chave $chaveNota não encontrada na tabela!<br>";
+            }
+        }
+    }
 }
 /*$obj = new Pedido();
-$obj->exibir_pedidos(1245
-
+$obj = new Pedido();
+$obj->status_pedidos(
+    [
+        '22222222222222222222222222222222222222222222',
+        '52230902391701001104550050000055511358206815',
+        '35250412420164000580550010001560031353237622'
+    ],
+    'Em rota de entrega'
 );*/
+
