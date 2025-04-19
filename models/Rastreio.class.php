@@ -25,7 +25,7 @@ class Rastreio extends Conexao
         $this->setIdPedidos($id_pedidos);
         $con = $this->conectar();
 
-        $sql_pedido = "SELECT * FROM tb_pedidos WHERE id_pedidos = :id_pedidos";
+        $sql_pedido = "SELECT * FROM tb_pedidos WHERE codigo_rastreamento = :id_pedidos";
         $stmt_pedido = $con->prepare($sql_pedido);
         $stmt_pedido->bindParam(":id_pedidos", $this->id_pedidos);
         $stmt_pedido->execute();
