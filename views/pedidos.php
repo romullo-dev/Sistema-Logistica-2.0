@@ -71,9 +71,15 @@
                                         data-bs-target="#modal_visualizar_pedido<?= $valor->id_pedidos ?>">
                                         <i class="bi bi-eye-fill"></i>
                                     </button>
-                                    <a href="index.php?editar_cotacao=<?= $cotacao['id'] ?>" class="btn btn-sm btn-outline-primary me-1" title="Editar">
-                                        <i class="bi bi-pencil-fill"></i>
-                                    </a>
+                                    <button type="button"
+    class="btn btn-sm btn-outline-primary me-1"
+    title="Editar Status da Rota"
+    data-bs-toggle="modal"
+    data-bs-target="#modal_editar_status_rota<?= $valor->id_rota ?>">
+    <i class="bi bi-pencil-fill"></i>
+</button>
+
+
                                     <a href="index.php?excluir_cotacao=<?= $cotacao['id'] ?>" class="btn btn-sm btn-outline-danger" title="Excluir" onclick="return confirm('Deseja realmente excluir esta cotação?')">
                                         <i class="bi bi-trash-fill"></i>
                                     </a>
@@ -111,7 +117,7 @@
                             <p><strong>Número do Pedido:</strong> <?= $pedido->pedido_numero ?></p>
                             <p><strong>Número da Nota:</strong> <?= $pedido->nota_numero ?></p>
                             <p><strong>Chave da Nota:</strong> <?= $pedido->chave_nota ?></p>
-                            <p><strong>Data de criação:</strong> <?= date('d/m/Y', timestamp: strtotime($valor->data))?></p>
+                            <p><strong>Data de criação:</strong> <?= date('d/m/Y', timestamp: strtotime($valor->data)) ?></p>
 
 
                             <hr>
@@ -166,6 +172,43 @@
 
         ?>
         <?php endforeach; ?>
+
+
+        
+
+        <?php foreach ($resultado as $rota): ?>
+    <div class="modal fade" id="modal_editar_status_rota<?= $rota->id_rota ?>" tabindex="-1" aria-labelledby="editarStatusLabel<?= $rota->id_rota ?>" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="index.php">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="editarStatusLabel<?= $rota->id_rota ?>">Editar Status da Rota #<?= $rota->id_rota ?></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id_rota" value="<?= $rota->id_rota ?>">
+
+                        <div class="mb-3">
+                            <label for="status_rota<?= $rota->id_rota ?>" class="form-label">Status da Rota</label>
+                            <select class="form-select" id="status_rota<?= $rota->id_rota ?>" name="status_rota" required>
+                                <option value="Em preparação" <?= $rota->status_rota === 'Em preparação' ? 'selected' : '' ?>>Em preparação</option>
+                                <option value="Saiu do centro de distribuição" <?= $rota->status_rota === 'Saiu do centro de distribuição' ? 'selected' : '' ?>>Saiu do centro de distribuição</option>
+                                <option value="Em trânsito" <?= $rota->status_rota === 'Em trânsito' ? 'selected' : '' ?>>Em trânsito</option>
+                                <option value="Entregue" <?= $rota->status_rota === 'Entregue' ? 'selected' : '' ?>>Entregue</option>
+                                <option value="Cancelado" <?= $rota->status_rota === 'Cancelado' ? 'selected' : '' ?>>Cancelado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="atualizar_status_rota" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
 
 
 

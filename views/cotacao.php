@@ -47,79 +47,9 @@
         <div class="card-body">
             <form action="index.php" method="POST" enctype="multipart/form-data">
                 <!-- Remetente -->
-                <h6 class="mt-3"><i class="bi bi-person-fill"></i> Dados do Remetente</h6>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="remetente_cnpj_cpf" class="form-label">CNPJ/CPF</label>
-                        <input type="text" class="form-control" name="remetente_cpf_cnpj" >
-                    </div>
-                    <div class="col-md-8">
-                        <label for="remetente_nome" class="form-label">Razão Social / Nome</label>
-                        <input type="text" class="form-control" name="remetente_nome" >
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        <label for="remetente_cep" class="form-label">CEP</label>
-                        <input type="text" class="form-control" maxlength="8" name="remetente_cep">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="remetente_endereco" class="form-label">Endereço</label>
-                        <input type="text" class="form-control" name="remetente_endereco">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="remetente_numero" class="form-label">Número</label>
-                        <input type="number" class="form-control" name="remetente_numero">
-                    </div>
-                </div>
-
-                <!-- Informações do Pedido -->
-                <h6 class="mt-4"><i class="bi bi-receipt"></i> Informações do Pedido</h6>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="numero_pedido" class="form-label">Número do Pedido</label>
-                        <input type="text" class="form-control" name="pedido_numero">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="numero_nota" class="form-label">Número da Nota</label>
-                        <input type="text" class="form-control" name="nota_numero">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="bipagem" class="form-label">Cheve NF-e</label>
-                        <input type="text" class="form-control" name="chave_nota">
-                    </div>
-                </div>
-
-                <!-- Destinatário -->
-                <h6 class="mt-4"><i class="bi bi-person-badge-fill"></i> Dados do Destinatário</h6>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="destinatario_cnpj_cpf" class="form-label">CNPJ/CPF</label>
-                        <input type="text" class="form-control" name="destinatario_cpf_cnpj" >
-                    </div>
-                    <div class="col-md-8">
-                        <label for="destinatario_nome" class="form-label">Razão Social / Nome</label>
-                        <input type="text" class="form-control" name="destinatario_nome" >
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        <label for="destinatario_cep" class="form-label">CEP</label>
-                        <input type="text" class="form-control" maxlength="8" name="destinatario_cep">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="destinatario_endereco" class="form-label">Endereço</label>
-                        <input type="text" class="form-control" name="destinatario_endereco">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="destinatario_numero" class="form-label">Número</label>
-                        <input type="text" class="form-control" name="destinatario_numero">
-                    </div>
-                </div>
-
+                
                 <!-- Anexar Documento PDF -->
-                <h6 class="mt-4"><i class="bi bi-paperclip"></i> Anexar Documento</h6>
+                <h6 class="mt-4"><i class="bi bi-paperclip"></i> Anexar Documento PDF / XML</h6>
 
                 <div class="row mb-3">
 

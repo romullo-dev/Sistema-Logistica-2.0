@@ -34,9 +34,9 @@
 <body>
 
 
-<?= $menu ?>
+    <?= $menu ?>
 
-<br><br>    <br><br>
+    <br><br> <br><br>
 
 
 
@@ -60,19 +60,26 @@
                             <h5 class="card-title">Detalhes do Pedido</h5>
                         </div>
                         <div class="card-body">
-                            <p><strong>Código de Rastreio:</strong> <?= $pedido['id_pedidos'] ?></p>
+                            <p><strong>Código de Rastreio:</strong> <?= $pedido['codigo_rastreamento'] ?></p>
                             <p><strong>Cliente Remetente:</strong> <?= $pedido['remetente_nome'] ?></p>
                             <p><strong>Cliente Destinatario:</strong> <?= $pedido['destinatario_nome'] ?></p>
                             <hr>
                             <p><strong>Número do pedido:</strong> <?= $pedido['pedido_numero'] ?></p>
                             <p><strong>NF-e:</strong> <?= $pedido['nota_numero'] ?></p>
                             <hr>
-                            <p><strong>Previsão de Entrega:</strong> <?= date('d/m/Y', strtotime($rota['previsao'])) ?></p>
-                            <p><strong>Código da Rota:</strong> <?= $rota['id_Rotas'] ?></p>
+                            <p><strong>Previsão de Entrega:</strong>
+                                <?php
+                                if (is_array($rota) && isset($rota['previsao']) && !empty($rota['previsao'])) {
+                                    echo date('d/m/Y', strtotime($rota['previsao']));
+                                } else {
+                                    echo 'Data não disponível';
+                                }
+                                ?>
+                            </p>
 
                             <hr>
 
-                            <p><strong>Status da Rota:</strong> <?= $rota['status_rota'] ?></p>
+                            <p><strong>Status do pedido: </strong><?= $pedido['status_pedido'] ?></p>
                         </div>
                     </div>
                 <?php } elseif (isset($_POST['consultar_rastreio']) && !isset($pedido)) { ?>
