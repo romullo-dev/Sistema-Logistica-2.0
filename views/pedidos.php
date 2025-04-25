@@ -72,12 +72,12 @@
                                         <i class="bi bi-eye-fill"></i>
                                     </button>
                                     <button type="button"
-    class="btn btn-sm btn-outline-primary me-1"
-    title="Editar Status da Rota"
-    data-bs-toggle="modal"
-    data-bs-target="#modal_editar_status_rota<?= $valor->id_rota ?>">
-    <i class="bi bi-pencil-fill"></i>
-</button>
+                                        class="btn btn-sm btn-outline-primary me-1"
+                                        title="Editar Status da Rota"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modal_editar_status_rota<?= $valor->id_pedidos ?>">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </button>
 
 
                                     <a href="index.php?excluir_cotacao=<?= $cotacao['id'] ?>" class="btn btn-sm btn-outline-danger" title="Excluir" onclick="return confirm('Deseja realmente excluir esta cotação?')">
@@ -174,40 +174,79 @@
         <?php endforeach; ?>
 
 
-        
 
         <?php foreach ($resultado as $rota): ?>
-    <div class="modal fade" id="modal_editar_status_rota<?= $rota->id_rota ?>" tabindex="-1" aria-labelledby="editarStatusLabel<?= $rota->id_rota ?>" aria-hidden="true">
+    <div class="modal fade" id="modal_comprovante_entrega<?= $rota->id_pedidos ?>" tabindex="-1" aria-labelledby="comprovanteEntregaLabel<?= $rota->id_pedidos ?>" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" action="index.php">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="editarStatusLabel<?= $rota->id_rota ?>">Editar Status da Rota #<?= $rota->id_rota ?></h5>
+                <form method="post" action="index.php" enctype="multipart/form-data">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="comprovanteEntregaLabel<?= $rota->id_pedidos ?>">Confirmar Entrega - Pedido #<?= $rota->id_pedidos ?></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="id_rota" value="<?= $rota->id_rota ?>">
+                        <input type="hidden" name="id_rota" value="<?= $rota->id_pedidos ?>">
+                        <input type="hidden" name="status_rota" value="Entregue">
 
                         <div class="mb-3">
-                            <label for="status_rota<?= $rota->id_rota ?>" class="form-label">Status da Rota</label>
-                            <select class="form-select" id="status_rota<?= $rota->id_rota ?>" name="status_rota" required>
-                                <option value="Em preparação" <?= $rota->status_rota === 'Em preparação' ? 'selected' : '' ?>>Em preparação</option>
-                                <option value="Saiu do centro de distribuição" <?= $rota->status_rota === 'Saiu do centro de distribuição' ? 'selected' : '' ?>>Saiu do centro de distribuição</option>
-                                <option value="Em trânsito" <?= $rota->status_rota === 'Em trânsito' ? 'selected' : '' ?>>Em trânsito</option>
-                                <option value="Entregue" <?= $rota->status_rota === 'Entregue' ? 'selected' : '' ?>>Entregue</option>
-                                <option value="Cancelado" <?= $rota->status_rota === 'Cancelado' ? 'selected' : '' ?>>Cancelado</option>
-                            </select>
+                            <label for="comprovante<?= $rota->id_pedidos ?>" class="form-label">Anexar Comprovante de Entrega</label>
+                            <input class="form-control" type="file" id="comprovante<?= $rota->id_pedidos ?>" name="comprovante_entrega" accept="image/*,application/pdf" required>
+                            <div class="form-text">Pode ser uma foto da assinatura, recibo ou PDF.</div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" name="atualizar_status_rota" class="btn btn-primary">Salvar Alterações</button>
+                        <button type="submit" name="confirmar_entrega" class="btn btn-success">Confirmar Entrega</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 <?php endforeach; ?>
+
+
+
+
+
+<?php foreach ($resultado as $rota): ?>
+    <div class="modal fade" id="modal_editar_status_rota<?= $rota->id_pedidos ?>" tabindex="-1" aria-labelledby="editarStatusLabel<?= $rota->id_pedidos ?>" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="index.php" enctype="multipart/form-data">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="editarStatusLabel<?= $rota->id_pedidos ?>">Editar Status do pedido #<?= $rota->id_pedidos ?></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id_rota" value="<?= $rota->id_pedidos ?>">
+                        
+                        <div class="mb-3">
+                            <label for="status_rota<?= $rota->id_pedidos ?>" class="form-label">Status da Rota</label>
+                            <select class="form-select" id="status_rota<?= $rota->id_pedidos ?>" name="status_pedido" required>
+                                <option value="Em preparação" <?= $rota->status_pedido === 'Em preparação' ? 'selected' : '' ?>>Em preparação</option>
+                                <option value="Saiu do centro de distribuição" <?= $rota->status_pedido === 'Saiu do centro de distribuição' ? 'selected' : '' ?>>Saiu do centro de distribuição</option>
+                                <option value="Em trânsito" <?= $rota->status_pedido === 'Em trânsito' ? 'selected' : '' ?>>Em trânsito</option>
+                                <option value="Entregue" <?= $rota->status_pedido === 'Entregue' ? 'selected' : '' ?>>Entregue</option>
+                                <option value="Cancelado" <?= $rota->status_pedido === 'Cancelado' ? 'selected' : '' ?>>Cancelado</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="comprovante<?= $rota->id_pedidos ?>" class="form-label">Comprovante de Entrega</label>
+                            <input class="form-control" type="file" id="comprovante<?= $rota->id_pedidos ?>" name="comprovante_entrega" accept="image/*,application/pdf" required>
+                            <div class="form-text">Envie uma imagem ou PDF do comprovante se o status for "Entregue".</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="atualizar_status_pedidos" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
 
 
 

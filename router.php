@@ -294,7 +294,7 @@ if (isset($_POST['incluir_pedido'])) {
 
     $objController->inserir_Pedido(
         $arquivoNome,
-       $destinatario_endereco,
+        $destinatario_endereco,
         $destinatario_numero,
         $destinatario_cep,
         $remetente_numero,
@@ -363,7 +363,6 @@ if (isset($_POST["inserirRotas"])) {
     );
 
     $objController->status_pedidos($chaves,  $status_rota);
-
 }
 
 
@@ -412,4 +411,26 @@ if (isset($_POST['atualizar_status_rota'])) {
     $id_rota =  $_POST['id_rota'];
 
     $objController->alterRota($id_rota, $status_rota);
+}
+
+
+if (isset($_POST['atualizar_status_pedidos'])) {
+
+    $status_pedido = htmlspecialchars($_POST['status_pedido']);
+
+    if (isset($_FILES['comprovante_entrega']) && $_FILES['comprovante_entrega']['error'] == 0) {
+        $extensao = pathinfo($_FILES['comprovante_entrega']['name'], PATHINFO_EXTENSION);
+        $nomeArquivo = uniqid('comprovante_') . '.' . $extensao;
+        $caminhoDestino = 'uploads/' . $nomeArquivo;
+
+        if (!is_dir('uploads')) {
+            mkdir('uploads', 0755, true);
+        }
+
+        if (move_uploaded_file($_FILES['comprovante_entrega']['tmp_name'], $caminhoDestino)) {
+            $comprovante = $nomeArquivo;
+        } else {
+            echo "Erro ao salvar o comprovante.";
+        }
+    }
 }
