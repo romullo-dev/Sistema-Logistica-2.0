@@ -401,13 +401,12 @@ if (isset($_POST['consultar_rotas'])) {
 }
 
 
-// Exibir rotas (consulta)
 if (isset($_POST['atualizar_status_rota'])) {
 
     $objController = new Controller();
 
 
-    $status_rota = $_POST['status_rota'];
+    $status_rota = $_POST['tipo_rota'];
     $id_rota =  $_POST['id_rota'];
 
     $objController->alterRota($id_rota, $status_rota);

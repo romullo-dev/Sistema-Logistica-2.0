@@ -19,6 +19,17 @@ try {
 } catch (PDOException $e) {
     $veiculos = [];
 }
+
+
+// Consulta CD
+try {
+    $stmtVeiculos = $conn->prepare("SELECT id_veiculo, placa FROM tb_veiculo");
+    $stmtVeiculos->execute();
+    $veiculos = $stmtVeiculos->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    $veiculos = [];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +68,7 @@ try {
                             <label for="tipo_rota" class="form-label">
                                 <i class="bi bi-signpost-split-fill me-1"></i>Tipo da Rota
                             </label>
-                            <select class="form-select" id="tipo_rota" name="tipo_rota" required>
+                            <select class="form-select" id="tipo_rota" name="status_rota" required>
                                 <option value="" selected disabled>Selecione o tipo</option>
                                 <option value="Em Processo de Coleta">Coleta</option>
                                 <option value="Em transferência para o CD destino">Transferência</option>
@@ -125,7 +136,7 @@ try {
                     </div>
 
                    
-                    <input type="hidden" name="status_rota" value="Em trânsito">
+                    <!--<input type="hidden" name="status_rota" value="Em trânsito">-->
 
                     <div class="mb-3">
                         <label for="observacoes" class="form-label"><i class="bi bi-chat-left-text-fill me-1"></i>Observações</label>
