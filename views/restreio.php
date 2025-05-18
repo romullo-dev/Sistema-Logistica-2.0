@@ -99,7 +99,6 @@
                 </form>
 
                 <?php
-                // Simulando dados se a variável $pedido estiver preenchida
                 if (isset($pedido)) {
                 ?>
                     <div class="card mt-4">
