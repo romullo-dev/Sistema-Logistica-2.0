@@ -120,10 +120,12 @@ try {
                             <div class="col-md-4">
                                 <label for="distancia" class="form-label"><i class="bi bi-rulers me-1"></i>Distância (km)</label>
                                 <input type="number" class="form-control" id="distancia" name="distancia" required>
+                                <!--Vai ser algo altomatico-->
                             </div>
                             <div class="col-md-4">
                                 <label for="previsao" class="form-label"><i class="bi bi-clock-history me-1"></i>Previsão de Tempo</label>
                                 <input type="date" class="form-control" id="previsao" name="previsao" required>
+                                <!--Vai ser algo altomatico-->
                             </div>
                             <div class="col-md-4">
                                 <label for="data_saida" class="form-label"><i class="bi bi-calendar-event me-1"></i>Data de Saída</label>
