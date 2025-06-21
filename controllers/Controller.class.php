@@ -41,11 +41,6 @@ class Controller
             $menu = $this->menu();
             //$rodape = $this->rodape();
             include_once 'views/home.php';
-
-
-
-            //header('location : /../views/views_home.php');
-
         } else {
             include_once 'login.php';
             $this->mostrarMensagem("Login ou senha inválidos!");
