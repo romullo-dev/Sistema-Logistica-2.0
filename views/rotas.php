@@ -74,9 +74,9 @@ try {
                             <option value="coleta">Coleta</option>
                             <option value="transferencia">Transferência</option>
                             <option value="distribuicao">Distribuição</option>
-                            <option value="transbordo">Transbordo</option>
-                            <option value="devolucao">Devolução</option>
-                            <option value="dedicada">Dedicada</option>
+                            <!--<option value="transbordo">Transbordo</option>-->
+                            <!--<option value="devolucao">Devolução</option>-->
+                            <!--<option value="dedicada">Dedicada</option>-->
                         </select>
                     </div>
                 </div>
@@ -105,7 +105,7 @@ try {
                             </div>
                             <div class="col-md-3">
                                 <label for="destino" class="form-label"><i class="bi bi-geo-fill me-1"></i>Destino</label>
-                                        <select class="form-select" id="cd_origem" name="cd_origem" required>
+                                <select class="form-select" id="cd_origem" name="cd_origem" required>
                                     <option value="" selected disabled>Selecione um Centro de Distribuição</option>
                                     <?php foreach ($cds as $cd): ?>
                                         <option value="<?= $cd['id_cd'] ?>">
@@ -120,12 +120,10 @@ try {
                             <div class="col-md-4">
                                 <label for="distancia" class="form-label"><i class="bi bi-rulers me-1"></i>Distância (km)</label>
                                 <input type="number" class="form-control" id="distancia" name="distancia" required>
-                                <!--Vai ser algo altomatico-->
                             </div>
                             <div class="col-md-4">
                                 <label for="previsao" class="form-label"><i class="bi bi-clock-history me-1"></i>Previsão de Tempo</label>
                                 <input type="date" class="form-control" id="previsao" name="previsao" required>
-                                <!--Vai ser algo altomatico-->
                             </div>
                             <div class="col-md-4">
                                 <label for="data_saida" class="form-label"><i class="bi bi-calendar-event me-1"></i>Data de Saída</label>
@@ -191,7 +189,6 @@ try {
         <!-- Bootstrap JS Bundle -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-        <!-- SCRIPT MÁGICO -->
         <script>
             document.getElementById('tipo_rota').addEventListener('change', function() {
                 const tipoSelecionado = this.value;

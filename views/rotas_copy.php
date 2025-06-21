@@ -9,9 +9,9 @@
             <option value="coleta">Coleta</option>
             <option value="transferencia">Transferência</option>
             <option value="distribuicao">Distribuição</option>
-            <option value="transbordo">Transbordo</option>
-            <option value="devolucao">Devolução</option>
-            <option value="dedicada">Dedicada</option>
+            <!--<option value="transbordo">Transbordo</option>-->
+            <!--<option value="devolucao">Devolução</option>-->
+            <!--<option value="dedicada">Dedicada</option>-->
         </select>
     </div>
 </div>
