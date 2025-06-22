@@ -398,15 +398,44 @@ class Pedido extends Conexao
             }
         }
     }
-}
-/*$obj = new Pedido();
-$obj = new Pedido();
-$obj->status_pedidos(
-    [
-        '22222222222222222222222222222222222222222222',
-        '52230902391701001104550050000055511358206815',
-        '35250412420164000580550010001560031353237622'
-    ],
-    'Em rota de entrega'
-);*/
 
+    public function atualizar_status_pedido($id, $status, $comprovante)
+    {
+        try {
+            $db = $this->conectar(); 
+            $pastaUploads = __DIR__ . '/../uploads/';
+
+            $nomeArquivo = null;
+
+            if ($status === 'Entregue' && $comprovante && $comprovante['error'] === 0) {
+                if (!is_dir($pastaUploads)) {
+                    mkdir($pastaUploads, 0755, true);
+                }
+
+                $nomeArquivo = uniqid() . '_' . basename($comprovante['name']);
+                $caminhoDestino = $pastaUploads . $nomeArquivo;
+
+                if (!move_uploaded_file($comprovante['tmp_name'], $caminhoDestino)) {
+                    throw new Exception('Erro ao salvar o comprovante.');
+                }
+            }
+
+            if ($nomeArquivo !== null) {
+                $sql = "UPDATE tb_pedidos SET status_pedido = :status, comprovante = :comprovante WHERE id_pedidos = :id";
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':status', $status);
+                $stmt->bindParam(':comprovante', $nomeArquivo);
+                $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            } else {
+                $sql = "UPDATE tb_pedidos SET status_pedido = :status WHERE id_pedidos = :id";
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':status', $status);
+                $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            }
+
+            $stmt->execute();
+        } catch (Exception $e) {
+            echo "Erro: " . $e->getMessage();
+        }
+    }
+}

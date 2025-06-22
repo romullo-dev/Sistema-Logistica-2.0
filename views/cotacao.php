@@ -62,6 +62,9 @@
                     </div>
                 </div>
 
+                <input type="hidden" name="status_pedido" value="Pedido recebido">
+
+
                 <div class="text-end">
                     <button type="submit" name="incluir_pedido" class="btn btn-success px-4">
                         <i class="bi bi-send-fill me-1"></i> Enviar Cotação

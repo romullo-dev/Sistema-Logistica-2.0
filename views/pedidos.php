@@ -50,7 +50,7 @@
                             <th>Remetente</th>
                             <th>Destinatário</th>
                             <th>Nota</th>
-                            <th>Pedido</th>
+                            <th>Status</th>
 
                             <th class="text-center">Ações</th>
                         </tr>
@@ -62,7 +62,7 @@
                                 <td><?= $valor->remetente_nome ?></td>
                                 <td><?= $valor->destinatario_nome ?></td>
                                 <td><?= $valor->nota_numero ?></td>
-                                <td><?= $valor->pedido_numero  ?></td>
+                                <td><?= $valor->status_pedido  ?></td>
 
                                 <td class="text-center">
                                     <button class="btn btn-light btn-sm btn-outline-info"
@@ -148,7 +148,6 @@
 
 
 
-        <!-- Modal Excluir Veículo -->
         <?php foreach ($resultado as $v):
             $this->modal_visualizar_pedidos(
                 $v->id_pedidos,
@@ -175,77 +174,60 @@
 
 
 
-        <?php foreach ($resultado as $rota): ?>
-    <div class="modal fade" id="modal_comprovante_entrega<?= $rota->id_pedidos ?>" tabindex="-1" aria-labelledby="comprovanteEntregaLabel<?= $rota->id_pedidos ?>" aria-hidden="true">
+        <?php foreach ($resultado as $pedido): ?>
+    <div class="modal fade" id="modal_editar_status_rota<?= $pedido->id_pedidos ?>" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" action="index.php" enctype="multipart/form-data">
-                    <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title" id="comprovanteEntregaLabel<?= $rota->id_pedidos ?>">Confirmar Entrega - Pedido #<?= $rota->id_pedidos ?></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                <form method="post" enctype="multipart/form-data">
+                    <div class="modal-header bg-warning">
+                        <h5 class="modal-title">Atualizar Status - Pedido #<?= $pedido->id_pedidos ?></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="id_rota" value="<?= $rota->id_pedidos ?>">
-                        <input type="hidden" name="status_rota" value="Entregue">
-
-                        <div class="mb-3">
-                            <label for="comprovante<?= $rota->id_pedidos ?>" class="form-label">Anexar Comprovante de Entrega</label>
-                            <input class="form-control" type="file" id="comprovante<?= $rota->id_pedidos ?>" name="comprovante_entrega" accept="image/*,application/pdf" required>
-                            <div class="form-text">Pode ser uma foto da assinatura, recibo ou PDF.</div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" name="confirmar_entrega" class="btn btn-success">Confirmar Entrega</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-<?php endforeach; ?>
-
-
-
-
-
-<?php foreach ($resultado as $rota): ?>
-    <div class="modal fade" id="modal_editar_status_rota<?= $rota->id_pedidos ?>" tabindex="-1" aria-labelledby="editarStatusLabel<?= $rota->id_pedidos ?>" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post" action="index.php" enctype="multipart/form-data">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="editarStatusLabel<?= $rota->id_pedidos ?>">Editar Status do pedido #<?= $rota->id_pedidos ?></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="id_rota" value="<?= $rota->id_pedidos ?>">
+                        <input type="hidden" name="id_pedido" value="<?= $pedido->id_pedidos ?>">
                         
                         <div class="mb-3">
-                            <label for="status_rota<?= $rota->id_pedidos ?>" class="form-label">Status da Rota</label>
-                            <select class="form-select" id="status_rota<?= $rota->id_pedidos ?>" name="status_pedido" required>
-                                <option value="Em preparação" <?= $rota->status_pedido === 'Em preparação' ? 'selected' : '' ?>>Em preparação</option>
-                                <option value="Saiu do centro de distribuição" <?= $rota->status_pedido === 'Saiu do centro de distribuição' ? 'selected' : '' ?>>Saiu do centro de distribuição</option>
-                                <option value="Em trânsito" <?= $rota->status_pedido === 'Em trânsito' ? 'selected' : '' ?>>Em trânsito</option>
-                                <option value="Entregue" <?= $rota->status_pedido === 'Entregue' ? 'selected' : '' ?>>Entregue</option>
-                                <option value="Cancelado" <?= $rota->status_pedido === 'Cancelado' ? 'selected' : '' ?>>Cancelado</option>
+                            <label class="form-label">Status</label>
+                            <select class="form-select status-select" name="status_pedido" data-id="<?= $pedido->id_pedidos ?>" required>
+                                <option disabled selected>Selecione</option>
+                                <option value="Entregue">Entregue</option>
+                                <option value="Recusado">Recusado</option>
+                                <option value="Agendado">Agendado</option>
+                                <option value="Cancelado">Cancelado</option>
                             </select>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="comprovante<?= $rota->id_pedidos ?>" class="form-label">Comprovante de Entrega</label>
-                            <input class="form-control" type="file" id="comprovante<?= $rota->id_pedidos ?>" name="comprovante_entrega" accept="image/*,application/pdf" required>
-                            <div class="form-text">Envie uma imagem ou PDF do comprovante se o status for "Entregue".</div>
+                        <div class="mb-3 comprovante-div" id="comprovante_div_<?= $pedido->id_pedidos ?>" style="display:none;">
+                            <label class="form-label">Comprovante de Entrega</label>
+                            <input type="file" class="form-control" name="comprovante_entrega" accept="image/*,application/pdf">
+                            <small class="text-muted">Obrigatório apenas para status "Entregue".</small>
                         </div>
                     </div>
+                    
                     <div class="modal-footer">
+                        <button type="submit" name="alterar_status_pedido" class="btn btn-success">Salvar</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" name="atualizar_status_pedidos" class="btn btn-primary">Salvar Alterações</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 <?php endforeach; ?>
+
+<script>
+    document.querySelectorAll('.status-select').forEach(select => {
+        select.addEventListener('change', function () {
+            const id = this.dataset.id;
+            const div = document.getElementById('comprovante_div_' + id);
+            if (this.value === 'Entregue') {
+                div.style.display = 'block';
+            } else {
+                div.style.display = 'none';
+            }
+        });
+    });
+</script>
+
 
 
 

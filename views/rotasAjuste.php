@@ -165,11 +165,9 @@
                         <div class="mb-3">
                             <label for="status_rota<?= $rota->id_Rotas ?>" class="form-label">Status da Rota</label>
                             <select class="form-select" id="status_rota<?= $rota->id_Rotas ?>" name="status_rota" required>
-                                <option value="Em preparação" <?= $rota->status_rota === 'Em preparação' ? 'selected' : '' ?>>Em preparação</option>
-                                <option value="Saiu do centro de distribuição" <?= $rota->status_rota === 'Saiu do centro de distribuição' ? 'selected' : '' ?>>Saiu do centro de distribuição</option>
+                                <option value="Cancelada" <?= $rota->status_rota === 'Cancelada' ? 'selected' : '' ?>>Cancelada</option>
+                                <option value="finalizada" <?= $rota->status_rota === 'Finalizada' ? 'selected' : '' ?>>finalizada</option>
                                 <option value="Em trânsito" <?= $rota->status_rota === 'Em trânsito' ? 'selected' : '' ?>>Em trânsito</option>
-                                <option value="Entregue" <?= $rota->status_rota === 'Entregue' ? 'selected' : '' ?>>Entregue</option>
-                                <option value="Cancelado" <?= $rota->status_rota === 'Cancelado' ? 'selected' : '' ?>>Cancelado</option>
                             </select>
                         </div>
                     </div>

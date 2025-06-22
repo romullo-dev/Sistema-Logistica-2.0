@@ -101,11 +101,12 @@ try {
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
-
                             </div>
+
+                            <!-- DESTINO -->
                             <div class="col-md-3">
-                                <label for="destino" class="form-label"><i class="bi bi-geo-fill me-1"></i>Destino</label>
-                                <select class="form-select" id="cd_origem" name="cd_origem" required>
+                                <label for="cd_destino" class="form-label"><i class="bi bi-geo-fill me-1"></i>Destino</label>
+                                <select class="form-select" id="cd_destino" name="cd_destino" required>
                                     <option value="" selected disabled>Selecione um Centro de Distribuição</option>
                                     <?php foreach ($cds as $cd): ?>
                                         <option value="<?= $cd['id_cd'] ?>">
@@ -114,96 +115,197 @@ try {
                                     <?php endforeach; ?>
                                 </select>
                             </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label for="distancia" class="form-label"><i class="bi bi-rulers me-1"></i>Distância (km)</label>
-                                <input type="number" class="form-control" id="distancia" name="distancia" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="previsao" class="form-label"><i class="bi bi-clock-history me-1"></i>Previsão de Tempo</label>
-                                <input type="date" class="form-control" id="previsao" name="previsao" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="data_saida" class="form-label"><i class="bi bi-calendar-event me-1"></i>Data de Saída</label>
-                                <input type="date" class="form-control" id="data_saida" name="data_saida" required>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="motorista_id" class="form-label"><i class="bi bi-person-badge-fill me-1"></i>Motorista</label>
-                                <select class="form-select" id="motorista_id" name="motorista_id" required>
-                                    <option value="" selected disabled>Selecione um motorista</option>
-                                    <?php foreach ($motoristas as $motorista): ?>
-                                        <option value="<?= $motorista['id_Motorista'] ?>">
-                                            <?= htmlspecialchars($motorista['nomeCompleto']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="distancia" class="form-label"><i class="bi bi-rulers me-1"></i>Distância (km)</label>
+                                    <input type="number" class="form-control" id="distancia" name="distancia" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="previsao" class="form-label"><i class="bi bi-clock-history me-1"></i>Previsão de Tempo</label>
+                                    <input type="date" class="form-control" id="previsao" name="previsao" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="data_saida" class="form-label"><i class="bi bi-calendar-event me-1"></i>Data de Saída</label>
+                                    <input type="date" class="form-control" id="data_saida" name="data_saida" required>
+                                </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <label for="veiculo_id" class="form-label"><i class="bi bi-truck-front-fill me-1"></i>Veículo</label>
-                                <select class="form-select" id="veiculo_id" name="veiculo_id" required>
-                                    <option value="" selected disabled>Selecione um veículo</option>
-                                    <?php foreach ($veiculos as $veiculo): ?>
-                                        <option value="<?= $veiculo['id_veiculo'] ?>">
-                                            <?= htmlspecialchars($veiculo['placa']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="motorista_id" class="form-label"><i class="bi bi-person-badge-fill me-1"></i>Motorista</label>
+                                    <select class="form-select" id="motorista_id" name="motorista_id" required>
+                                        <option value="" selected disabled>Selecione um motorista</option>
+                                        <?php foreach ($motoristas as $motorista): ?>
+                                            <option value="<?= $motorista['id_Motorista'] ?>">
+                                                <?= htmlspecialchars($motorista['nomeCompleto']) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="veiculo_id" class="form-label"><i class="bi bi-truck-front-fill me-1"></i>Veículo</label>
+                                    <select class="form-select" id="veiculo_id" name="veiculo_id" required>
+                                        <option value="" selected disabled>Selecione um veículo</option>
+                                        <?php foreach ($veiculos as $veiculo): ?>
+                                            <option value="<?= $veiculo['id_veiculo'] ?>">
+                                                <?= htmlspecialchars($veiculo['placa']) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
 
-                        <!--<input type="hidden" name="status_rota" value="Em trânsito">-->
+                            <input type="hidden" name="status_rota" value="Em trânsito">
 
-                        <div class="mb-3">
-                            <label for="observacoes" class="form-label"><i class="bi bi-chat-left-text-fill me-1"></i>Observações</label>
-                            <textarea class="form-control" id="observacoes" name="observacoes" rows="3" placeholder="Digite informações adicionais sobre a rota (opcional)"></textarea>
-                        </div>
+                            <div class="mb-3">
+                                <label for="observacoes" class="form-label"><i class="bi bi-chat-left-text-fill me-1"></i>Observações</label>
+                                <textarea class="form-control" id="observacoes" name="observacoes" rows="3" placeholder="Digite informações adicionais sobre a rota (opcional)"></textarea>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="chaves_nfe" class="form-label">
-                                <i class="bi bi-file-earmark-text me-1"></i>Chaves das Notas Fiscais (uma por linha)
-                            </label>
-                            <textarea class="form-control" id="chaves_nfe" name="chaves_nfe" rows="6" placeholder="Digite cada chave com 44 dígitos, uma por linha..." style="resize: vertical;"></textarea>
-                        </div>
+                            <div class="mb-3">
+                                <label for="chaves_nfe" class="form-label">
+                                    <i class="bi bi-file-earmark-text me-1"></i>Chaves das Notas Fiscais (uma por linha)
+                                </label>
+                                <textarea class="form-control" id="chaves_nfe" name="chaves_nfe" rows="6" placeholder="Digite cada chave com 44 dígitos, uma por linha..." style="resize: vertical;"></textarea>
+                            </div>
 
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" name="inserirRotas" class="btn btn-success">
-                                <i class="bi bi-check2-circle me-1"></i>Salvar Rota
-                            </button>
-                        </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" name="inserirRotas" class="btn btn-success">
+                                    <i class="bi bi-check2-circle me-1"></i>Salvar Rota
+                                </button>
+                            </div>
                     </form>
                 </div>
             </div>
+            <!-- FORM distribuicao -->
+            <div id="form_distribuicao" class="formulario" style="display: none;">
+                <form>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="nome_rota" class="form-label"><i class="bi bi-flag-fill me-1"></i>Nome da Rota</label>
+                            <input type="text" class="form-control" id="nome_rota" name="nome_rota" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cd_origem" class="form-label">
+                                <i class="bi bi-geo-alt-fill me-1"></i>Origem
+                            </label>
+                            <select class="form-select" id="cd_origem" name="cd_origem" required>
+                                <option value="" selected disabled>Selecione um Centro de Distribuição</option>
+                                <?php foreach ($cds as $cd): ?>
+                                    <option value="<?= $cd['id_cd'] ?>">
+                                        <?= htmlspecialchars($cd['nome_cd']) ?> - <?= htmlspecialchars($cd['estado_uf']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+
+                        </div>
+                        <div class="col-md-3">
+                            <label for="destino" class="form-label"><i class="bi bi-geo-fill me-1"></i>Destino</label>
+                            <select class="form-select" id="cd_origem" name="cd_origem" required>
+                                <option value="" selected disabled>Selecione um Centro de Distribuição</option>
+                                <?php foreach ($cds as $cd): ?>
+                                    <option value="<?= $cd['id_cd'] ?>">
+                                        <?= htmlspecialchars($cd['nome_cd']) ?> - <?= htmlspecialchars($cd['estado_uf']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="distancia" class="form-label"><i class="bi bi-rulers me-1"></i>Distância (km)</label>
+                            <input type="number" class="form-control" id="distancia" name="distancia" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="previsao" class="form-label"><i class="bi bi-clock-history me-1"></i>Previsão de Tempo</label>
+                            <input type="date" class="form-control" id="previsao" name="previsao" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="data_saida" class="form-label"><i class="bi bi-calendar-event me-1"></i>Data de Saída</label>
+                            <input type="date" class="form-control" id="data_saida" name="data_saida" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="motorista_id" class="form-label"><i class="bi bi-person-badge-fill me-1"></i>Motorista</label>
+                            <select class="form-select" id="motorista_id" name="motorista_id" required>
+                                <option value="" selected disabled>Selecione um motorista</option>
+                                <?php foreach ($motoristas as $motorista): ?>
+                                    <option value="<?= $motorista['id_Motorista'] ?>">
+                                        <?= htmlspecialchars($motorista['nomeCompleto']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="veiculo_id" class="form-label"><i class="bi bi-truck-front-fill me-1"></i>Veículo</label>
+                            <select class="form-select" id="veiculo_id" name="veiculo_id" required>
+                                <option value="" selected disabled>Selecione um veículo</option>
+                                <?php foreach ($veiculos as $veiculo): ?>
+                                    <option value="<?= $veiculo['id_veiculo'] ?>">
+                                        <?= htmlspecialchars($veiculo['placa']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <input type="hidden" name="status_rota" value="Em trânsito">
+
+                    <div class="mb-3">
+                        <label for="observacoes" class="form-label"><i class="bi bi-chat-left-text-fill me-1"></i>Observações</label>
+                        <textarea class="form-control" id="observacoes" name="observacoes" rows="3" placeholder="Digite informações adicionais sobre a rota (opcional)"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="chaves_nfe" class="form-label">
+                            <i class="bi bi-file-earmark-text me-1"></i>Chaves das Notas Fiscais (uma por linha)
+                        </label>
+                        <textarea class="form-control" id="chaves_nfe" name="chaves_nfe" rows="6" placeholder="Digite cada chave com 44 dígitos, uma por linha..." style="resize: vertical;"></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" name="inserirRotas" class="btn btn-success">
+                            <i class="bi bi-check2-circle me-1"></i>Salvar Rota
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
+    </div>
+
+    </div>
 
 
 
 
 
-        <!-- Bootstrap JS Bundle -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-        <script>
-            document.getElementById('tipo_rota').addEventListener('change', function() {
-                const tipoSelecionado = this.value;
-                const formularios = document.querySelectorAll('.formulario');
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-                formularios.forEach(form => {
-                    form.style.display = 'none';
-                });
+    <script>
+        document.getElementById('tipo_rota').addEventListener('change', function() {
+            const tipoSelecionado = this.value;
+            const formularios = document.querySelectorAll('.formulario');
 
-                const formAtivo = document.getElementById('form_' + tipoSelecionado);
-                if (formAtivo) {
-                    formAtivo.style.display = 'block';
-                }
+            formularios.forEach(form => {
+                form.style.display = 'none';
             });
-        </script>
+
+            const formAtivo = document.getElementById('form_' + tipoSelecionado);
+            if (formAtivo) {
+                formAtivo.style.display = 'block';
+            }
+        });
+    </script>
 </body>
 
 </html>

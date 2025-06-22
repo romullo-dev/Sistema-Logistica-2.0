@@ -270,7 +270,6 @@ if (isset($_POST['incluir_pedido'])) {
         }
     }
 
-    $status_rota = htmlspecialchars($_POST['status_pedido']);
 
 
 
@@ -290,6 +289,8 @@ if (isset($_POST['incluir_pedido'])) {
         }
     }
 
+    $status_pedido = $_POST['status_pedido'];
+
 
 
     $objController->inserir_Pedido(
@@ -307,7 +308,7 @@ if (isset($_POST['incluir_pedido'])) {
         $destinatarioCpfCnpj,
         $destinatarioNome,
         $remetente_cep,
-        $status_rota
+        $status_pedido
     );
 }
 
@@ -406,7 +407,7 @@ if (isset($_POST['atualizar_status_rota'])) {
     $objController = new Controller();
 
 
-    $status_rota = $_POST['tipo_rota'];
+    $status_rota = $_POST['status_rota'];
     $id_rota =  $_POST['id_rota'];
 
     $objController->alterRota($id_rota, $status_rota);
@@ -433,3 +434,18 @@ if (isset($_POST['atualizar_status_pedidos'])) {
         }
     }
 }
+
+if (isset($_POST['alterar_status_pedido'])) {
+    require_once 'controllers/ControllerPedidos.php';
+
+    // Pegando os dados individualmente
+    $id_pedido = $_POST['id_pedido'];
+    $status_pedido = $_POST['status_pedido'];
+    $comprovante = $_FILES['comprovante_entrega'] ?? null;
+
+    // Instanciando controller e chamando o método
+    $controller = new Controller();
+    //$controller->atualizar_status_pedido($id_pedido, $status_pedido, $comprovante);
+}
+
+

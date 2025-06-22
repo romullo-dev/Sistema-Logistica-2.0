@@ -323,15 +323,15 @@ class Controller
         }
     }
 
-    public function inserir_Pedido($arquivoNome, $destinatario_endereco, $destinatario_numero, $destinatario_cep, $remetente_numero, $remetente_endereco, $remetenteCpfCnpj, $remetenteNome, $pedidoNumero, $notaNumero, $chaveNota, $destinatarioCpfCnpj, $destinatarioNome, $remetente_cep,$status_rota)
+    public function inserir_Pedido($arquivoNome, $destinatario_endereco, $destinatario_numero, $destinatario_cep, $remetente_numero, $remetente_endereco, $remetenteCpfCnpj, $remetenteNome, $pedidoNumero, $notaNumero, $chaveNota, $destinatarioCpfCnpj, $destinatarioNome, $remetente_cep,$status_pedido)
     {
-        $objPedido = new Pedido();
+        $objPedido = new Pedido();  
 
         $codigoRastreamento = $objPedido->InserirPedido($arquivoNome, $destinatario_endereco, $destinatario_numero, 
         $destinatario_cep, $remetente_numero, $remetente_endereco,
          $remetenteCpfCnpj, $remetenteNome, $pedidoNumero,
           $notaNumero, $chaveNota, $destinatarioCpfCnpj,
-           $destinatarioNome, $remetente_cep,   $status_rota);
+           $destinatarioNome, $remetente_cep,   $status_pedido);
 
         
 
@@ -485,6 +485,28 @@ public function status_pedidos($chaves, $status)
 
         }
     }
+
+    public function atualizar_status_pedido($id, $status, $comprovante) {
+        $objPedidos = new Pedido ();
+                $menu = $this->menu();
+
+                if ($objPedidos->atualizar_status_pedido($id, $status, $comprovante) === true) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            include_once 'views/pedidos.php';
+            $this->mostrarMensagem('Pedido editado com sucesso!');
+        } else {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            include_once 'views/rotasAjuste.php';
+            $this->mostrarMensagem('Falha no processo de edição. Verifique os dados.');
+
+        }
+
+}
+
 
 
 
