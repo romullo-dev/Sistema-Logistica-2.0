@@ -128,7 +128,6 @@
                     </div>
 
                     <?php
-                    // Simulação de status da rota (depois você busca do banco)
                     $status_rota = [
                         ['titulo' => 'Pedido Recebido', 'data' => '2025-05-15 08:00', 'status' => 'concluido'],
                         ['titulo' => 'Coleta Realizada', 'data' => '2025-05-15 13:20', 'status' => 'concluido'],

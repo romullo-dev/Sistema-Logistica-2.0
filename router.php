@@ -436,16 +436,18 @@ if (isset($_POST['atualizar_status_pedidos'])) {
 }
 
 if (isset($_POST['alterar_status_pedido'])) {
-    require_once 'controllers/ControllerPedidos.php';
+    $objController = new Controller();
 
-    // Pegando os dados individualmente
     $id_pedido = $_POST['id_pedido'];
     $status_pedido = $_POST['status_pedido'];
-    $comprovante = $_FILES['comprovante_entrega'] ?? null;
 
-    // Instanciando controller e chamando o método
-    $controller = new Controller();
-    //$controller->atualizar_status_pedido($id_pedido, $status_pedido, $comprovante);
+    $comprovante = null;
+    if (isset($_FILES['comprovante_entrega']) && $_FILES['comprovante_entrega']['error'] == 0) {
+        $comprovante = $_FILES['comprovante_entrega'];
+    }
+
+    $objController->atualizar_status_pedido($id_pedido, $status_pedido, $comprovante);
 }
+
 
 

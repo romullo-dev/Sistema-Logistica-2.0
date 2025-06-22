@@ -399,43 +399,52 @@ class Pedido extends Conexao
         }
     }
 
-    public function atualizar_status_pedido($id, $status, $comprovante)
-    {
-        try {
-            $db = $this->conectar(); 
-            $pastaUploads = __DIR__ . '/../uploads/';
+   public function atualizar_status_pedido($id, $status, $comprovante)
+{
+    try {
+        $db = $this->conectar(); 
+        $pastaUploads = __DIR__ . '/../uploads/';
+        $nomeArquivo = null;
 
-            $nomeArquivo = null;
-
-            if ($status === 'Entregue' && $comprovante && $comprovante['error'] === 0) {
-                if (!is_dir($pastaUploads)) {
-                    mkdir($pastaUploads, 0755, true);
-                }
-
-                $nomeArquivo = uniqid() . '_' . basename($comprovante['name']);
-                $caminhoDestino = $pastaUploads . $nomeArquivo;
-
-                if (!move_uploaded_file($comprovante['tmp_name'], $caminhoDestino)) {
-                    throw new Exception('Erro ao salvar o comprovante.');
-                }
+        // Se for "Entregue", trata o upload
+        if ($status === 'Entregue' && $comprovante && $comprovante['error'] === 0) {
+            if (!is_dir($pastaUploads)) {
+                mkdir($pastaUploads, 0755, true);
             }
 
-            if ($nomeArquivo !== null) {
-                $sql = "UPDATE tb_pedidos SET status_pedido = :status, comprovante = :comprovante WHERE id_pedidos = :id";
-                $stmt = $db->prepare($sql);
-                $stmt->bindParam(':status', $status);
-                $stmt->bindParam(':comprovante', $nomeArquivo);
-                $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            } else {
-                $sql = "UPDATE tb_pedidos SET status_pedido = :status WHERE id_pedidos = :id";
-                $stmt = $db->prepare($sql);
-                $stmt->bindParam(':status', $status);
-                $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            }
+            $nomeArquivo = uniqid() . '_' . basename($comprovante['name']);
+            $caminhoDestino = $pastaUploads . $nomeArquivo;
 
-            $stmt->execute();
-        } catch (Exception $e) {
-            echo "Erro: " . $e->getMessage();
+            if (!move_uploaded_file($comprovante['tmp_name'], $caminhoDestino)) {
+                throw new Exception('Erro ao salvar o comprovante.');
+            }
         }
+
+        // SQL com ou sem comprovante
+        if ($nomeArquivo !== null) {
+            $sql = "UPDATE tb_pedidos 
+                    SET status_pedido = :status, comprovante = :comprovante 
+                    WHERE id_pedidos = :id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':status', $status);
+            $stmt->bindParam(':comprovante', $nomeArquivo);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        } else {
+            $sql = "UPDATE tb_pedidos 
+                    SET status_pedido = :status 
+                    WHERE id_pedidos = :id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':status', $status);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        }
+
+        $stmt->execute();
+        return true;
+
+    } catch (Exception $e) {
+        echo "Erro: " . $e->getMessage();
+        return false;
     }
+}
+
 }
